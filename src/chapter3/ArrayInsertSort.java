@@ -40,6 +40,9 @@ public class ArrayInsertSort implements BaseArray
         System.out.println();
     }
 
+    /**
+     * Программный проект 3.5 - Program project 3.5
+     */
     @Override
     public void sort()
     {
@@ -47,22 +50,33 @@ public class ArrayInsertSort implements BaseArray
         {
             Long startTime = Calendar.getInstance().getTime().getTime();
             int outer, inner;
+            long comparisons = 0;
+            long permutations = 0;
 
             for (outer = 1; outer < nElements; outer++)
             {
                 long temp = a[outer];
                 inner = outer;
-                while (inner > 0 && a[inner - 1] >= temp)
+                while (inner > 0)
                 {
-                    a[inner] = a[inner - 1];
+                    comparisons++;
+                    if (a[inner - 1] >= temp)
+                    {
+                        comparisons++;
+                        a[inner] = a[inner - 1];
+                    }
                     --inner;
                 }
                 a[inner] = temp;
+                permutations++;
             }
+
             sorted = true;
 
             Long endTime = Calendar.getInstance().getTime().getTime();
-            System.out.println(String.format("Insert sorting %s items took %s seconds", nElements, (endTime - startTime) / 1000));
+            System.out.println(String.format(
+                    "Insert sorting %s items took %s seconds. Performed %s comparisons and %s permutations",
+                    nElements, (endTime - startTime) / 1000, comparisons, permutations));
         }
     }
 
@@ -84,7 +98,7 @@ public class ArrayInsertSort implements BaseArray
     }
 
     /**
-     * Программный проект 3.3 - Program project 3.3
+     * Программный проект 3.3, 3.6 - Program project 3.3 , 3.6
      */
     public void noDups()
     {
@@ -97,7 +111,7 @@ public class ArrayInsertSort implements BaseArray
         {
             if (j != 0)
             {
-                if (temp[j-1] != a[i])
+                if (temp[j - 1] != a[i])
                 {
                     temp[j] = a[i];
                     j++;
@@ -112,7 +126,7 @@ public class ArrayInsertSort implements BaseArray
 
         a = temp;
         nElements = j;
-        sorted  = false;
+        sorted = false;
 
     }
 }
