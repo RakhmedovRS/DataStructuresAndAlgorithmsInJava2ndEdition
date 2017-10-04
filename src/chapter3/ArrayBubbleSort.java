@@ -58,7 +58,7 @@ public class ArrayBubbleSort implements BaseArray
         }
 
         Long endTime = Calendar.getInstance().getTime().getTime();
-        System.out.println(String.format("Bubble sorting %s items took %s seconds", nElements, (endTime - startTime)/1000));
+        System.out.println(String.format("Bubble sorting %s items took %s seconds", nElements, (endTime - startTime) / 1000));
     }
 
     /**
@@ -69,7 +69,7 @@ public class ArrayBubbleSort implements BaseArray
         Long startTime = Calendar.getInstance().getTime().getTime();
 
         int inner, rightOuter, leftOuter;
-        for (rightOuter = nElements - 1, leftOuter = 0; rightOuter > 1; rightOuter--, leftOuter ++)
+        for (rightOuter = nElements - 1, leftOuter = 0; rightOuter > 1; rightOuter--, leftOuter++)
         {
             for (inner = 0; inner < rightOuter; inner++)
             {
@@ -92,6 +92,31 @@ public class ArrayBubbleSort implements BaseArray
         }
 
         Long endTime = Calendar.getInstance().getTime().getTime();
-        System.out.println(String.format("Alternative bubble sorting %s items took %s seconds", nElements, (endTime - startTime)/1000));
+        System.out.println(String.format("Alternative bubble sorting %s items took %s seconds", nElements, (endTime - startTime) / 1000));
     }
+
+    /**
+     * Программный проект 3.4 - Program project 3.4
+     */
+    public void oddEvenSort()
+    {
+        Long startTime = Calendar.getInstance().getTime().getTime();
+
+        for (int i = 0; i < nElements; i++)
+        {
+            for (int j = i % 2; j < nElements - 1; j+=2)
+            {
+                if (a[j] > a[j+1])
+                {
+                    long temp = a[j+1];
+                    a[j+1] = a[j];
+                    a[j] = temp;
+                }
+            }
+        }
+
+        Long endTime = Calendar.getInstance().getTime().getTime();
+        System.out.println(String.format("Odd-numbered sorting %s items took %s seconds", nElements, (endTime - startTime) / 1000));
+    }
+
 }
