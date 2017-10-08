@@ -13,10 +13,12 @@ public class TestApp
         QueueImpl queue = new QueueImpl(5);
         Dequeue dequeue = new DequeueImpl(10);
         StackBasedOnDequeue stackBasedOnDequeue = new StackBasedOnDequeue(10);
+        PriorityQueue priorityQueue = new PriorityQueue(10);
 
         testQueue(queue);
         testDeque(dequeue);
         testStack(stackBasedOnDequeue);
+        testPriorityQueue(priorityQueue);
     }
 
     private static void testQueue(QueueImpl queue)
@@ -77,6 +79,23 @@ public class TestApp
         {
             long value = stackBasedOnDequeue.remove();
             System.out.print(value + " ");
+        }
+        System.out.println();
+    }
+
+    private static void testPriorityQueue(PriorityQueue priorityQueue)
+    {
+        System.out.println("Testing PriorityQueue");
+
+        priorityQueue.insert(100);
+        priorityQueue.insert(20);
+        priorityQueue.insert(30);
+        priorityQueue.insert(11);
+        priorityQueue.insert(2);
+
+        while (!priorityQueue.isEmpty())
+        {
+            System.out.print(priorityQueue.remove() + " ");
         }
         System.out.println();
     }
