@@ -1,5 +1,7 @@
 package chapter4;
 
+import base.Queue;
+
 /**
  * Программный проект 4.4 - Program project 4.4
  *

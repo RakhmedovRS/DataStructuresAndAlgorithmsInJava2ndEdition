@@ -1,5 +1,7 @@
 package chapter4;
 
+import base.Queue;
+
 /**
  * @author rassoll
  * @created 08.10.2017

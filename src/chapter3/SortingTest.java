@@ -1,5 +1,7 @@
 package chapter3;
 
+import base.BaseArray;
+
 /**
  * @author rassoll
  * @created 03.10.2017
