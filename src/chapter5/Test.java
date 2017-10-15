@@ -17,6 +17,7 @@ public class Test
         testPriorityQueueOnSortedLinkedList();
         testDeqOnDoublyLinkedList();
         textCyclicLink();
+        testStackOnCyclicList();
     }
 
     /**
@@ -40,7 +41,10 @@ public class Test
 
     public static void testSortedLinkedList()
     {
+        System.out.println("Testing SortedLinkedList");
+
         LinkedList list = new SortedLinkedList();
+
         list.insertFirst(10, 100);
         list.insertFirst(11, 111);
         list.insertFirst(12, 16);
@@ -51,13 +55,15 @@ public class Test
         list.insertFirst(16, 12);
 
         list.displayList();
+
+        System.out.println(" ");
     }
 
     public static void testPriorityQueueOnSortedLinkedList()
     {
-        PriorityQueueOnSortedLinkedList queue = new PriorityQueueOnSortedLinkedList();
-
         System.out.println("Testing Queue");
+
+        PriorityQueueOnSortedLinkedList queue = new PriorityQueueOnSortedLinkedList();
 
         queue.insert(10);
         queue.insert(20);
@@ -74,13 +80,15 @@ public class Test
         queue.insert(80);
 
         queue.print();
+
+        System.out.println(" ");
     }
 
     public static void testDeqOnDoublyLinkedList()
     {
-        DeqOnDoublyLinkedList dequeue = new DeqOnDoublyLinkedList();
-
         System.out.println("Testing Dequeue");
+
+        DeqOnDoublyLinkedList dequeue = new DeqOnDoublyLinkedList();
 
         dequeue.insertLeft(10);
         dequeue.insertRight(20);
@@ -98,11 +106,15 @@ public class Test
             long value = dequeue.removeLeft();
             System.out.print(value + " ");
         }
-        System.out.println();
+
+        System.out.println(" ");
+        System.out.println(" ");
     }
 
     public static void textCyclicLink()
     {
+        System.out.println("Testing CyclicLink");
+
         CyclicList list = new CyclicList();
 
         list.insertFirst(1, 1);
@@ -132,5 +144,26 @@ public class Test
         list.deleteFirst();
         list.displayList();
 
+        System.out.println(" ");
+    }
+
+    public static void testStackOnCyclicList()
+    {
+        System.out.println("Testing StackOnCyclicList");
+
+        StackOnCyclicList stackOnCyclicList = new StackOnCyclicList();
+
+        stackOnCyclicList.insert(10);
+        stackOnCyclicList.insert(20);
+        stackOnCyclicList.insert(30);
+        stackOnCyclicList.insert(40);
+        stackOnCyclicList.insert(50);
+
+        while (!stackOnCyclicList.isEmpty())
+        {
+            long value = stackOnCyclicList.remove();
+            System.out.print(value + " ");
+        }
+        System.out.println(" ");
     }
 }

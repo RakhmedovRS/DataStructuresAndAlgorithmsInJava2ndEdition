@@ -75,11 +75,12 @@ public class CyclicList implements LinkedList
         {
             if (current.next == current)
             {
+                temp = current;
                 current = null;
-                return null;
             }
             else
             {
+                temp = current.next;
                 current.next = current.next.next;
             }
         }
