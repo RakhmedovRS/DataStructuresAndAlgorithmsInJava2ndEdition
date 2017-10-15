@@ -18,7 +18,7 @@ public interface LinkedList
 
     Link find(int key);
 
-    Link delete();
+    Link delete(int key);
 
     Link getFirst();
 

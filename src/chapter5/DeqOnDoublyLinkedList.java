@@ -3,6 +3,9 @@ package chapter5;
 import base.Dequeue;
 
 /**
+ * Программный проект 5.2 - Program project 5.2
+ * Дек на базе двусвязного списка
+ *
  * @author rassoll
  * @created 15.10.2017
  * @$Author$

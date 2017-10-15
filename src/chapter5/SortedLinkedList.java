@@ -106,14 +106,28 @@ public class SortedLinkedList implements LinkedList
     /**
      * Удалить элемент с заданным ключом
      *
+     * @param key ключ
      * @return удаленный элемент
      */
     @Override
-    public Link delete()
+    public Link delete(int key)
     {
-        Link temp = first;
-        first = first.next;
-        return temp;
+        Link current = first;
+        Link prev = first;
+        while (current.iData != key)
+        {
+            if (current.next == null)
+            {
+                return null;
+            }
+            else
+            {
+                current = current.next;
+            }
+        }
+        prev.next = current.next;
+
+        return current;
     }
 
     /**

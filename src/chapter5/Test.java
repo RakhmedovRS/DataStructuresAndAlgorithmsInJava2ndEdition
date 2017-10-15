@@ -1,7 +1,6 @@
 package chapter5;
 
 import base.LinkedList;
-import base.Queue;
 
 /**
  * @author rassoll
@@ -14,9 +13,10 @@ public class Test
     public static void main(String[] args)
     {
 //        testMemoryCapacity();
-//        testSortedLinkedList();
-//        testPriorityQueueOnSortedLinkedList();
+        testSortedLinkedList();
+        testPriorityQueueOnSortedLinkedList();
         testDeqOnDoublyLinkedList();
+        textCyclicLink();
     }
 
     /**
@@ -28,7 +28,7 @@ public class Test
 
         for (int i = 0, j = 0, freq = 1000; i < freq; i++)
         {
-            list.insertFirst(i,i * 0.1D);
+            list.insertFirst(i, i * 0.1D);
 
             if (i == 999)
             {
@@ -61,17 +61,17 @@ public class Test
 
         queue.insert(10);
         queue.insert(20);
-        queue.insert(30 );
-        queue.insert(40 );
+        queue.insert(30);
+        queue.insert(40);
 
         queue.remove();
         queue.remove();
         queue.remove();
 
-        queue.insert(50 );
-        queue.insert(60 );
-        queue.insert(70 );
-        queue.insert(80 );
+        queue.insert(50);
+        queue.insert(60);
+        queue.insert(70);
+        queue.insert(80);
 
         queue.print();
     }
@@ -99,5 +99,38 @@ public class Test
             System.out.print(value + " ");
         }
         System.out.println();
+    }
+
+    public static void textCyclicLink()
+    {
+        CyclicList list = new CyclicList();
+
+        list.insertFirst(1, 1);
+        list.insertFirst(2, 2);
+        list.insertFirst(3, 3);
+        list.insertFirst(4, 4);
+        list.insertFirst(5, 5);
+        list.insertFirst(6, 6);
+        list.insertFirst(7, 7);
+        list.insertFirst(8, 8);
+
+        list.displayList();
+        list.delete(5);
+        list.displayList();
+        list.deleteFirst();
+        list.displayList();
+        list.deleteFirst();
+        list.displayList();
+        list.deleteFirst();
+        list.displayList();
+        list.deleteFirst();
+        list.displayList();
+        list.deleteFirst();
+        list.displayList();
+        list.deleteFirst();
+        list.displayList();
+        list.deleteFirst();
+        list.displayList();
+
     }
 }
