@@ -3,7 +3,7 @@ package chapter5;
 import base.LinkedList;
 
 /**
- * Программный проект 5.3 - Program project 5.3
+ * Программный проект 5.5 - Program project 5.5
  * Циклический список
  *
  * @author rassoll
@@ -24,7 +24,8 @@ public class CyclicList implements LinkedList
     {
         if (current != null)
         {
-            return current.next;
+            current = current.next;
+            return current;
         }
         else
         {
@@ -117,38 +118,22 @@ public class CyclicList implements LinkedList
     @Override
     public Link delete(int key)
     {
-        if (!isEmpty())
+        Link tempCurrent = current;
+
+        while (tempCurrent.next.iData != key)
         {
-            Link temp = current;
-            Link prev = null;
-            while (temp.iData != key)
-            {
-                if ((temp.next == null) || (temp.next == this.current))
-                {
-                    return null;
-                }
-                else
-                {
-                    prev = temp;
-                    temp = temp.next;
-                }
-            }
+            tempCurrent = tempCurrent.next;
+        }
 
-            if (prev != null)
-            {
-                prev.next = temp.next;
-            }
-            else
-            {
-                current = current.next;
-            }
-
-            return temp;
+        if (tempCurrent.next == tempCurrent)
+        {
+            current = null;
         }
         else
         {
-            return null;
+            tempCurrent.next = tempCurrent.next.next;
         }
+        return tempCurrent;
     }
 
     @Override
