@@ -14,7 +14,7 @@ public class JosephusFlaviusProblem
 {
     public static void main(String[] args)
     {
-        solveProblem(7, 3, 1);
+        solveProblem(10, 3, 1);
     }
 
     private static void solveProblem(int peopleCount, int count, int peopleNumber)
@@ -30,7 +30,7 @@ public class JosephusFlaviusProblem
 
         while(!cyclicList.isEmpty())
         {
-            for (int i = 0; i <= count; i++)
+            for (int i = 0; i < count; i++)
             {
                 cyclicList.step();
             }
