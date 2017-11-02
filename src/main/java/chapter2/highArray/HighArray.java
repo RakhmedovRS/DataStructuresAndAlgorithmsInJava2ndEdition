@@ -1,6 +1,8 @@
 package chapter2.highArray;
 
 /**
+ * Класс массива с высокоуровневым интерфейсом
+ *
  * @author rassoll
  * @created 02.10.2017
  * @$Author$
@@ -61,9 +63,9 @@ public class HighArray
         }
         else
         {
-            for (int k = i; k < nElements; k++)
+            for (int k = i; k < nElements - 1; k++)
             {
-                a[k] = a[k+1];
+                a[k] = a[k + 1];
             }
             nElements--;
             return true;
@@ -139,6 +141,19 @@ public class HighArray
                     }
                 }
             }
+        }
+    }
+
+    /**
+     * Программный проект 2.3 - Program project 2.3
+     */
+    private void sort()
+    {
+        int size = getSize();
+        long[] sortedHighArray = new long[size];
+        for (int i = size; i > 0; i--)
+        {
+            sortedHighArray[i-1] = removeMax();
         }
     }
 }

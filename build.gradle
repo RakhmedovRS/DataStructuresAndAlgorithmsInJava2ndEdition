@@ -1,0 +1,25 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+buildscript {
+    repositories {
+        maven {
+            url 'http://repo1.maven.org/maven2'
+        }
+    }
+}
+
+repositories {
+    maven {
+        url 'http://repo1.maven.org/maven2'
+    }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}

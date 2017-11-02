@@ -1,2 +1,7 @@
 .idea/
-.iml
+out/
+.gradle/
+
+**.iml
+**.ipr
+**.iws

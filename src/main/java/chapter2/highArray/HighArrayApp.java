@@ -32,19 +32,4 @@ public class HighArrayApp
         highArray.noDups();
         highArray.display();
     }
-
-    /**
-     * Программный проект 2.3 - Program project 2.3
-     */
-    private static long[] sortHighArray(HighArray highArray)
-    {
-        int size = highArray.getSize();
-        long[] sortedHighArray = new long[size];
-        for (int i = size; i > 0; i--)
-        {
-            sortedHighArray[i-1] = highArray.removeMax();
-        }
-
-        return sortedHighArray;
-    }
 }
