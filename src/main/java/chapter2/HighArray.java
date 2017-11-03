@@ -8,12 +8,12 @@ package chapter2;
  * @$Author$
  * @$Revision$
  */
-public class HighArray
+class HighArray
 {
 	private long[] a;
 	private int nElements;
 
-	public HighArray(int nElements)
+	HighArray(int nElements)
 	{
 		a = new long[nElements];
 		this.nElements = 0;
@@ -89,7 +89,7 @@ public class HighArray
 	 *
 	 * @return масимальный элемент массива
 	 */
-	public long getMax()
+	long getMax()
 	{
 		long retValue = -1;
 
@@ -113,6 +113,7 @@ public class HighArray
 	 * Программный проект 2.2 - Program project 2.2
 	 *
 	 * Удаление максимального элемента в массиве
+	 *
 	 * @return признак успешности удаления
 	 */
 	private long removeMax()
@@ -128,7 +129,7 @@ public class HighArray
 	 *
 	 * @return количество элементов в массиве
 	 */
-	public int getSize()
+	int getSize()
 	{
 		return nElements;
 	}
@@ -150,7 +151,7 @@ public class HighArray
 	 *
 	 * Удаление дубликатов из массива
 	 */
-	public void noDups()
+	void noDups()
 	{
 		boolean exist = false;
 		long[] a = new long[this.nElements];
@@ -183,7 +184,7 @@ public class HighArray
 	 *
 	 * Сортировка массива
 	 */
-	public void sort()
+	void sort()
 	{
 		int size = getSize();
 		long[] sortedHighArray = new long[size];
@@ -202,7 +203,7 @@ public class HighArray
 	 *
 	 * @return содерждимое массива
 	 */
-	public String getValues()
+	String getValues()
 	{
 		StringBuilder builder = new StringBuilder();
 		for (int i = 0; i < nElements; i++)

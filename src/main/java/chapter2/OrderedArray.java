@@ -8,12 +8,12 @@ package chapter2;
  * @$Author$
  * @$Revision$
  */
-public class OrderedArray
+class OrderedArray
 {
 	private long[] a;
 	private int nElements;
 
-	public OrderedArray(int nElements)
+	OrderedArray(int nElements)
 	{
 		a = new long[nElements];
 		this.nElements = 0;
@@ -24,7 +24,7 @@ public class OrderedArray
 	 *
 	 * @return количество элементов в массиве
 	 */
-	public int getSize()
+	int getSize()
 	{
 		return nElements;
 	}
@@ -170,7 +170,7 @@ public class OrderedArray
 	 *
 	 * @param inputArray массив для выполнения слияния с текущим
 	 */
-	public void merge(long[] inputArray)
+	void merge(long[] inputArray)
 	{
 		for (long value : inputArray)
 		{
@@ -188,7 +188,7 @@ public class OrderedArray
 	 *
 	 * @return содерждимое массива
 	 */
-	public String getValues()
+	String getValues()
 	{
 		StringBuilder builder = new StringBuilder();
 		for (int i = 0; i < nElements; i++)
