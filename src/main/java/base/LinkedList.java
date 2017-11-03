@@ -3,6 +3,8 @@ package base;
 import chapter5.Link;
 
 /**
+ * Интерфейс описывающий односторонний связанный список
+ *
  * @author rassoll
  * @created 14.10.2017
  * @$Author$
@@ -10,17 +12,53 @@ import chapter5.Link;
  */
 public interface LinkedList
 {
-    boolean isEmpty();
+	/**
+	 * Проверить пустоту коллекции
+	 *
+	 * @return признак отсутствия элементов в коллекции
+	 */
+	boolean isEmpty();
 
-    void insertFirst(int iData, double dData);
+	/**
+	 * Вставка элемента в список
+	 *
+	 * @param iData ключ
+	 * @param dData значение
+	 */
+	void insertFirst(int iData, double dData);
 
-    Link deleteFirst();
+	/**
+	 * Удаление первого элемента в списке
+	 *
+	 * @return удаленный элемент
+	 */
+	Link deleteFirst();
 
-    Link find(int key);
+	/**
+	 * Поиск элемента в списке
+	 *
+	 * @param key ключ для поиска
+	 * @return найденный элемент
+	 */
+	Link find(int key);
 
-    Link delete(int key);
+	/**
+	 * Удаление элемента с ключем key из списка
+	 *
+	 * @param key ключ для поиска удаляемого элемента
+	 * @return найденный элемент
+	 */
+	Link delete(int key);
 
-    Link getFirst();
+	/**
+	 * Получение первого элемента в списке
+	 *
+	 * @return первый элемент
+	 */
+	Link getFirst();
 
-    void displayList();
+	/**
+	 * Вывод содержимого массива
+	 */
+	void displayList();
 }

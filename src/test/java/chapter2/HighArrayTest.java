@@ -1,7 +1,5 @@
 package chapter2;
 
-import chapter2.highArray.HighArray;
-
 import static org.junit.Assert.*;
 
 import org.junit.Before;
@@ -15,8 +13,8 @@ import org.junit.Test;
  */
 public class HighArrayTest
 {
-	int arraySize = 10;
-	HighArray highArray;
+	private int arraySize = 10;
+	private HighArray highArray;
 
 	@Before
 	public void init()

@@ -1,6 +1,5 @@
 package chapter2;
 
-import chapter2.orderedArray.OrderedArray;
 import org.junit.Before;
 import org.junit.Test;
 

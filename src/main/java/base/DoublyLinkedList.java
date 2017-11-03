@@ -3,6 +3,8 @@ package base;
 import chapter5.DoubleLink;
 
 /**
+ * Интерфейс описывающий двухторонний связанный список
+ *
  * @author rassoll
  * @created 15.10.2017
  * @$Author$
@@ -10,21 +12,65 @@ import chapter5.DoubleLink;
  */
 public interface DoublyLinkedList
 {
-    boolean isEmpty();
+	/**
+	 * Проверить пустоту коллекции
+	 *
+	 * @return признак отсутствия элементов в коллекции
+	 */
+	boolean isEmpty();
 
-    void insertFirst(long value);
+	/**
+	 * Вставка элемента в начало списка
+	 *
+	 * @param value вставляемый элемент
+	 */
+	void insertFirst(long value);
 
-    void insertLast(long value);
+	/**
+	 * Вставка элемента в конец списка
+	 *
+	 * @param value вставляемый элемент
+	 */
+	void insertLast(long value);
 
-    DoubleLink deleteFirst();
+	/**
+	 * Удаление элемента из начала списка
+	 *
+	 * @return удаленный элемент
+	 */
+	DoubleLink deleteFirst();
 
-    DoubleLink deleteLast();
+	/**
+	 * Удаление элемента из конца списка
+	 *
+	 * @return удаленный элемент
+	 */
+	DoubleLink deleteLast();
 
-    boolean insertAfter(long key, long dd);
+	/**
+	 * Вставка элемента dd после элемента key
+	 *
+	 * @param key элемент после которого нужно выполнить вставку
+	 * @param dd  вставляемый элемент
+	 * @return признак успешности вставки
+	 */
+	boolean insertAfter(long key, long dd);
 
-    DoubleLink deleteKey(long key);
+	/**
+	 * Удаление конкретного элемента
+	 *
+	 * @param key удаляемый элемент
+	 * @return признак успешности удаления
+	 */
+	DoubleLink deleteKey(long key);
 
-    void displayForward();
+	/**
+	 * Отобразить содержимое в прямом порядке от first до last
+	 */
+	void displayForward();
 
-    void displayBackward();
+	/**
+	 * Отобразить содержимое в обратном порядке от last до first
+	 */
+	void displayBackward();
 }

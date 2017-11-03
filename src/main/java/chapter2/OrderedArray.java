@@ -1,4 +1,4 @@
-package chapter2.orderedArray;
+package chapter2;
 
 /**
  * Класс упорядоченного массива с высокоуровневым интерфейсом
@@ -154,7 +154,7 @@ public class OrderedArray
 	/**
 	 * Вывод содержимого массива
 	 */
-	public void display()
+	void display()
 	{
 		for (int i = 0; i < nElements; i++)
 		{

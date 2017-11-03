@@ -1,4 +1,4 @@
-package chapter2.highArray;
+package chapter2;
 
 /**
  * Класс массива с высокоуровневым интерфейсом
@@ -36,14 +36,7 @@ public class HighArray
 			}
 		}
 
-		if (i == nElements)
-		{
-			return false;
-		}
-		else
-		{
-			return true;
-		}
+		return i == nElements;
 	}
 
 	/**
@@ -122,7 +115,7 @@ public class HighArray
 	 * Удаление максимального элемента в массиве
 	 * @return признак успешности удаления
 	 */
-	public long removeMax()
+	private long removeMax()
 	{
 		long maxValue = getMax();
 		delete(maxValue);
@@ -143,7 +136,7 @@ public class HighArray
 	/**
 	 * Вывод содержимого массива
 	 */
-	public void display()
+	void display()
 	{
 		for (int i = 0; i < nElements; i++)
 		{

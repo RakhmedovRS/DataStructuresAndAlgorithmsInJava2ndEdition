@@ -1,4 +1,4 @@
-package chapter2.orderedArray;
+package chapter2;
 
 /**
  * @author rassoll

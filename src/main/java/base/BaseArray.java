@@ -1,6 +1,7 @@
 package base;
 
 /**
+ * Базовый интерфейс массива
  *
  * @author rassoll
  * @created 03.10.2017
@@ -9,9 +10,29 @@ package base;
  */
 public interface BaseArray
 {
-    void insert(long value);
+	/**
+	 * Вставка элемента в массив
+	 *
+	 * @param value вставляемый элемент
+	 */
+	void insert(long value);
 
-    void display();
+	/**
+	 * Вывод содержимого массива
+	 */
+	void display();
 
-    void sort();
+	/**
+	 * Сортировка массива
+	 */
+	void sort();
+
+	/**
+	 * Дополнительный метод для тестирования
+	 *
+	 * Получить содержимое массива
+	 *
+	 * @return содерждимое массива
+	 */
+	String getValues();
 }
