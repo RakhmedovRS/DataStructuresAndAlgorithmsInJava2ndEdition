@@ -17,7 +17,7 @@ class DequeueImpl implements Dequeue
 	private int maxSize;
 	private long[] deqArray;
 	private int leftSide;
-	private int rigthSide;
+	private int rightSide;
 	private int nElements;
 
 	DequeueImpl(int maxSize)
@@ -25,7 +25,7 @@ class DequeueImpl implements Dequeue
 		this.maxSize = maxSize;
 		deqArray = new long[this.maxSize];
 		leftSide = 0;
-		rigthSide = -1;
+		rightSide = -1;
 		nElements = 0;
 	}
 
@@ -56,13 +56,13 @@ class DequeueImpl implements Dequeue
 		if (!isFull())
 		{
 			//Циклический перенос
-			if (rigthSide == maxSize - 1)
+			if (rightSide == maxSize - 1)
 			{
-				rigthSide = -1;
+				rightSide = -1;
 			}
 
 			//Увеличение leftSide и вставка
-			deqArray[++rigthSide] = value;
+			deqArray[++rightSide] = value;
 			nElements++;
 		}
 		else
@@ -101,12 +101,12 @@ class DequeueImpl implements Dequeue
 		}
 
 		//Выборка и увеличение leftSide
-		long temp = deqArray[rigthSide--];
+		long temp = deqArray[rightSide--];
 
 		//Циклический перенос
-		if (rigthSide == -1)
+		if (rightSide == -1)
 		{
-			rigthSide = maxSize - 1;
+			rightSide = maxSize - 1;
 		}
 
 		nElements--;
@@ -122,7 +122,7 @@ class DequeueImpl implements Dequeue
 	@Override
 	public long peekRight()
 	{
-		return deqArray[rigthSide];
+		return deqArray[rightSide];
 	}
 
 	@Override
