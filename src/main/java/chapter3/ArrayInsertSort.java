@@ -59,16 +59,21 @@ class ArrayInsertSort implements BaseArray
 			{
 				long temp = a[outer];
 				inner = outer;
-				while (inner > 0)
+
+				while (a[inner - 1] >= temp)
 				{
 					comparisons++;
-					if (a[inner - 1] >= temp)
+
+					a[inner] = a[inner - 1];
+					--inner;
+
+					if (inner == 0)
 					{
 						comparisons++;
-						a[inner] = a[inner - 1];
+						break;
 					}
-					--inner;
 				}
+
 				a[inner] = temp;
 				permutations++;
 			}
