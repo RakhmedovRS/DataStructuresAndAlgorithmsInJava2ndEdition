@@ -49,6 +49,11 @@ class QueueImpl implements Queue
 	@Override
 	public long remove()
 	{
+		if (isEmpty())
+		{
+			throw new UnsupportedOperationException("QueueImpl is empty");
+		}
+
 		//Выборка и увеличение front
 		long temp = queArray[front++];
 

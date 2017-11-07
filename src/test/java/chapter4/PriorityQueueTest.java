@@ -53,19 +53,7 @@ public class PriorityQueueTest
 	}
 
 	@Test(expected = UnsupportedOperationException.class)
-	public void testingVoidCheck3()
-	{
-		priorityQueue.remove();
-	}
-
-	@Test(expected = UnsupportedOperationException.class)
 	public void testingFullnessCheck2()
-	{
-		IntStream.range(0, collectionSize + 1).forEach(k -> priorityQueue.insert(k));
-	}
-
-	@Test(expected = UnsupportedOperationException.class)
-	public void testingFullnessCheck3()
 	{
 		IntStream.range(0, collectionSize + 1).forEach(k -> priorityQueue.insert(k));
 	}

@@ -36,7 +36,7 @@ class StackBasedOnDequeue implements Queue
 	@Override
 	public long peekFront()
 	{
-		return dequeue.peekLeft();
+		return dequeue.peekRight();
 	}
 
 	@Override
