@@ -10,18 +10,18 @@ package chapter5;
  */
 public class Link
 {
-    public int iData;
-    public double dData;
-    public Link next;
+	int iData;
+	public double dData;
+	Link next;
 
-    public Link(int iData, double dData)
-    {
-        this.iData = iData;
-        this.dData = dData;
-    }
+	Link(int iData, double dData)
+	{
+		this.iData = iData;
+		this.dData = dData;
+	}
 
-    public void displayLink()
-    {
-        System.out.print(String.format("{%s, %s}", iData, dData));
-    }
+	void displayLink()
+	{
+		System.out.print(String.format("{%s, %s}", iData, dData));
+	}
 }

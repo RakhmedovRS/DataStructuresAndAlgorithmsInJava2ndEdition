@@ -36,6 +36,11 @@ class LinkList implements LinkedList
 	@Override
 	public Link deleteFirst()
 	{
+		if (isEmpty())
+		{
+			throw new UnsupportedOperationException("Link list is empty");
+		}
+
 		Link temp = first;
 		first = first.next;
 		return temp;
