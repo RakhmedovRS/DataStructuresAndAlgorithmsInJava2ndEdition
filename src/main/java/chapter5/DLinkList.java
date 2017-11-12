@@ -89,7 +89,7 @@ class DLinkList implements DoublyLinkedList
 	@Override
 	public DoubleLink deleteLast()
 	{
-		DoubleLink temp = first;
+		DoubleLink temp = last;
 		if (first.next == null)
 		{
 			first = null;
@@ -138,6 +138,11 @@ class DLinkList implements DoublyLinkedList
 	public DoubleLink deleteKey(long key)
 	{
 		DoubleLink current = first;
+
+		if (first == null)
+		{
+			return current;
+		}
 
 		while (current.dData != key)
 		{

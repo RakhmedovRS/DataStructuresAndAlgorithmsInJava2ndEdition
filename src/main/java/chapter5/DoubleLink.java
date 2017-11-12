@@ -8,17 +8,17 @@ package chapter5;
  */
 public class DoubleLink
 {
-    public long dData;
-    public DoubleLink next;
-    public DoubleLink previous;
+	public long dData;
+	DoubleLink next;
+	DoubleLink previous;
 
-    public DoubleLink(long dData)
-    {
-        this.dData = dData;
-    }
+	DoubleLink(long dData)
+	{
+		this.dData = dData;
+	}
 
-    public void displayLink()
-    {
-        System.out.print(dData + " ");
-    }
+	void displayLink()
+	{
+		System.out.print(dData + " ");
+	}
 }
