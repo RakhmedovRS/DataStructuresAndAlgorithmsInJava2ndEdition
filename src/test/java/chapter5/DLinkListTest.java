@@ -3,8 +3,6 @@ package chapter5;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.stream.IntStream;
-
 import static org.junit.Assert.*;
 
 /**
