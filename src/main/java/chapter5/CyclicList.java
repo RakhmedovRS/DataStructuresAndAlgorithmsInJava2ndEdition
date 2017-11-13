@@ -124,7 +124,9 @@ class CyclicList implements LinkedList
 		{
 			tempCurrent = current.next;
 			current.next = current.next.next;
+			step();
 		}
+
 		return tempCurrent;
 	}
 

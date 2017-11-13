@@ -1,7 +1,5 @@
 package chapter5;
 
-import java.util.stream.IntStream;
-
 /**
  * Программный проект 5.5 - Program project 5.5
  *
@@ -14,29 +12,37 @@ public class JosephusFlaviusProblem
 {
     public static void main(String[] args)
     {
-        solveProblem(10, 3, 1);
+        System.out.println(solveProblem(7, 4, 1));
     }
 
-    private static void solveProblem(int peopleCount, int count, int peopleNumber)
+    public static String solveProblem(int peopleCount, int count, int peopleNumber)
     {
         CyclicList cyclicList = new CyclicList();
 
-        IntStream.range(0, peopleCount).forEach(k -> cyclicList.insertFirst(k , k));
+        cyclicList.insertFirst(1 , 1);
+        for (int i = peopleCount; i > 1; i--)
+        {
+            cyclicList.insertFirst(i , i);
+        }
 
         while (cyclicList.current.iData != peopleNumber)
         {
             cyclicList.step();
         }
 
+        StringBuilder stringBuilder = new StringBuilder();
+
         while(!cyclicList.isEmpty())
         {
-            for (int i = 0; i < count; i++)
+            for (int i = 1; i < count; i++)
             {
                 cyclicList.step();
             }
 
-            System.out.print(cyclicList.current.iData + " ");
+            stringBuilder.append(cyclicList.current.iData + " ");
             cyclicList.delete(cyclicList.current.iData);
         }
+
+        return stringBuilder.toString();
     }
 }
