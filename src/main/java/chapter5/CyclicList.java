@@ -108,20 +108,22 @@ class CyclicList implements LinkedList
 	@Override
 	public Link delete(int key)
 	{
-		Link tempCurrent = current;
+		Link tempCurrent;
 
-		while (tempCurrent.next.iData != key)
+		while (current.next.iData != key)
 		{
-			tempCurrent = tempCurrent.next;
+			current = current.next;
 		}
 
-		if (tempCurrent.next == tempCurrent)
+		if (current.next == current)
 		{
+			tempCurrent = current;
 			current = null;
 		}
 		else
 		{
-			tempCurrent.next = tempCurrent.next.next;
+			tempCurrent = current.next;
+			current.next = current.next.next;
 		}
 		return tempCurrent;
 	}
