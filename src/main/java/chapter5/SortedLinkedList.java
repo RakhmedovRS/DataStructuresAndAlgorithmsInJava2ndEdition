@@ -62,6 +62,11 @@ class SortedLinkedList implements LinkedList
 	@Override
 	public Link deleteFirst()
 	{
+		if (isEmpty())
+		{
+			throw new UnsupportedOperationException("SortedLinkedList is empty");
+		}
+
 		Link temp = first;
 		first = first.next;
 		return temp;
