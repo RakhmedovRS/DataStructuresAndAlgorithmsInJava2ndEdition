@@ -21,7 +21,7 @@ public class PowCalculator
 	 * @param power степень
 	 * @return результат возведения числа {@param base} в степень {@param power}
 	 */
-	private static int pow(int base, int power)
+	static int pow(int base, int power)
 	{
 		if (power == 1)
 		{
