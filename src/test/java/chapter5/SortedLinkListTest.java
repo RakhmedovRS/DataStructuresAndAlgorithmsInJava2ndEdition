@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 /**
  * Тестирование сущности {@link SortedLinkedList}
  *
- * @author sbt-rakhmedov-rs
+ * @author rassoll
  * @created 08.11.2017
  * @$Author$
  * @$Revision$

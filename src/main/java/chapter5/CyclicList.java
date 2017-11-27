@@ -21,19 +21,6 @@ class CyclicList implements LinkedList
 		current = null;
 	}
 
-	Link step()
-	{
-		if (current != null)
-		{
-			current = current.next;
-			return current;
-		}
-		else
-		{
-			return null;
-		}
-	}
-
 	@Override
 	public boolean isEmpty()
 	{
@@ -159,5 +146,18 @@ class CyclicList implements LinkedList
 			System.out.print("null ");
 		}
 		System.out.println("");
+	}
+
+	Link step()
+	{
+		if (current != null)
+		{
+			current = current.next;
+			return current;
+		}
+		else
+		{
+			return null;
+		}
 	}
 }

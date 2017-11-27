@@ -21,16 +21,6 @@ class DLinkList implements DoublyLinkedList
 		last = null;
 	}
 
-	DoubleLink getFirst()
-	{
-		return first;
-	}
-
-	DoubleLink getLast()
-	{
-		return last;
-	}
-
 	@Override
 	public boolean isEmpty()
 	{
@@ -200,5 +190,15 @@ class DLinkList implements DoublyLinkedList
 			current = current.previous;
 		}
 		System.out.println("");
+	}
+
+	DoubleLink getFirst()
+	{
+		return first;
+	}
+
+	DoubleLink getLast()
+	{
+		return last;
 	}
 }

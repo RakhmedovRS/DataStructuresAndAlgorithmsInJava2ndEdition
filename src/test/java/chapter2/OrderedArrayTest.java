@@ -3,7 +3,8 @@ package chapter2;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author rassoll
@@ -76,6 +77,5 @@ public class OrderedArrayTest
 		orderedArray.merge(tempArray);
 
 		assertEquals("0, 1, 2, 3, 4, 5, 6, 7, 8, 9", orderedArray.getValues());
-
 	}
 }

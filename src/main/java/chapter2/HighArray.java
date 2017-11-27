@@ -110,21 +110,6 @@ class HighArray
 	}
 
 	/**
-	 * Программный проект 2.2 - Program project 2.2
-	 *
-	 * Удаление максимального элемента в массиве
-	 *
-	 * @return признак успешности удаления
-	 */
-	private long removeMax()
-	{
-		long maxValue = getMax();
-		delete(maxValue);
-
-		return maxValue;
-	}
-
-	/**
 	 * Полученение размера массиваъ
 	 *
 	 * @return количество элементов в массиве
@@ -216,5 +201,20 @@ class HighArray
 		}
 
 		return builder.toString();
+	}
+
+	/**
+	 * Программный проект 2.2 - Program project 2.2
+	 *
+	 * Удаление максимального элемента в массиве
+	 *
+	 * @return признак успешности удаления
+	 */
+	private long removeMax()
+	{
+		long maxValue = getMax();
+		delete(maxValue);
+
+		return maxValue;
 	}
 }

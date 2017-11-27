@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
 import static org.junit.Assert.*;
 
 /**
- * @author sbt-rakhmedov-rs
+ * @author rassoll
  * @created 08.11.2017
  * @$Author$
  * @$Revision$

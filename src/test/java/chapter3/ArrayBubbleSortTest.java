@@ -48,7 +48,6 @@ public class ArrayBubbleSortTest
 
 		arrayBubbleSort.sort();
 
-
 		assertEquals("0, 1, 2, 3, 4, 5, 6, 7, 8, 9", arrayBubbleSort.getValues());
 	}
 
@@ -67,7 +66,6 @@ public class ArrayBubbleSortTest
 		arrayBubbleSort.insert(4);
 
 		arrayBubbleSort.alternativeSort();
-
 
 		assertEquals("0, 1, 2, 3, 4, 5, 6, 7, 8, 9", arrayBubbleSort.getValues());
 	}
@@ -88,8 +86,6 @@ public class ArrayBubbleSortTest
 
 		arrayBubbleSort.oddEvenSort();
 
-
 		assertEquals("0, 1, 2, 3, 4, 5, 6, 7, 8, 9", arrayBubbleSort.getValues());
 	}
-
 }

@@ -1,13 +1,11 @@
 package chapter5;
 
-import java.util.stream.IntStream;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import java.util.stream.IntStream;
+
+import static org.junit.Assert.*;
 
 /**
  * Тестирование сущности {@link StackOnCyclicList}

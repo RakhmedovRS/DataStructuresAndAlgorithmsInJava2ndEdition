@@ -2,7 +2,7 @@ package chapter5;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Тестирование сущности {@link JosephusFlaviusProblem}
@@ -31,5 +31,4 @@ public class JosephusFlaviusProblemSolveTest
 	{
 		assertEquals("4 1 6 5 7 3 2 ", JosephusFlaviusProblem.solveProblem(7, 4, 1));
 	}
-
 }

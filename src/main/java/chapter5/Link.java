@@ -10,8 +10,8 @@ package chapter5;
  */
 public class Link
 {
-	int iData;
 	public double dData;
+	int iData;
 	Link next;
 
 	Link(int iData, double dData)

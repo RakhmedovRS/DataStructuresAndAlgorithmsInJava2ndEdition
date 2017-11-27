@@ -20,16 +20,6 @@ class OrderedArray
 	}
 
 	/**
-	 * Полученение размера массиваъ
-	 *
-	 * @return количество элементов в массиве
-	 */
-	int getSize()
-	{
-		return nElements;
-	}
-
-	/**
 	 * Программный проект 2.4 - Program project 2.4
 	 *
 	 * Поиск позиции элемента searchKey в массиве
@@ -149,6 +139,16 @@ class OrderedArray
 			nElements--;
 			return true;
 		}
+	}
+
+	/**
+	 * Полученение размера массиваъ
+	 *
+	 * @return количество элементов в массиве
+	 */
+	int getSize()
+	{
+		return nElements;
 	}
 
 	/**
