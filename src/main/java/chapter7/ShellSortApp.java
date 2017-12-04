@@ -13,7 +13,7 @@ public class ShellSortApp
 {
 	public static void main(String[] args)
 	{
-		int maxSize = 1000;
+		int maxSize = 15;
 		ArraySh arraySh;
 		arraySh = new ArraySh(maxSize);
 
@@ -22,6 +22,7 @@ public class ShellSortApp
 
 		System.out.println(arraySh.display());
 		arraySh.shellSort();
+		System.out.println("Result");
 		System.out.println(arraySh.display());
 	}
 }

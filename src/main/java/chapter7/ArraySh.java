@@ -57,6 +57,7 @@ class ArraySh
 		int inner, outer;
 		long temp;
 		int h = 1;
+		boolean swapped = false;
 
 		//вычисление интервальной последовательности
 		while (h <= nElements / 3)
@@ -66,6 +67,11 @@ class ArraySh
 
 		while (h > 0)
 		{
+			//Упражнение 7.2 - Exercise 7.2
+			System.out.println();
+			System.out.println("N-sort = " + h);
+			System.out.println(display());
+
 			for (outer = h; outer < nElements; outer++)
 			{
 				temp = theArray[outer];
@@ -73,18 +79,23 @@ class ArraySh
 
 				while (inner > h - 1 && theArray[inner - h] >= temp)
 				{
+					System.out.println("swap " + theArray[inner] + " to " + theArray[inner - h]);
 					theArray[inner] = theArray[inner - h];
 					inner -= h;
+					swapped = true;
 				}
 
 				theArray[inner] = temp;
+
+				if (swapped)
+				{
+					System.out.println(display());
+					swapped = false;
+				}
 			}
 
 			//уменьшение интервальной последовательности
 			h = (h - 1) / 3;
-
-			//Упражнение 7.2 - Exercise 7.2
-			//System.out.println(display());
 		}
 	}
 }
