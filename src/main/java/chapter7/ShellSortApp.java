@@ -21,7 +21,7 @@ public class ShellSortApp
 		IntStream.range(0, maxSize).forEach(k -> arraySh.insert(random.nextInt(maxSize * 10)));
 
 		System.out.println(arraySh.display());
-		arraySh.shellSort();
+		arraySh.shellSort(true);
 		System.out.println("Result");
 		System.out.println(arraySh.display());
 	}

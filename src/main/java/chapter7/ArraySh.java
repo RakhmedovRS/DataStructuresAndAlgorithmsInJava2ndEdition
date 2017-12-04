@@ -52,7 +52,7 @@ class ArraySh
 	/**
 	 * Сортировка массива методом Шелла
 	 */
-	void shellSort()
+	void shellSort(boolean enableInfoOutput)
 	{
 		int inner, outer;
 		long temp;
@@ -68,9 +68,12 @@ class ArraySh
 		while (h > 0)
 		{
 			//Упражнение 7.2 - Exercise 7.2
-			System.out.println();
-			System.out.println("N-sort = " + h);
-			System.out.println(display());
+			if (enableInfoOutput)
+			{
+				System.out.println();
+				System.out.println("N-sort = " + h);
+				System.out.println(display());
+			}
 
 			for (outer = h; outer < nElements; outer++)
 			{
@@ -79,15 +82,19 @@ class ArraySh
 
 				while (inner > h - 1 && theArray[inner - h] >= temp)
 				{
-					System.out.println("swap " + theArray[inner] + " to " + theArray[inner - h]);
+					if (enableInfoOutput)
+					{
+						System.out.println("swap " + theArray[inner] + " to " + theArray[inner - h]);
+						swapped = true;
+					}
+
 					theArray[inner] = theArray[inner - h];
 					inner -= h;
-					swapped = true;
 				}
 
 				theArray[inner] = temp;
 
-				if (swapped)
+				if (enableInfoOutput && swapped)
 				{
 					System.out.println(display());
 					swapped = false;
