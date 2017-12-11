@@ -8,12 +8,12 @@ package chapter7;
  * @$Author$
  * @$Revision$
  */
-public class ArrayPartition
+ class ArrayPartition
 {
 	private long[] theArray;
 	private int nElements;
 
-	public ArrayPartition(int maxSize)
+	 ArrayPartition(int maxSize)
 	{
 		theArray = new long[maxSize];
 		nElements = 0;
@@ -60,6 +60,45 @@ public class ArrayPartition
 	}
 
 	/**
+	 * Программный проект 7.1 - Program project 7.1
+	 * Разбиение массива
+	 *
+	 * @param left левая граница массива
+	 * @param right правая граница массива
+	 * @return опорный элемент
+	 */
+	int partitionItWithMaxElement(int left, int right)
+	{
+		int leftPartition = left - 1;
+		int rightPartition = right + 1;
+
+		while (true)
+		{
+			//поиск большего элемента
+			while (leftPartition < right && theArray[++leftPartition] < theArray[nElements - 1])
+			{
+			}
+
+			//поиск меньшего элемента
+			while (rightPartition > left && theArray[--rightPartition] > theArray[nElements -1 ])
+			{
+			}
+
+			//Указатели сошлись, разбиение закончено
+			if (leftPartition >= rightPartition)
+			{
+				break;
+			}
+			else
+			{
+				swap(leftPartition, rightPartition);
+			}
+		}
+
+		return leftPartition;
+	}
+
+	/**
 	 * Разбиение массива
 	 *
 	 * @param left левая граница массива
@@ -67,7 +106,7 @@ public class ArrayPartition
 	 * @param median медиана
 	 * @return опорный элемент
 	 */
-	public int partition(int left, int right, long median)
+	 int partitionIt(int left, int right, long median)
 	{
 		int leftPartition = left - 1;
 		int rightPartition = right + 1;

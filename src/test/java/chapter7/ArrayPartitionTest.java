@@ -83,7 +83,6 @@ public class ArrayPartitionTest
 	public void checkPartitionMethod()
 	{
 		int multiplier = 3;
-		int partition;
 
 		arrayPartition = new ArrayPartition(arrayPartitionSize * multiplier);
 
@@ -118,13 +117,77 @@ public class ArrayPartitionTest
 		arrayPartition.insert(25);
 		arrayPartition.insert(24);
 
-		arrayPartition.partition(0, 10, 6);
+		arrayPartition.partitionIt(0, 10, 6);
 		assertEquals("A = 4 0 1 5 3 2 6 7 8 9 19 10 11 18 13 17 16 12 15 14 29 20 21 28 23 27 26 22 25 24 ", arrayPartition.display());
 
-		arrayPartition.partition(10, 20, 13);
+		arrayPartition.partitionIt(10, 20, 13);
 		assertEquals("A = 4 0 1 5 3 2 6 7 8 9 12 10 11 13 18 17 16 19 15 14 29 20 21 28 23 27 26 22 25 24 ", arrayPartition.display());
 
-		arrayPartition.partition(0, arrayPartitionSize * multiplier - 1, 15);
+		arrayPartition.partitionIt(0, arrayPartitionSize * multiplier - 1, 15);
 		assertEquals("A = 4 0 1 5 3 2 6 7 8 9 12 10 11 13 14 15 16 19 17 18 29 20 21 28 23 27 26 22 25 24 ", arrayPartition.display());
+	}
+
+	/**
+	 * Тестирование разбиения массива
+	 */
+	@Test
+	public void checkPartitionItWithMaxElementMethod()
+	{
+		arrayPartition.insert(9);
+		arrayPartition.insert(0);
+		arrayPartition.insert(1);
+		arrayPartition.insert(8);
+		arrayPartition.insert(3);
+		arrayPartition.insert(7);
+		arrayPartition.insert(6);
+		arrayPartition.insert(2);
+		arrayPartition.insert(5);
+		arrayPartition.insert(4);
+
+		assertEquals("A = 9 0 1 8 3 7 6 2 5 4 ", arrayPartition.display());
+
+		arrayPartition.partitionItWithMaxElement(5, arrayPartitionSize - 1);
+		assertEquals("A = 9 0 1 8 3 4 6 2 5 7 ", arrayPartition.display());
+
+		arrayPartition.partitionItWithMaxElement(0, 2);
+		assertEquals("A = 1 0 9 8 3 4 6 2 5 7 ", arrayPartition.display());
+
+		arrayPartition.partitionItWithMaxElement(0, arrayPartitionSize - 1);
+		assertEquals("A = 1 0 7 8 3 4 6 2 5 9 ", arrayPartition.display());
+	}
+
+	/**
+	 * Тестирование разбиения массива
+	 */
+	@Test
+	public void checkPartitionItWithMaxElementMethod1()
+	{
+		arrayPartition = new ArrayPartition(3);
+
+		arrayPartition.insert(10);
+		arrayPartition.insert(3);
+		arrayPartition.insert(8);
+
+		assertEquals("A = 10 3 8 ", arrayPartition.display());
+
+		arrayPartition.partitionItWithMaxElement(0, 2);
+		assertEquals("A = 8 3 10 ", arrayPartition.display());
+	}
+
+	/**
+	 * Тестирование разбиения массива
+	 */
+	@Test
+	public void checkPartitionItWithMaxElementMethod2()
+	{
+		arrayPartition = new ArrayPartition(2);
+
+		arrayPartition.insert(10);
+		arrayPartition.insert(3);
+
+		assertEquals("A = 10 3 ", arrayPartition.display());
+
+		arrayPartition.partitionItWithMaxElement(0, 1);
+		assertEquals("A = 3 10 ", arrayPartition.display());
 	}
 }
