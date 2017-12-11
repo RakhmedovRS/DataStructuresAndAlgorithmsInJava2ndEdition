@@ -138,6 +138,41 @@ package chapter7;
 	}
 
 	/**
+	 * Программный проект 7.3 - Program project 7.3
+	 * Поиск медианы массива путем рекурсивного разбиения
+	 *
+	 * @param left левая граница массива
+	 * @param right правая граница массива
+	 * @return опорный элемент
+	 */
+	int medianReq(int left, int right)
+	{
+		int leftPartition = left - 1;
+		int rightPartition = right + 1;
+
+		while (true)
+		{
+			//поиск большего элемента
+			while (leftPartition < right && theArray[++leftPartition] < theArray[nElements - 1])
+			{
+			}
+
+			//поиск меньшего элемента
+			while (rightPartition > left && theArray[--rightPartition] > theArray[nElements -1 ])
+			{
+			}
+
+			//Указатели сошлись, разбиение закончено
+			if (leftPartition >= rightPartition)
+			{
+				break;
+			}
+		}
+
+		return leftPartition;
+	}
+
+	/**
 	 * Перестановка двух элементов
 	 *
 	 * @param firstValue  первый переставляемый элемент

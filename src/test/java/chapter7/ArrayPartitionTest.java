@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.stream.IntStream;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Тестирование сущности {@link ArrayPartition}
@@ -189,5 +190,27 @@ public class ArrayPartitionTest
 
 		arrayPartition.partitionItWithMaxElement(0, 1);
 		assertEquals("A = 3 10 ", arrayPartition.display());
+	}
+
+	/**
+	 * Тестирование поиска медианы массива алгоритмом разбиения
+	 */
+	@Test
+	public void checkMedianReqMethod()
+	{
+		arrayPartition.insert(9);
+		arrayPartition.insert(0);
+		arrayPartition.insert(1);
+		arrayPartition.insert(8);
+		arrayPartition.insert(3);
+		arrayPartition.insert(7);
+		arrayPartition.insert(6);
+		arrayPartition.insert(2);
+		arrayPartition.insert(5);
+		arrayPartition.insert(4);
+
+		assertEquals("A = 9 0 1 8 3 7 6 2 5 4 ", arrayPartition.display());
+
+		assertTrue(5 == arrayPartition.medianReq(0, arrayPartitionSize - 1));
 	}
 }
