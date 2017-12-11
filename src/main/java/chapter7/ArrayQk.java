@@ -12,11 +12,15 @@ class ArrayQk
 {
 	private long[] theArray;
 	private int nElements;
+	private int compares;
+	private int swaps;
 
 	ArrayQk(int arrayQkSize)
 	{
 		theArray = new long[arrayQkSize];
 		nElements = 0;
+		compares = 0;
+		swaps = 0;
 	}
 
 	/**
@@ -50,6 +54,22 @@ class ArrayQk
 	}
 
 	/**
+	 * @return количество произведенных сравнений
+	 */
+	public int getCompares()
+	{
+		return compares;
+	}
+
+	/**
+	 * @return количество произведенных перестановок
+	 */
+	public int getSwaps()
+	{
+		return swaps;
+	}
+
+	/**
 	 * Быстрая сортировка массива {@link ArrayQk}
 	 */
 	void quickSort()
@@ -66,6 +86,8 @@ class ArrayQk
 	void reqQuickSort(int left, int right)
 	{
 		int size = right - left + 1;
+
+		compares++;
 		if (size < 10)
 		{
 			insertionSort(left, right);
@@ -91,18 +113,21 @@ class ArrayQk
 		int center = (left + right) / 2;
 
 		// упорядочение left и center
+		compares++;
 		if (theArray[left] > theArray[center])
 		{
 			swap(left, center);
 		}
 
 		// упорядочение left и right
+		compares++;
 		if (theArray[left] > theArray[right])
 		{
 			swap(left, right);
 		}
 
 		// упорядочение center и right
+		compares++;
 		if (theArray[center] > theArray[right])
 		{
 			swap(center, right);
@@ -130,16 +155,19 @@ class ArrayQk
 		while (true)
 		{
 			//поиск большего элемента
+			compares++;
 			while (theArray[++leftPartition] < median)
 			{
 			}
 
 			//поиск меньшего элемента
+			compares++;
 			while (theArray[--rightPartition] > median)
 			{
 			}
 
 			//Указатели сошлись, разбиение закончено
+			compares++;
 			if (leftPartition >= rightPartition)
 			{
 				break;
@@ -170,6 +198,7 @@ class ArrayQk
 			long temp = theArray[outer];
 			inner = outer;
 
+			compares += 2;
 			while (inner > left && theArray[inner - 1] >= temp)
 			{
 				theArray[inner] = theArray[inner - 1];
@@ -188,6 +217,8 @@ class ArrayQk
 	 */
 	void swap(int firstValue, int secondValue)
 	{
+		swaps += 3;
+
 		theArray[firstValue] = theArray[firstValue] + theArray[secondValue];
 		theArray[secondValue] = theArray[firstValue] - theArray[secondValue];
 		theArray[firstValue] = theArray[firstValue] - theArray[secondValue];

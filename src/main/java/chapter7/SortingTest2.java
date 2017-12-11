@@ -41,6 +41,9 @@ public class SortingTest2
 
 		System.out.println(String.format("start quick sorting of %s elements", maxSize));
 		arrayQk.quickSort();
+
+		//Программный проект 7.2 - Program project 7.2
 		System.out.println(String.format("quick sorting took %s", Calendar.getInstance().getTime().getTime() - startTime));
+		System.out.println(String.format("during the execution of quick sort %s comparisons and %s permutations were performed", arrayQk.getCompares(), arrayQk.getSwaps()));
 	}
 }
