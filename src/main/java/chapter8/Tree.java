@@ -1,5 +1,6 @@
 package chapter8;
 
+import java.util.ArrayDeque;
 import java.util.Stack;
 
 /**
@@ -14,7 +15,7 @@ public class Tree
 {
 	private Node root;
 
-	public Tree()
+	Tree()
 	{
 		root = null;
 	}
@@ -23,7 +24,7 @@ public class Tree
 	 * Поиск элемента по {@param key}
 	 *
 	 * @param key ключ
-	 * @return найденный узел
+	 * @return найденный узелп
 	 */
 	public Node find(int key)
 	{
@@ -60,8 +61,16 @@ public class Tree
 	 */
 	public void insert(int key, double value)
 	{
-		Node newNode = new Node(key, value);
+		insert(new Node(key, value));
+	}
 
+	/**
+	 * Вставка ноды в дерево
+	 *
+	 * @param newNode нода
+	 */
+	public void insert(Node newNode)
+	{
 		//Корневого узла нет
 		if (root == null)
 		{
@@ -74,7 +83,7 @@ public class Tree
 			while (true)
 			{
 				parent = current;
-				if (key < current.key)
+				if (newNode.key < current.key)
 				{
 					current = current.leftChild;
 					if (current == null)
@@ -195,12 +204,20 @@ public class Tree
 			{
 				parent.rightChild = successor;
 			}
+
+			//приемник связывается с левым потомком current
+			successor.leftChild = current.leftChild;
 		}
 
 		return true;
 	}
 
-	public void traverse(int traverseType)
+	/**
+	 * Выполнить обход дерева
+	 *
+	 * @param traverseType тип выполняемого обхода
+	 */
+	void traverse(int traverseType)
 	{
 		switch (traverseType)
 		{
@@ -252,11 +269,11 @@ public class Tree
 	 *
 	 * @param localRoot корневой элемент
 	 */
-	void preOrder(Node localRoot)
+	private void preOrder(Node localRoot)
 	{
 		if (localRoot != null)
 		{
-			System.out.print(localRoot.value + " ");
+			System.out.print(localRoot.key + " ");
 			preOrder(localRoot.leftChild);
 			preOrder(localRoot.rightChild);
 		}
@@ -267,12 +284,12 @@ public class Tree
 	 *
 	 * @param localRoot корневой элемент
 	 */
-	void inOrder(Node localRoot)
+	private void inOrder(Node localRoot)
 	{
 		if (localRoot != null)
 		{
 			inOrder(localRoot.leftChild);
-			System.out.print(localRoot.value + " ");
+			System.out.print(localRoot.key + " ");
 			inOrder(localRoot.rightChild);
 		}
 	}
@@ -282,20 +299,30 @@ public class Tree
 	 *
 	 * @param localRoot корневой элемент
 	 */
-	void postOrder(Node localRoot)
+	private void postOrder(Node localRoot)
 	{
 		if (localRoot != null)
 		{
 			postOrder(localRoot.leftChild);
 			postOrder(localRoot.rightChild);
-			System.out.print(localRoot.value + " ");
+			System.out.print(localRoot.key + " ");
 		}
 	}
 
 	/**
 	 * Вывод содержимого дерева
 	 */
-	public void displayTree()
+	void displayTree()
+	{
+		displayTree(false);
+	}
+
+	/**
+	 * Вывод содержимого дерева
+	 *
+	 * @param needCharOutput признак вывода элементов дерева в виде символов
+	 */
+	void displayTree(boolean needCharOutput)
 	{
 		Stack<Node> globalStack = new Stack<>();
 		globalStack.push(root);
@@ -318,7 +345,7 @@ public class Tree
 				Node temp = globalStack.pop();
 				if (temp != null)
 				{
-					System.out.print(temp.key);
+					System.out.print(needCharOutput ? Character.toString((char) temp.key) : temp.key);
 					localStack.push(temp.leftChild);
 					localStack.push(temp.rightChild);
 
@@ -347,5 +374,109 @@ public class Tree
 				globalStack.push(localStack.pop());
 			}
 		}
+	}
+
+	/**
+	 * Программный проект 8.1 - Program project 8.1
+	 * Программный проект 8.2 - Program project 8.2
+	 *
+	 * Создать двоичное дерево из символов введенных пользователем
+	 *
+	 * @param inputChars строка содержащая символы
+	 * @return созданное двоичное дерево
+	 */
+	static Tree makeTreeFromUserChars(String inputChars)
+	{
+		java.util.Deque<Tree> treeDeque = new ArrayDeque<>();
+
+		//создание ДЭКа содержащего лес трехузловых деревьев
+		char[] chars = inputChars.toCharArray();
+		Node tempNode = new Node('+', '+');
+		int counter = 0;
+		while (counter < chars.length)
+		{
+			if (tempNode.leftChild == null)
+			{
+				tempNode.leftChild = new Node(chars[counter], chars[counter]);
+
+				if (++counter >= chars.length)
+				{
+					Tree smallTree = new Tree();
+					smallTree.insert(tempNode);
+					treeDeque.add(smallTree);
+				}
+			}
+			else if (tempNode.rightChild == null)
+			{
+				tempNode.rightChild = new Node(chars[counter], chars[counter]);
+				if (++counter >= chars.length)
+				{
+					Tree smallTree = new Tree();
+					smallTree.insert(tempNode);
+					treeDeque.add(smallTree);
+				}
+			}
+			else
+			{
+				Tree smallTree = new Tree();
+				smallTree.insert(tempNode);
+				treeDeque.add(smallTree);
+
+				tempNode = new Node('+', '+');
+			}
+		}
+
+		return makeTree(treeDeque);
+	}
+
+	/**
+	 * Объединение леса трехуровневых деревьев в одно дерево
+	 *
+	 * @param treeDeque ДЭК содержащий лес трехуровневых деревьев
+	 * @return построенное дерево
+	 */
+	private static Tree makeTree(java.util.Deque<Tree> treeDeque)
+	{
+		if (treeDeque.size() == 1)
+		{
+			return treeDeque.poll();
+		}
+
+		Node tempNode = new Node('+', '+');
+		while (treeDeque.size() != 0)
+		{
+			if (tempNode.leftChild == null)
+			{
+				tempNode.leftChild = treeDeque.poll().root;
+				if (treeDeque.size() == 0)
+				{
+					Tree mediumTree = new Tree();
+					mediumTree.insert(tempNode);
+					treeDeque.addLast(mediumTree);
+					break;
+				}
+			}
+			else if (tempNode.rightChild == null)
+			{
+				tempNode.rightChild = treeDeque.poll().root;
+				if (treeDeque.size() == 0)
+				{
+					Tree mediumTree = new Tree();
+					mediumTree.insert(tempNode);
+					treeDeque.addLast(mediumTree);
+					break;
+				}
+			}
+			else
+			{
+				Tree mediumTree = new Tree();
+				mediumTree.insert(tempNode);
+				treeDeque.addLast(mediumTree);
+
+				tempNode = new Node('+', '+');
+			}
+		}
+
+		return treeDeque.poll();
 	}
 }

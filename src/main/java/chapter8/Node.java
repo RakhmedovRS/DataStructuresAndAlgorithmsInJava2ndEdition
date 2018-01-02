@@ -25,4 +25,9 @@ class Node
 	{
 		System.out.println(String.format("{%s,%s}", key, value));
 	}
+
+	public void displayStringNode()
+	{
+		System.out.println(String.format("{%s,%s}", (char)key, (char)value));
+	}
 }

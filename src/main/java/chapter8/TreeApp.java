@@ -51,6 +51,8 @@ public class TreeApp
 						found.displayNode();
 						System.out.println();
 					}
+				default:
+					return;
 			}
 		}
 	}
