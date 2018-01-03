@@ -30,4 +30,12 @@ class Node
 	{
 		System.out.println(String.format("{%s,%s}", (char)key, (char)value));
 	}
+
+	/**
+	 * @return признак наличия дочерних элементов
+	 */
+	public boolean hasChildren()
+	{
+		return leftChild != null || rightChild != null;
+	}
 }

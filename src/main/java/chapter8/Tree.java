@@ -1,6 +1,8 @@
 package chapter8;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
 import java.util.Stack;
 
 /**
@@ -13,11 +15,18 @@ import java.util.Stack;
  */
 public class Tree
 {
+	private static ArrayList<Node> nodes = new ArrayList<>();
+
 	private Node root;
 
 	Tree()
 	{
 		root = null;
+	}
+
+	Tree(Node root)
+	{
+		this.root = root;
 	}
 
 	/**
@@ -427,6 +436,89 @@ public class Tree
 		}
 
 		return makeTree(treeDeque);
+	}
+
+	/**
+	 * Программный проект 8.2 - Program project 8.2
+	 *
+	 * Создать полное двоичное дерево из символов введенных пользователем
+	 *
+	 * @param inputChars строка содержащая символы
+	 * @return созданное двоичное дерево
+	 */
+	static Tree makeFullTreeFromUserChars(String inputChars)
+	{
+		ArrayList<Character> chars = new ArrayList<>();
+		for (char ch : inputChars.toCharArray())
+		{
+			chars.add(ch);
+		}
+
+		return makeFullTree(chars, null, new ArrayDeque<>());
+	}
+
+	private static Tree makeFullTree(ArrayList<Character> chars, Node rootNode, Deque<Node> nodes)
+	{
+		if (chars.isEmpty())
+		{
+			return null;
+		}
+
+		Node node;
+		Character character;
+		Tree tree;
+		if (rootNode == null)
+		{
+			character = chars.remove(0);
+			node = new Node(character, character);
+			if (chars.isEmpty())
+			{
+				return new Tree(node);
+			}
+		}
+		else
+		{
+			node = rootNode;
+		}
+
+		character = chars.remove(0);
+		node.leftChild = new Node(character, character);
+		nodes.addLast(node.leftChild);
+		if (chars.isEmpty())
+		{
+			return new Tree(node);
+		}
+
+		character = chars.remove(0);
+		node.rightChild = new Node(character, character);
+		nodes.addLast(node.rightChild);
+		if (chars.isEmpty())
+		{
+			return new Tree(node);
+		}
+
+		tree = new Tree(node);
+
+		while (!nodes.isEmpty())
+		{
+			Tree leftTree = makeFullTree(chars, nodes.poll(), nodes);
+			if (leftTree != null)
+			{
+				tree.root.leftChild = leftTree.root;
+			}
+			if (nodes.isEmpty())
+			{
+				break;
+			}
+
+			Tree rightTree = makeFullTree(chars, nodes.poll(), nodes);
+			if (rightTree != null)
+			{
+				tree.root.rightChild = rightTree.root;
+			}
+		}
+
+		return tree;
 	}
 
 	/**

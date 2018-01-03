@@ -143,4 +143,24 @@ public class TestTree
 		tree = Tree.makeTreeFromUserChars("ABCDEFGHIJK");
 		tree.displayTree(true);
 	}
+
+	/**
+	 * Тестирование метода создающего полное двоичное дерево из входной строки содержащей буквы,
+	 * с выводом содержимого дерева на каждом этапе, для визуального контроля
+	 */
+	@Test
+	public void testMakeFullTreeFromUserCharsMethod()
+	{
+		tree = Tree.makeFullTreeFromUserChars("A");
+		tree.displayTree(true);
+
+		tree = Tree.makeFullTreeFromUserChars("AB");
+		tree.displayTree(true);
+
+		tree = Tree.makeFullTreeFromUserChars("ABC");
+		tree.displayTree(true);
+
+		tree = Tree.makeFullTreeFromUserChars("ABCDEFGHIJ");
+		tree.displayTree(true);
+	}
 }
