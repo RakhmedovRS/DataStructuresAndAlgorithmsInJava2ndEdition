@@ -20,7 +20,7 @@ public class Tree
 	/**
 	 * @return корневой элемент дерева
 	 */
-	public Node getRoot()
+	Node getRoot()
 	{
 		return root;
 	}

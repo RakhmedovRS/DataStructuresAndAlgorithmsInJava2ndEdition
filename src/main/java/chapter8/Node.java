@@ -12,8 +12,8 @@ class Node
 {
 	public int key;
 	public int value;
-	public Node leftChild;
-	public Node rightChild;
+	Node leftChild;
+	Node rightChild;
 
 	Node(int key, int value)
 	{
@@ -21,21 +21,8 @@ class Node
 		this.value = value;
 	}
 
-	public void displayNode()
+	void displayNode()
 	{
 		System.out.println(String.format("{%s,%s}", key, value));
-	}
-
-	public void displayStringNode()
-	{
-		System.out.println(String.format("{%s,%s}", (char)key, (char)value));
-	}
-
-	/**
-	 * @return признак наличия дочерних элементов
-	 */
-	public boolean hasChildren()
-	{
-		return leftChild != null || rightChild != null;
 	}
 }
