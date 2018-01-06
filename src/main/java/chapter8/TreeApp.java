@@ -15,17 +15,17 @@ public class TreeApp
 	{
 		int value;
 		Tree tree = new Tree();
-		tree.insert(50, 1.5);
-		tree.insert(25, 1.2);
-		tree.insert(75, 1.7);
-		tree.insert(12, 1.5);
-		tree.insert(37, 1.2);
-		tree.insert(43, 1.7);
-		tree.insert(30, 1.5);
-		tree.insert(33, 1.2);
-		tree.insert(87, 1.7);
-		tree.insert(93, 1.5);
-		tree.insert(97, 1.5);
+		tree.insert(50, 15);
+		tree.insert(25, 12);
+		tree.insert(75, 17);
+		tree.insert(12, 15);
+		tree.insert(37, 12);
+		tree.insert(43, 17);
+		tree.insert(30, 15);
+		tree.insert(33, 12);
+		tree.insert(87, 17);
+		tree.insert(93, 15);
+		tree.insert(97, 15);
 
 		while (true)
 		{
@@ -40,7 +40,7 @@ public class TreeApp
 				case 'i':
 					System.out.println("Enter value to insert: ");
 					value = getInt();
-					tree.insert(value, value + 0.9);
+					tree.insert(value, value + 9);
 					break;
 				case 'f':
 					System.out.println("Enter valuer to find: ");

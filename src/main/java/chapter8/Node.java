@@ -11,11 +11,11 @@ package chapter8;
 class Node
 {
 	public int key;
-	public double value;
+	public int value;
 	public Node leftChild;
 	public Node rightChild;
 
-	Node(int key, double value)
+	Node(int key, int value)
 	{
 		this.key = key;
 		this.value = value;

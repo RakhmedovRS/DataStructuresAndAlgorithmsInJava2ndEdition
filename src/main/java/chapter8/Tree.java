@@ -15,9 +15,15 @@ import java.util.Stack;
  */
 public class Tree
 {
-	private static ArrayList<Node> nodes = new ArrayList<>();
-
 	private Node root;
+
+	/**
+	 * @return корневой элемент дерева
+	 */
+	public Node getRoot()
+	{
+		return root;
+	}
 
 	Tree()
 	{
@@ -68,7 +74,7 @@ public class Tree
 	 * @param key   ключ
 	 * @param value значение
 	 */
-	public void insert(int key, double value)
+	public void insert(int key, int value)
 	{
 		insert(new Node(key, value));
 	}
@@ -79,6 +85,7 @@ public class Tree
 	 * @param newNode нода
 	 */
 	public void insert(Node newNode)
+
 	{
 		//Корневого узла нет
 		if (root == null)
