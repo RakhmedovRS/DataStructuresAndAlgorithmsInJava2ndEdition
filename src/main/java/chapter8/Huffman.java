@@ -18,6 +18,8 @@ import java.util.stream.Collectors;
 class Huffman
 {
 	private static final char emptyNodeChar = 216;
+	private static final char leftTurnCharacter = '0';
+	private static final char rightTurnCharacter = '1';
 
 	/**
 	 * Создание частотной таблицы
@@ -104,7 +106,7 @@ class Huffman
 		Node current = huffmanDecodingTree.getRoot();
 		for (char ch : encodedMessage.toCharArray())
 		{
-			if (ch == '0')
+			if (ch == leftTurnCharacter)
 			{
 				current = current.leftChild;
 			}
@@ -195,7 +197,7 @@ class Huffman
 			Node currentNode = rootNode;
 			for (char ch : value.toCharArray())
 			{
-				if (ch == '0')
+				if (ch == leftTurnCharacter)
 				{
 					if (currentNode.leftChild == null)
 					{
@@ -244,7 +246,7 @@ class Huffman
 
 		if (rootNode.leftChild != null)
 		{
-			result = getBinaryCharacterCode(rootNode.leftChild, character, binaryCharacterBuilder.append('0'));
+			result = getBinaryCharacterCode(rootNode.leftChild, character, binaryCharacterBuilder.append(leftTurnCharacter));
 			if (result != null && !result.equals(""))
 			{
 				return result;
@@ -253,7 +255,7 @@ class Huffman
 
 		if (rootNode.rightChild != null)
 		{
-			result = getBinaryCharacterCode(rootNode.rightChild, character, binaryCharacterBuilder.append('1'));
+			result = getBinaryCharacterCode(rootNode.rightChild, character, binaryCharacterBuilder.append(rightTurnCharacter));
 			if (result != null && !result.equals(""))
 			{
 				return result;
