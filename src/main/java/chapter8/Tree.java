@@ -508,7 +508,7 @@ public class Tree
 
 		tree = new Tree(node);
 
-		//создание потомков для левой ноды потомка
+		//создание потомков для левой ноды
 		Tree leftSubTree = makeFullTree(chars, tree.root.leftChild, leftNodePosition);
 		if (leftSubTree == null)
 		{
@@ -516,7 +516,7 @@ public class Tree
 		}
 		node.leftChild = leftSubTree.root;
 
-		//создание потомков для правой ноды потомка
+		//создание потомков для правой ноды
 		Tree rightSubTree = makeFullTree(chars, tree.root.rightChild, rightNodePosition);
 		if (rightSubTree == null)
 		{
