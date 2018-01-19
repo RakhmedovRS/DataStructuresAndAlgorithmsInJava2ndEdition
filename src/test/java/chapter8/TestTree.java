@@ -164,5 +164,8 @@ public class TestTree
 
 		tree = Tree.makeFullTreeFromUserChars("ABCDEFGHIJ");
 		tree.displayTree(true);
+
+		tree = Tree.makeFullTreeFromUserChars("ABCDEFGHIJKLMN");
+		tree.displayTree(true);
 	}
 }

@@ -1,8 +1,6 @@
 package chapter8;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
 import java.util.Stack;
 
 /**
@@ -455,18 +453,20 @@ public class Tree
 	 */
 	static Tree makeFullTreeFromUserChars(String inputChars)
 	{
-		ArrayList<Character> chars = new ArrayList<>();
-		for (char ch : inputChars.toCharArray())
-		{
-			chars.add(ch);
-		}
-
-		return makeFullTree(chars, null, new ArrayDeque<>());
+		return makeFullTree(inputChars.toCharArray(), null, 0);
 	}
 
-	private static Tree makeFullTree(ArrayList<Character> chars, Node rootNode, Deque<Node> nodes)
+	/**
+	 * Рекурсивное построение полного дерева
+	 *
+	 * @param chars            массив символов
+	 * @param rootNode         ссылка на корневую ноду
+	 * @param rootNodePosition позиция корневой ноды в массива
+	 * @return построенное дерево
+	 */
+	private static Tree makeFullTree(char[] chars, Node rootNode, int rootNodePosition)
 	{
-		if (chars.isEmpty())
+		if (chars.length == 0)
 		{
 			return null;
 		}
@@ -476,54 +476,53 @@ public class Tree
 		Tree tree;
 		if (rootNode == null)
 		{
-			character = chars.remove(0);
+			character = chars[rootNodePosition];
 			node = new Node(character, character);
-			if (chars.isEmpty())
-			{
-				return new Tree(node);
-			}
 		}
 		else
 		{
 			node = rootNode;
 		}
 
-		character = chars.remove(0);
-		node.leftChild = new Node(character, character);
-		nodes.addLast(node.leftChild);
-		if (chars.isEmpty())
+		//создание левой ноды
+		int leftNodePosition = rootNodePosition * 2 + 1;
+		if (chars.length <= leftNodePosition)
 		{
 			return new Tree(node);
 		}
+		else
+		{
+			node.leftChild = new Node(chars[leftNodePosition], chars[leftNodePosition]);
+		}
 
-		character = chars.remove(0);
-		node.rightChild = new Node(character, character);
-		nodes.addLast(node.rightChild);
-		if (chars.isEmpty())
+		//создание правой ноды
+		int rightNodePosition = rootNodePosition * 2 + 2;
+		if (chars.length <= rightNodePosition)
 		{
 			return new Tree(node);
+		}
+		else
+		{
+			node.rightChild = new Node(chars[rightNodePosition], chars[rightNodePosition]);
 		}
 
 		tree = new Tree(node);
 
-		while (!nodes.isEmpty())
+		//создание потомков для левой ноды
+		Tree leftSubTree = makeFullTree(chars, tree.root.leftChild, leftNodePosition);
+		if (leftSubTree == null)
 		{
-			Tree leftTree = makeFullTree(chars, nodes.poll(), nodes);
-			if (leftTree != null)
-			{
-				tree.root.leftChild = leftTree.root;
-			}
-			if (nodes.isEmpty())
-			{
-				break;
-			}
-
-			Tree rightTree = makeFullTree(chars, nodes.poll(), nodes);
-			if (rightTree != null)
-			{
-				tree.root.rightChild = rightTree.root;
-			}
+			return new Tree(node);
 		}
+		node.leftChild = leftSubTree.root;
+
+		//создание потомков для правой ноды
+		Tree rightSubTree = makeFullTree(chars, tree.root.rightChild, rightNodePosition);
+		if (rightSubTree == null)
+		{
+			return new Tree(node);
+		}
+		node.rightChild = rightSubTree.root;
 
 		return tree;
 	}
