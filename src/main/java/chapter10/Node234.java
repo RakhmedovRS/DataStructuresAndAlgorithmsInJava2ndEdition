@@ -32,7 +32,7 @@ class Node234
 	 */
 	DataItem getItem(int index)
 	{
-		if ((index < 0) || (index > itemArray.length))
+		if ((index < 0) || (index >= itemArray.length))
 		{
 			return null;
 		}
@@ -113,7 +113,7 @@ class Node234
 	 */
 	int findItem(long key)
 	{
-		for (int i = 0; i < ORDER; i++)
+		for (int i = 0; i < ORDER - 1; i++)
 		{
 			if (itemArray[i] == null)
 			{
@@ -137,11 +137,17 @@ class Node234
 	int insertItem(DataItem newItem)
 	{
 		numItems++;
+		long newKey = newItem.dData;
 		for (int i = ORDER - 2; i >= 0; i--)
 		{
-			if (itemArray[i] != null)
+			if (itemArray[i] == null)
 			{
-				if (newItem.dData < itemArray[i].dData)
+				continue;
+			}
+			else
+			{
+				long itsKey = itemArray[i].dData;
+				if (newKey < itsKey)
 				{
 					itemArray[i + 1] = itemArray[i];
 				}
@@ -170,7 +176,8 @@ class Node234
 		}
 
 		DataItem temp = itemArray[numItems - 1];
-		itemArray[--numItems] = null;
+		itemArray[numItems-1] = null;
+		numItems--;
 		return temp;
 	}
 

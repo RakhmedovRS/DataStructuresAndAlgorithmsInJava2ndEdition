@@ -1,5 +1,7 @@
 package chapter10;
 
+import java.util.List;
+
 /**
  * Класс реализующий дерево 234
  *
@@ -8,12 +10,34 @@ package chapter10;
  * @$Author$
  * @$Revision$
  */
-public class Tree234
+class Tree234
 {
 	private Node234 root = new Node234();
 
 	/**
-	 * Выполнить поиск элемента в дереве 234
+	 * Получить соотвествующего потомка
+	 *
+	 * @param node234 ссылка на узел(предполагается, что узел не пуст, не полон и не является листом)
+	 * @param value   значение для поиска
+	 * @return потомок
+	 */
+	private static Node234 getNextChild(Node234 node234, long value)
+	{
+		int i;
+
+		int numItems = node234.getNumItems();
+		for (i = 0; i < numItems; i++)
+		{
+			if (value < node234.getItem(i).dData)
+			{
+				return node234.getChild(i);
+			}
+		}
+		return node234.getChild(i);
+	}
+
+	/**
+	 * Выполнить поиск позиции элемента в дереве 234
 	 *
 	 * @param key ключ для поиска
 	 * @return позиция найденного элемента данных
@@ -48,8 +72,17 @@ public class Tree234
 	 */
 	public void insert(long value)
 	{
+		insert(new DataItem(value));
+	}
+
+	/**
+	 * Вставить элемент данных
+	 *
+	 * @param newItem вставляемый элемент данных
+	 */
+	public void insert(DataItem newItem)
+	{
 		Node234 currentNode234 = root;
-		DataItem tempItem = new DataItem(value);
 
 		while (true)
 		{
@@ -58,7 +91,7 @@ public class Tree234
 			{
 				split(currentNode234);
 				currentNode234 = currentNode234.getParent();
-				currentNode234 = getNextChild(currentNode234, value);
+				currentNode234 = getNextChild(currentNode234, newItem.dData);
 			}
 			/*узел листовой*/
 			else if (currentNode234.isLeaf())
@@ -67,32 +100,100 @@ public class Tree234
 			}
 			else
 			{
-				currentNode234 = getNextChild(currentNode234, value);
+				currentNode234 = getNextChild(currentNode234, newItem.dData);
 			}
 		}
-		currentNode234.insertItem(tempItem);
+		currentNode234.insertItem(newItem);
 	}
 
 	/**
-	 * Получить соотвествующего потомка
-	 *
-	 * @param node234 ссылка на узел(предполагается, что узел не пуст, не полон и не является листом)
-	 * @param value   значение для поиска
-	 * @return потомок
+	 * @return ссылка на корневой элемент дерева 234
 	 */
-	public Node234 getNextChild(Node234 node234, long value)
+	Node234 getRoot()
 	{
-		int i;
+		return root;
+	}
 
-		int numItems = node234.getNumItems();
-		for (i = 0; i < numItems; i++)
+	/**
+	 * Отобразить содержимое дерева
+	 */
+	void displayTree()
+	{
+		recDisplayTree(root, 0, 0);
+	}
+
+	/**
+	 * Программный проект 10.1 - Program project 10.1
+	 * Получение минимального элемента данных в дереве 234
+	 *
+	 * @return минимальный {@link DataItem}
+	 */
+	DataItem getMinDataItem()
+	{
+		Node234 currentNode = root;
+
+		while (!currentNode.isLeaf())
 		{
-			if (value < node234.getItem(i).dData)
+			currentNode = currentNode.getChild(0);
+		}
+
+		return currentNode.getItem(0);
+	}
+
+	/**
+	 * Программный проект 10.2 - Program project 10.2
+	 * Выполнить симметричный обход дерева 234
+	 *
+	 * @param rootNode234 ссылка на корень дерева 234
+	 * @param dataItems   коллекция для помещения элементов данных
+	 */
+	void reqSymmetricalTree234Walk(Node234 rootNode234, List<DataItem> dataItems)
+	{
+		/*базовое ограничение рекурсии*/
+		if (rootNode234.isLeaf())
+		{
+			for (int i = 0; i < rootNode234.getNumItems(); i++)
 			{
-				return node234.getChild(i);
+				if (rootNode234.getItem(i) == null)
+				{
+					break;
+				}
+				dataItems.add(rootNode234.getItem(i));
 			}
 		}
-		return node234.getChild(i);
+
+		/*рекурсивные вызовы для каждого узла*/
+		for (int i = 0; i < 4; i++)
+		{
+			if (rootNode234.getChild(i) != null)
+			{
+				reqSymmetricalTree234Walk(rootNode234.getChild(i), dataItems);
+				if (rootNode234.getItem(i) != null)
+				{
+					dataItems.add(rootNode234.getItem(i));
+				}
+			}
+			else
+			{
+				break;
+			}
+		}
+	}
+
+	/**
+	 * Выполнить сортировку коллекции при помощи рекурсивного симметричного обхода дерева 234
+	 *
+	 * @param dataItems коллекция для сортировки
+	 * @return отсортированная коллекция
+	 */
+	static List<DataItem> sort(List<DataItem> dataItems)
+	{
+		Tree234 tempTree = new Tree234();
+		dataItems.forEach(tempTree::insert);
+		dataItems.clear();
+
+		tempTree.reqSymmetricalTree234Walk(tempTree.getRoot(), dataItems);
+		return dataItems;
 	}
 
 	/**
@@ -100,15 +201,17 @@ public class Tree234
 	 *
 	 * @param brokenNode234 разбиваемый узел(предполагается, что разбиваемый узел полон)
 	 */
-	public void split(Node234 brokenNode234)
+	private void split(Node234 brokenNode234)
 	{
-		DataItem itemB = brokenNode234.removeItem();
-		DataItem itemC = brokenNode234.removeItem();
 		Node234 parent;
+		int itemIndex;
+
+		DataItem itemC = brokenNode234.removeItem();
+		DataItem itemB = brokenNode234.removeItem();
+
 		Node234 child2 = brokenNode234.disconnectChild(2);
 		Node234 child3 = brokenNode234.disconnectChild(3);
 		Node234 newRight = new Node234();
-		int itemIndex;
 
 		/*узел является корнем, создаем новый корень, делаем его родителем, связываем с родителем*/
 		if (brokenNode234 == root)
@@ -139,14 +242,6 @@ public class Tree234
 		newRight.insertItem(itemC);
 		newRight.connectChild(0, child2);
 		newRight.connectChild(1, child3);
-	}
-
-	/**
-	 * Отобразить содержимое дерева
-	 */
-	public void displayTree()
-	{
-		recDisplayTree(root, 0, 0);
 	}
 
 	private void recDisplayTree(Node234 thisNode, int level, int childNumber)
