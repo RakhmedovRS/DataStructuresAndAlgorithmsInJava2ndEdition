@@ -3,7 +3,9 @@ package chapter10;
 import org.junit.Before;
 import org.junit.Test;
 
-import static chapter10.BOrder.*;
+import static chapter10.BOrder.TREE_23;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Тестирование сущности {@link BTree}
@@ -13,9 +15,9 @@ import static chapter10.BOrder.*;
  * @$Author$
  * @$Revision$
  */
-public class TestTree234
+public class TestTree23
 {
-	private static final BOrder bTreeOrder = TREE_234;
+	private static final BOrder bTreeOrder = TREE_23;
 	private static BTree bTree;
 	private static DataItem minDataItem;
 
@@ -23,7 +25,7 @@ public class TestTree234
 	public void init()
 	{
 		bTree = new BTree(bTreeOrder);
-		minDataItem = new DataItem(20);
+		minDataItem = new DataItem(30);
 		bTree.insert(50);
 		bTree.insert(40);
 		bTree.insert(60);
@@ -59,7 +61,7 @@ public class TestTree234
 	}
 
 	/**
-	 * Тестирование метода поиска минимального элемента данных в дереве
+	 * Тестирование метода поиска минимального элемента данных в дереве 234
 	 */
 	@Test
 	public void testGetMinDataItemMethod()

@@ -1,7 +1,7 @@
 package chapter10;
 
 /**
- * Элемент данных для дерева 234
+ * Элемент данных для B-дерева
  *
  * @author rassoll
  * @created 23.01.2018
@@ -10,11 +10,19 @@ package chapter10;
  */
 class DataItem
 {
-	public long dData;
+	private long dData;
 
 	DataItem(long dData)
 	{
 		this.dData = dData;
+	}
+
+	/**
+	 * @return значение элемента данных
+	 */
+	long getDData()
+	{
+		return dData;
 	}
 
 	/**

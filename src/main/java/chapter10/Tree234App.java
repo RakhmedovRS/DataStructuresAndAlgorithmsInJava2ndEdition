@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import static chapter10.BOrder.*;
 /**
  * @author rassoll
  * @created 28.01.2018
@@ -15,33 +16,34 @@ public class Tree234App
 	public static void main(String[] args) throws IOException
 	{
 		long value;
-		Tree234 tree234 = new Tree234();
+		BTree bTree = new BTree(TREE_23);
 
-		tree234.insert(50);
-		tree234.insert(40);
-		tree234.insert(60);
-		tree234.insert(30);
-		tree234.insert(70);
+		bTree.insert(50);
+		bTree.insert(40);
+		bTree.insert(60);
+		bTree.insert(30);
+		bTree.insert(70);
 
-		while (true)
+		boolean run = true;
+		while (run)
 		{
 			System.out.println("Enter first letter of ");
-			System.out.println("show, insert, or find: ");
+			System.out.println("show, insert, find or exit: ");
 
 			char choice = getChar();
 			switch (choice)
 			{
 				case 's':
-					tree234.displayTree();
+					bTree.displayTree();
 					break;
 				case 'i':
 					System.out.println("Enter value to insert: ");
-					tree234.insert(getInt());
+					bTree.insert(getInt());
 					break;
 				case 'f':
 					System.out.println("Enter value to find: ");
 					value = getInt();
-					if (tree234.find(value) != -1)
+					if (bTree.find(value) != -1)
 					{
 						System.out.println("Found " + value);
 					}
@@ -49,6 +51,9 @@ public class Tree234App
 					{
 						System.out.println("Could not find " + value);
 					}
+					break;
+				case 'e':
+					run = false;
 					break;
 				default:
 					System.out.println("Invalid entry\n");

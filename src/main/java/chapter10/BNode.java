@@ -1,25 +1,39 @@
 package chapter10;
 
 /**
- * Узел 234 для дерева 234
+ * Узел B дерева
  *
  * @author rassoll
  * @created 23.01.2018
  * @$Author$
  * @$Revision$
  */
-class Node234
+class BNode
 {
-	private static final int ORDER = 4;
+	private final int order;
 	private int numItems;
-	private Node234 parent;
-	private Node234[] childArray = new Node234[ORDER];
-	private DataItem[] itemArray = new DataItem[ORDER - 1];
+	private BNode parent;
+	private DataItem[] itemArray;
+	private BNode[] childArray;
+
+
+	/**
+	 * ctor
+	 *
+	 * @param order порядок B дерева
+	 */
+	BNode(BOrder order)
+	{
+		this.order = order.getBOrder();
+		itemArray = new DataItem[this.order - 1];
+		childArray = new BNode[this.order];
+
+	}
 
 	/**
 	 * @return родительский узел
 	 */
-	Node234 getParent()
+	BNode getParent()
 	{
 		return parent;
 	}
@@ -48,7 +62,7 @@ class Node234
 	 * @param childNum позиция потомка
 	 * @param child    узел потомок
 	 */
-	void connectChild(int childNum, Node234 child)
+	void connectChild(int childNum, BNode child)
 	{
 		childArray[childNum] = child;
 		if (child != null)
@@ -63,9 +77,9 @@ class Node234
 	 * @param childNum позиция потомка
 	 * @return отсоединенный потомок
 	 */
-	Node234 disconnectChild(int childNum)
+	BNode disconnectChild(int childNum)
 	{
-		Node234 tempNode = childArray[childNum];
+		BNode tempNode = childArray[childNum];
 		childArray[childNum] = null;
 		return tempNode;
 	}
@@ -76,7 +90,7 @@ class Node234
 	 * @param childNum номер узла
 	 * @return узел потомок
 	 */
-	Node234 getChild(int childNum)
+	BNode getChild(int childNum)
 	{
 		return childArray[childNum];
 	}
@@ -102,7 +116,7 @@ class Node234
 	 */
 	boolean isFull()
 	{
-		return numItems == ORDER - 1;
+		return numItems == order - 1;
 	}
 
 	/**
@@ -113,13 +127,13 @@ class Node234
 	 */
 	int findItem(long key)
 	{
-		for (int i = 0; i < ORDER - 1; i++)
+		for (int i = 0; i < order - 1; i++)
 		{
 			if (itemArray[i] == null)
 			{
 				break;
 			}
-			else if (itemArray[i].dData == key)
+			else if (itemArray[i].getDData() == key)
 			{
 				return i;
 			}
@@ -137,8 +151,8 @@ class Node234
 	int insertItem(DataItem newItem)
 	{
 		numItems++;
-		long newKey = newItem.dData;
-		for (int i = ORDER - 2; i >= 0; i--)
+		long newKey = newItem.getDData();
+		for (int i = order - 2; i >= 0; i--)
 		{
 			if (itemArray[i] == null)
 			{
@@ -146,7 +160,7 @@ class Node234
 			}
 			else
 			{
-				long itsKey = itemArray[i].dData;
+				long itsKey = itemArray[i].getDData();
 				if (newKey < itsKey)
 				{
 					itemArray[i + 1] = itemArray[i];
