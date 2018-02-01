@@ -13,9 +13,9 @@ import static chapter10.BOrder.*;
  * @$Author$
  * @$Revision$
  */
-public class TestTree234
+public class TestTree4Order
 {
-	private static final BOrder bTreeOrder = TREE_234;
+	private static final BOrder bTreeOrder = TREE_4_ORDER;
 	private static BTree bTree;
 	private static DataItem minDataItem;
 

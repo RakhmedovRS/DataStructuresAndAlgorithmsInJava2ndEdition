@@ -1,8 +1,5 @@
 package chapter10;
 
-
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +14,7 @@ import static org.junit.Assert.assertTrue;
  * @$Author$
  * @$Revision$
  */
-public class BTreeBaseTest
+abstract class BTreeBaseTest
 {
 	/**
 	 * Проверка соотвествия порядка дерева
@@ -30,7 +27,6 @@ public class BTreeBaseTest
 	/**
 	 * Тестирование метода поиска позиции элемента
 	 */
-	@Test
 	static void testFindMethod(BTree bTree, DataItem minDataItem)
 	{
 		assertTrue(bTree.find(minDataItem.getDData() - 1) == -1);

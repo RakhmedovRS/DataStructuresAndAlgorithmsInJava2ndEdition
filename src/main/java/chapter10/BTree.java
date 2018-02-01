@@ -2,8 +2,8 @@ package chapter10;
 
 import java.util.List;
 
-import static chapter10.BOrder.TREE_23;
-import static chapter10.BOrder.TREE_234;
+import static chapter10.BOrder.TREE_3_ORDER;
+import static chapter10.BOrder.TREE_4_ORDER;
 
 /**
  * Класс реализующий B дерево
@@ -229,11 +229,11 @@ class BTree
 	 */
 	private void split(BNode brokenBNode, DataItem newItem)
 	{
-		if (getTreeOrder().equals(TREE_23))
+		if (getTreeOrder().equals(TREE_3_ORDER))
 		{
 			split23(brokenBNode, newItem);
 		}
-		else if (getTreeOrder().equals(TREE_234))
+		else if (getTreeOrder().equals(TREE_4_ORDER))
 		{
 			split234(brokenBNode);
 		}

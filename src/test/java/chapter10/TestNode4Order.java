@@ -3,28 +3,30 @@ package chapter10;
 import org.junit.Before;
 import org.junit.Test;
 
-import static chapter10.BOrder.TREE_23;
+import static chapter10.BOrder.TREE_4_ORDER;
 import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.*;
 
 /**
- * Тестирование сущности {@link BNode} для дерева 23
+ * Тестирование сущности {@link BNode} для дерева 234
  *
  * @author rassoll
  * @created 23.01.2018
  * @$Author$
  * @$Revision$
  */
-public class TestNode23
+public class TestNode4Order
 {
-	private static final BOrder bTreeOrder = TREE_23;
+	private static final BOrder bTreeOrder = TREE_4_ORDER;
 
 	private static final DataItem leftDataItem = new DataItem(5);
-	private static final DataItem rightDataItem = new DataItem(10);
+	private static final DataItem centralDataItem = new DataItem(10);
+	private static final DataItem rightDataItem = new DataItem(20);
 
 	private static final BNode firstChildNode = new BNode(bTreeOrder);
 	private static final BNode secondChildNode = new BNode(bTreeOrder);
 	private static final BNode thirdChildNode = new BNode(bTreeOrder);
+	private static final BNode fourChildNode = new BNode(bTreeOrder);
 
 	private BNode bNode;
 
@@ -33,6 +35,7 @@ public class TestNode23
 	{
 		bNode = new BNode(bTreeOrder);
 		bNode.insertItem(leftDataItem);
+		bNode.insertItem(centralDataItem);
 		bNode.insertItem(rightDataItem);
 	}
 
@@ -43,6 +46,7 @@ public class TestNode23
 	public void testDeleteItem()
 	{
 		assertEquals(rightDataItem, bNode.removeItem());
+		assertEquals(centralDataItem, bNode.removeItem());
 		assertEquals(leftDataItem, bNode.removeItem());
 		assertNull(bNode.removeItem());
 	}
@@ -57,6 +61,7 @@ public class TestNode23
 
 		assertTrue(bNode.insertItem(new DataItem(1)) == 0);
 		assertTrue(bNode.insertItem(new DataItem(2)) == 1);
+		assertTrue(bNode.insertItem(new DataItem(3)) == 2);
 	}
 
 	/**
@@ -69,7 +74,8 @@ public class TestNode23
 
 		assertTrue(bNode.insertItem(new DataItem(1)) == 0);
 		assertTrue(bNode.insertItem(new DataItem(2)) == 1);
-		assertTrue(bNode.insertItem(new DataItem(3)) == 1);
+		assertTrue(bNode.insertItem(new DataItem(3)) == 2);
+		assertTrue(bNode.insertItem(new DataItem(4)) == 3);
 	}
 
 	/**
@@ -78,8 +84,9 @@ public class TestNode23
 	@Test
 	public void testFindItemMethod()
 	{
+		assertTrue(bNode.findItem(centralDataItem.getDData()) == 1);
 		assertTrue(bNode.findItem(leftDataItem.getDData()) == 0);
-		assertTrue(bNode.findItem(rightDataItem.getDData()) == 1);
+		assertTrue(bNode.findItem(rightDataItem.getDData()) == 2);
 		assertTrue(bNode.findItem(100) == -1);
 	}
 
@@ -102,6 +109,8 @@ public class TestNode23
 	@Test
 	public void testGettingNumElements()
 	{
+		assertTrue(bNode.getNumItems() == 3);
+		bNode.removeItem();
 		assertTrue(bNode.getNumItems() == 2);
 		bNode.removeItem();
 		assertTrue(bNode.getNumItems() == 1);
@@ -109,8 +118,10 @@ public class TestNode23
 		assertTrue(bNode.getNumItems() == 0);
 		bNode.insertItem(leftDataItem);
 		assertTrue(bNode.getNumItems() == 1);
-		bNode.insertItem(rightDataItem);
+		bNode.insertItem(centralDataItem);
 		assertTrue(bNode.getNumItems() == 2);
+		bNode.insertItem(rightDataItem);
+		assertTrue(bNode.getNumItems() == 3);
 	}
 
 	/**
@@ -119,15 +130,19 @@ public class TestNode23
 	@Test
 	public void testGetDisplayData()
 	{
-		assertEquals(bNode.getDisplayData(), String.format("/%s/%s/", leftDataItem.getDData(), rightDataItem.getDData()));
+		assertEquals(bNode.getDisplayData(), String.format("/%s/%s/%s/", leftDataItem.getDData(), centralDataItem.getDData(), rightDataItem.getDData()));
+		bNode.removeItem();
+		assertEquals(bNode.getDisplayData(), String.format("/%s/%s/", leftDataItem.getDData(), centralDataItem.getDData()));
 		bNode.removeItem();
 		assertEquals(bNode.getDisplayData(), String.format("/%s/", leftDataItem.getDData()));
 		bNode.removeItem();
 		assertEquals("/", bNode.getDisplayData());
 		bNode.insertItem(leftDataItem);
 		assertEquals(bNode.getDisplayData(), String.format("/%s/", leftDataItem.getDData()));
+		bNode.insertItem(centralDataItem);
+		assertEquals(bNode.getDisplayData(), String.format("/%s/%s/", leftDataItem.getDData(), centralDataItem.getDData()));
 		bNode.insertItem(rightDataItem);
-		assertEquals(bNode.getDisplayData(), String.format("/%s/%s/", leftDataItem.getDData(), rightDataItem.getDData()));
+		assertEquals(bNode.getDisplayData(), String.format("/%s/%s/%s/", leftDataItem.getDData(), centralDataItem.getDData(), rightDataItem.getDData()));
 	}
 
 	/**
@@ -137,7 +152,8 @@ public class TestNode23
 	public void testGettingItem()
 	{
 		assertEquals(leftDataItem, bNode.getItem(0));
-		assertEquals(rightDataItem, bNode.getItem(1));
+		assertEquals(centralDataItem, bNode.getItem(1));
+		assertEquals(rightDataItem, bNode.getItem(2));
 		assertNull(bNode.getItem(-1));
 		assertNull(bNode.getItem(-1));
 	}
@@ -151,10 +167,12 @@ public class TestNode23
 		bNode.connectChild(0, firstChildNode);
 		bNode.connectChild(1, secondChildNode);
 		bNode.connectChild(2, thirdChildNode);
+		bNode.connectChild(3, fourChildNode);
 
 		assertEquals(firstChildNode, bNode.getChild(0));
 		assertEquals(secondChildNode, bNode.getChild(1));
 		assertEquals(thirdChildNode, bNode.getChild(2));
+		assertEquals(fourChildNode, bNode.getChild(3));
 	}
 
 	/**
@@ -166,6 +184,7 @@ public class TestNode23
 		bNode.connectChild(0, firstChildNode);
 		bNode.connectChild(1, secondChildNode);
 		bNode.connectChild(2, thirdChildNode);
+		bNode.connectChild(3, fourChildNode);
 
 		assertEquals(firstChildNode, bNode.disconnectChild(0));
 		assertNull(bNode.getChild(0));
@@ -173,10 +192,13 @@ public class TestNode23
 		assertNull(bNode.getChild(1));
 		assertEquals(thirdChildNode, bNode.disconnectChild(2));
 		assertNull(bNode.getChild(2));
+		assertEquals(fourChildNode, bNode.disconnectChild(3));
+		assertNull(bNode.getChild(3));
 
 		assertNull(bNode.disconnectChild(0));
 		assertNull(bNode.disconnectChild(1));
 		assertNull(bNode.disconnectChild(2));
+		assertNull(bNode.disconnectChild(3));
 	}
 
 	/**
@@ -205,9 +227,11 @@ public class TestNode23
 		bNode.connectChild(0, firstChildNode);
 		bNode.connectChild(1, secondChildNode);
 		bNode.connectChild(2, thirdChildNode);
+		bNode.connectChild(2, fourChildNode);
 
 		assertEquals(bNode, firstChildNode.getParent());
 		assertEquals(bNode, secondChildNode.getParent());
 		assertEquals(bNode, thirdChildNode.getParent());
+		assertEquals(bNode, fourChildNode.getParent());
 	}
 }

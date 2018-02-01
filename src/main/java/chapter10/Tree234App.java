@@ -16,7 +16,7 @@ public class Tree234App
 	public static void main(String[] args) throws IOException
 	{
 		long value;
-		BTree bTree = new BTree(TREE_23);
+		BTree bTree = new BTree(TREE_3_ORDER);
 
 		bTree.insert(50);
 		bTree.insert(40);
