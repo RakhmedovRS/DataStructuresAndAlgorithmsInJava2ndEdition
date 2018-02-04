@@ -1,7 +1,7 @@
 package chapter10;
 
 /**
- * Узел B дерева
+ * Узел B-дерева
  *
  * @author rassoll
  * @created 23.01.2018
@@ -19,11 +19,11 @@ class BNode
 	/**
 	 * ctor
 	 *
-	 * @param order порядок B дерева
+	 * @param order порядок B-дерева
 	 */
-	BNode(BOrder order)
+	BNode(Order order)
 	{
-		this.order = order.getBOrder();
+		this.order = order.getOrder();
 		itemArray = new DataItem[this.order - 1];
 		childArray = new BNode[this.order];
 	}
@@ -31,10 +31,10 @@ class BNode
 	/**
 	 * ctor
 	 *
-	 * @param order    порядок B дерева
+	 * @param order    порядок B-дерева
 	 * @param dataItem элемент данных
 	 */
-	BNode(BOrder order, DataItem dataItem)
+	BNode(Order order, DataItem dataItem)
 	{
 		this(order);
 		this.insertItem(dataItem);
@@ -164,11 +164,7 @@ class BNode
 		long newKey = newItem.getDData();
 		for (int i = order - 2; i >= 0; i--)
 		{
-			if (itemArray[i] == null)
-			{
-				continue;
-			}
-			else
+			if (itemArray[i] != null)
 			{
 				long itsKey = itemArray[i].getDData();
 				if (newKey < itsKey)

@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Базовый класс для тестирования B деревьев {@link BTree} различного порядка
+ * Базовый класс для тестирования B-деревьев {@link BTree} различного порядка
  *
  * @author rassoll
  * @created 31.01.2018
@@ -19,7 +19,7 @@ abstract class BTreeBaseTest
 	/**
 	 * Проверка соотвествия порядка дерева
 	 */
-	 static void checkTreeOrder(BTree bTree, BOrder bTreeOrder)
+	static void checkTreeOrder(BTree bTree, Order bTreeOrder)
 	{
 		assertEquals(bTreeOrder, bTree.getTreeOrder());
 	}
@@ -68,7 +68,7 @@ abstract class BTreeBaseTest
 	/**
 	 * Тестирование метода выполняющего рекурсивный симметричный обход дерева
 	 */
-	static void testReqSymmetricalBTreeWalkMethod(BOrder bTreeOrder)
+	static void testReqSymmetricalBTreeWalkMethod(Order bTreeOrder)
 	{
 		BTree bTree = new BTree(bTreeOrder);
 		ArrayList<DataItem> localDataItems = new ArrayList<>();
@@ -111,26 +111,19 @@ abstract class BTreeBaseTest
 		});
 
 		assertEquals(localDataItems, dataItems);
-
-		dataItems.forEach(dataItem -> System.out.println(dataItem.getDisplayData()));
 	}
 
 	/**
-	 * Метод тестирующий сортировку при помощи B дерева
+	 * Метод тестирующий сортировку при помощи B-дерева
 	 */
-	static void sortTest(BOrder bTreeOrder)
+	static void sortTest(Order bTreeOrder)
 	{
 		List<DataItem> unsortedDataItems = new ArrayList<>();
-		unsortedDataItems.add(new DataItem(1));
-		unsortedDataItems.add(new DataItem(10));
-		unsortedDataItems.add(new DataItem(9));
-		unsortedDataItems.add(new DataItem(2));
-		unsortedDataItems.add(new DataItem(8));
-		unsortedDataItems.add(new DataItem(4));
-		unsortedDataItems.add(new DataItem(3));
-		unsortedDataItems.add(new DataItem(6));
-		unsortedDataItems.add(new DataItem(5));
-		unsortedDataItems.add(new DataItem(7));
+
+		for (int i = 100; i >= 0; i--)
+		{
+			unsortedDataItems.add(new DataItem(i));
+		}
 
 		List<DataItem> dataItems = new ArrayList<>(unsortedDataItems);
 		BTree.sort(dataItems, bTreeOrder);

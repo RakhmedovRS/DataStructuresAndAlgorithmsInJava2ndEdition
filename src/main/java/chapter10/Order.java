@@ -6,14 +6,14 @@ import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toMap;
 
 /**
- * Перечисление порядков B дерева
+ * Перечисление порядков B-дерева
  *
  * @author rassoll
  * @created 31.01.2018
  * @$Author$
  * @$Revision$
  */
-enum BOrder
+enum Order
 {
 	TREE_3_ORDER(3),
 	TREE_4_ORDER(4),
@@ -24,28 +24,28 @@ enum BOrder
 	TREE_9_ORDER(9),
 	TREE_10_ORDER(10);
 
-	private final Integer order;
+	private final Integer bOrder;
 
-	static final Map<Integer, BOrder> map =
-		stream(BOrder.values()).collect(toMap(bOrder -> bOrder.order, bOrder -> bOrder));
+	static final Map<Integer, Order> map =
+		stream(Order.values()).collect(toMap(order -> order.bOrder, order -> order));
 
-	BOrder(int order)
+	Order(int order)
 	{
-		this.order = order;
+		this.bOrder = order;
 	}
 
-	public int getBOrder()
+	public int getOrder()
 	{
-		return order;
+		return bOrder;
 	}
 
 	/**
-	 * Получение порядка B дерева из цифрового значения
+	 * Получение порядка B-дерева из цифрового значения
 	 *
 	 * @param order цифровое значение порядка
-	 * @return порядок B дерева
+	 * @return порядок B-дерева
 	 */
-	public static BOrder valueOf(int order)
+	public static Order valueOf(int order)
 	{
 		return map.get(order);
 	}
@@ -53,8 +53,8 @@ enum BOrder
 	/**
 	 * @return следующий за текущим порядок
 	 */
-	public BOrder nextOrder()
+	public Order nextOrder()
 	{
-		return BOrder.valueOf(order + 1);
+		return Order.valueOf(bOrder + 1);
 	}
 }

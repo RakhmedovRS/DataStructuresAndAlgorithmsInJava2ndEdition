@@ -4,7 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import static chapter10.BOrder.TREE_4_ORDER;
+import static chapter10.Order.TREE_3_ORDER;
+import static chapter10.Order.TREE_4_ORDER;
 
 /**
  * @author rassoll
@@ -19,11 +20,16 @@ public class Tree234App
 		long value;
 		BTree bTree = new BTree(TREE_4_ORDER);
 
-		bTree.insert(50);
-		bTree.insert(40);
-		bTree.insert(60);
-		bTree.insert(30);
-		bTree.insert(70);
+		for (int i = 10; i < 200; i += 10)
+		{
+			bTree.insert(i);
+		}
+
+		bTree.insert(131);
+		bTree.insert(132);
+		bTree.insert(98);
+		bTree.insert(99);
+		bTree.insert(92);
 
 		boolean run = true;
 		while (run)

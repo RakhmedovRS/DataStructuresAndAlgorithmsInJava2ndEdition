@@ -3,12 +3,12 @@ package chapter10;
 import org.junit.Before;
 import org.junit.Test;
 
-import static chapter10.BOrder.TREE_4_ORDER;
+import static chapter10.Order.TREE_4_ORDER;
 import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.*;
 
 /**
- * Тестирование сущности {@link BNode} для дерева 234
+ * Тестирование сущности {@link BNode} для B-дерева 4 порядка
  *
  * @author rassoll
  * @created 23.01.2018
@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
  */
 public class TestNode4Order
 {
-	private static final BOrder bTreeOrder = TREE_4_ORDER;
+	private static final Order bTreeOrder = TREE_4_ORDER;
 
 	private static final DataItem leftDataItem = new DataItem(5);
 	private static final DataItem centralDataItem = new DataItem(10);
