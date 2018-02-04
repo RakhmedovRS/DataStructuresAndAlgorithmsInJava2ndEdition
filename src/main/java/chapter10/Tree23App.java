@@ -4,26 +4,31 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import static chapter10.BOrder.TREE_4_ORDER;
+import static chapter10.BOrder.TREE_3_ORDER;
 
 /**
  * @author rassoll
- * @created 28.01.2018
+ * @created 04.02.2018
  * @$Author$
  * @$Revision$
  */
-public class Tree234App
+public class Tree23App
 {
 	public static void main(String[] args) throws IOException
 	{
 		long value;
-		BTree bTree = new BTree(TREE_4_ORDER);
+		BTree bTree = new BTree(TREE_3_ORDER);
 
-		bTree.insert(50);
-		bTree.insert(40);
-		bTree.insert(60);
-		bTree.insert(30);
-		bTree.insert(70);
+		for (int i = 10; i < 200; i += 10)
+		{
+			bTree.insert(i);
+		}
+
+		bTree.insert(131);
+		bTree.insert(132);
+		bTree.insert(98);
+		bTree.insert(99);
+		bTree.insert(92);
 
 		boolean run = true;
 		while (run)
@@ -34,12 +39,12 @@ public class Tree234App
 			char choice = getChar();
 			switch (choice)
 			{
+				case 's':
+					bTree.displayTree();
+					break;
 				case 'i':
 					System.out.println("Enter value to insert: ");
 					bTree.insert(getInt());
-					break;
-				case 's':
-					bTree.displayTree();
 					break;
 				case 'f':
 					System.out.println("Enter value to find: ");

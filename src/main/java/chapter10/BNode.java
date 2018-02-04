@@ -16,7 +16,6 @@ class BNode
 	private DataItem[] itemArray;
 	private BNode[] childArray;
 
-
 	/**
 	 * ctor
 	 *
@@ -27,7 +26,18 @@ class BNode
 		this.order = order.getBOrder();
 		itemArray = new DataItem[this.order - 1];
 		childArray = new BNode[this.order];
+	}
 
+	/**
+	 * ctor
+	 *
+	 * @param order    порядок B дерева
+	 * @param dataItem элемент данных
+	 */
+	BNode(BOrder order, DataItem dataItem)
+	{
+		this(order);
+		this.insertItem(dataItem);
 	}
 
 	/**
@@ -190,7 +200,7 @@ class BNode
 		}
 
 		DataItem temp = itemArray[numItems - 1];
-		itemArray[numItems-1] = null;
+		itemArray[numItems - 1] = null;
 		numItems--;
 		return temp;
 	}

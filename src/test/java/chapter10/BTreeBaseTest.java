@@ -41,7 +41,7 @@ abstract class BTreeBaseTest
 		for (int i = 100; i < 200; i += 10)
 		{
 			bTree.insert(i);
-			bTree.insert(new DataItem(i * 2));
+			bTree.insert(i * 2);
 		}
 
 		for (int i = 100; i < 200; i += 10)
