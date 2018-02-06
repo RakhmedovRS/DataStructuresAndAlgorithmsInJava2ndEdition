@@ -4,6 +4,7 @@ import javafx.util.Pair;
 
 import java.util.List;
 
+import static chapter10.BTreeOrder3Constants.*;
 import static chapter10.Order.TREE_3_ORDER;
 
 /**
@@ -28,27 +29,6 @@ class BTree
 	{
 		this.order = order;
 		root = new BNode(order);
-	}
-
-	/**
-	 * Получить новый узел дерева
-	 *
-	 * @return новый узел соотвествующий порядку дерева
-	 */
-	private BNode getNewNode()
-	{
-		return new BNode(getTreeOrder());
-	}
-
-	/**
-	 * Получить новый узел дерева
-	 *
-	 * @param newItem элемент данных
-	 * @return новый узел соотвествующий порядку дерева
-	 */
-	private BNode getNewNode(DataItem newItem)
-	{
-		return new BNode(getTreeOrder(), newItem);
 	}
 
 	/**
@@ -184,7 +164,7 @@ class BTree
 
 		while (!currentNode.isLeaf())
 		{
-			currentNode = currentNode.getChild(0);
+			currentNode = currentNode.getChild(LEFT_CHILD);
 		}
 
 		return currentNode.getItem(0);
@@ -228,6 +208,27 @@ class BTree
 				break;
 			}
 		}
+	}
+
+	/**
+	 * Получить новый узел дерева
+	 *
+	 * @return новый узел соотвествующий порядку дерева
+	 */
+	private BNode getNewNode()
+	{
+		return new BNode(getTreeOrder());
+	}
+
+	/**
+	 * Получить новый узел дерева
+	 *
+	 * @param newItem элемент данных
+	 * @return новый узел соотвествующий порядку дерева
+	 */
+	private BNode getNewNode(DataItem newItem)
+	{
+		return new BNode(getTreeOrder(), newItem);
 	}
 
 	/**
@@ -301,8 +302,8 @@ class BTree
 	{
 		/*создание и наполнение ноды более высокого порядка для сортировки элементов*/
 		BNode highOrderNode = new BNode(getTreeOrder().nextOrder(), newItem);
-		highOrderNode.insertItem(brokenBNode.getItem(0));
-		highOrderNode.insertItem(brokenBNode.getItem(1));
+		highOrderNode.insertItem(brokenBNode.getItem(LEFT_ITEM));
+		highOrderNode.insertItem(brokenBNode.getItem(CENTRAL_ITEM));
 
 		/*разбиваемый узел является корнем*/
 		if (brokenBNode == root)
@@ -313,8 +314,8 @@ class BTree
 			/*узел не имеет потомков*/
 			if (brokenBNode.isLeaf())
 			{
-				newRoot.connectChild(0, getNewNode(highOrderNode.getItem(0)));
-				newRoot.connectChild(1, getNewNode(highOrderNode.getItem(2)));
+				newRoot.connectChild(LEFT_CHILD, getNewNode(highOrderNode.getItem(LEFT_ITEM)));
+				newRoot.connectChild(CENTRAL_CHILD, getNewNode(highOrderNode.getItem(RIGHT_ITEM)));
 			}
 			/*разбиваемый узел имеет потомков*/
 			else
@@ -322,8 +323,8 @@ class BTree
 				Pair<BNode, BNode> childNodes = getNewChildNodes(highOrderNode, brokenBNode, newItem);
 
 				/*присоединяем новых потомков к новому корню*/
-				newRoot.connectChild(0, childNodes.getKey());
-				newRoot.connectChild(1, childNodes.getValue());
+				newRoot.connectChild(LEFT_CHILD, childNodes.getKey());
+				newRoot.connectChild(CENTRAL_CHILD, childNodes.getValue());
 			}
 
 			/*обновляем корень дерева*/
@@ -342,17 +343,16 @@ class BTree
 				if (brokenBNode.isLeaf())
 				{
 					/*очищаем разбиваемый узел*/
-					brokenBNode.removeItem();
-					brokenBNode.removeItem();
+					brokenBNode.clean();
 
 					/*наименьший элемент остается в разбиваемом узле*/
-					brokenBNode.insertItem(highOrderNode.getItem(0));
+					brokenBNode.insertItem(highOrderNode.getItem(LEFT_ITEM));
 
 					/*наибольший элемент остается в разбиваемом узле*/
-					brokenBNode.insertItem(highOrderNode.getItem(2));
+					brokenBNode.insertItem(highOrderNode.getItem(RIGHT_ITEM));
 
 					/*вызываем метод разбиения родительского узла, передавая в него средний элемент данных*/
-					splitNodeOrder3(parentNode, highOrderNode.getItem(1));
+					splitNodeOrder3(parentNode, highOrderNode.getItem(CENTRAL_ITEM));
 				}
 				/*разбиваемый узел имеет потомков*/
 				else
@@ -360,11 +360,11 @@ class BTree
 					Pair<BNode, BNode> childNodes = getNewChildNodes(highOrderNode, brokenBNode, newItem);
 
 					/*присоединяем новых потомком к разбиваемому узлу*/
-					brokenBNode.connectChild(0, childNodes.getKey());
-					brokenBNode.connectChild(1, childNodes.getValue());
+					brokenBNode.connectChild(LEFT_CHILD, childNodes.getKey());
+					brokenBNode.connectChild(CENTRAL_CHILD, childNodes.getValue());
 
 					/*вызываем разбиение родительского узла*/
-					splitNodeOrder3(parentNode, highOrderNode.getItem(1));
+					splitNodeOrder3(parentNode, highOrderNode.getItem(CENTRAL_ITEM));
 				}
 			}
 			/*родительский узел не полон, можно вставлять элемент в него*/
@@ -374,29 +374,28 @@ class BTree
 				if (brokenBNode.isLeaf())
 				{
 					/*очищаем разбиваемый узел*/
-					brokenBNode.removeItem();
-					brokenBNode.removeItem();
+					brokenBNode.clean();
 
 					/*разбиение происходит в левом элементе*/
-					if (highOrderNode.getItem(1).getDData() < parentNode.getItem(0).getDData())
+					if (highOrderNode.getItem(CENTRAL_ITEM).getDData() < parentNode.getItem(LEFT_ITEM).getDData())
 					{
 						/*брат разбиваемого узла смещается на 1 позицию правее*/
-						parentNode.connectChild(2, parentNode.disconnectChild(1));
+						parentNode.connectChild(RIGHT_CHILD, parentNode.disconnectChild(CENTRAL_CHILD));
 						/*к родительскому узлу прикрепляется новый брат разбиваемого узла содержащий наибольший элемент*/
-						parentNode.connectChild(1, getNewNode(highOrderNode.getItem(2)));
+						parentNode.connectChild(CENTRAL_CHILD, getNewNode(highOrderNode.getItem(RIGHT_ITEM)));
 					}
 					/*разбиение происходит в правом узле элементе*/
-					else if (highOrderNode.getItem(1).getDData() > parentNode.getItem(0).getDData())
+					else if (highOrderNode.getItem(CENTRAL_ITEM).getDData() > parentNode.getItem(LEFT_ITEM).getDData())
 					{
 						/*к родительскому узлу прикрепляется новый брат разбиваемого узла содержащий наибольший элемент*/
-						parentNode.connectChild(2, getNewNode(highOrderNode.getItem(2)));
+						parentNode.connectChild(RIGHT_CHILD, getNewNode(highOrderNode.getItem(RIGHT_ITEM)));
 					}
 
 					/*средний элемент вставляется в родительский узел*/
-					parentNode.insertItem(highOrderNode.getItem(1));
+					parentNode.insertItem(highOrderNode.getItem(CENTRAL_ITEM));
 
 					/*наименьший элемент остается в разбиваемом узле*/
-					brokenBNode.insertItem(highOrderNode.getItem(0));
+					brokenBNode.insertItem(highOrderNode.getItem(LEFT_ITEM));
 				}
 				/*разбиваемый узел имеет потомков*/
 				else
@@ -404,24 +403,24 @@ class BTree
 					Pair<BNode, BNode> childNodes = getNewChildNodes(highOrderNode, brokenBNode, newItem);
 
 					/*распределяем дочерние элементы родителького узла*/
-					if (parentNode.getItem(0).getDData() > childNodes.getValue().getItem(0).getDData())
+					if (parentNode.getItem(LEFT_ITEM).getDData() > childNodes.getValue().getItem(LEFT_ITEM).getDData())
 					{
 						/*смешаем среднего потомка родительского элемента на одну позицию правее*/
-						parentNode.connectChild(2, parentNode.disconnectChild(1));
+						parentNode.connectChild(RIGHT_CHILD, parentNode.disconnectChild(CENTRAL_CHILD));
 
 						/*присоединяем новых потомков в родительскому узлу*/
-						parentNode.connectChild(0, childNodes.getKey());
-						parentNode.connectChild(1, childNodes.getValue());
+						parentNode.connectChild(LEFT_CHILD, childNodes.getKey());
+						parentNode.connectChild(CENTRAL_CHILD, childNodes.getValue());
 					}
 					else
 					{
 						/*присоединяем новых потомков в родительскому узлу*/
-						parentNode.connectChild(1, childNodes.getKey());
-						parentNode.connectChild(2, childNodes.getValue());
+						parentNode.connectChild(CENTRAL_CHILD, childNodes.getKey());
+						parentNode.connectChild(RIGHT_CHILD, childNodes.getValue());
 					}
 
 					/*средний элемент вставляется в родительский узел*/
-					parentNode.insertItem(highOrderNode.getItem(1));
+					parentNode.insertItem(highOrderNode.getItem(CENTRAL_ITEM));
 				}
 			}
 		}
@@ -441,99 +440,98 @@ class BTree
 		BNode newRightChild = getNewNode();
 
 		/*очищаем разбиваемый узел*/
-		brokenBNode.removeItem();
-		brokenBNode.removeItem();
+		brokenBNode.clean();
 
 		/*наименьший элемент вставляется в нового левого потомка*/
-		newLeftChild.insertItem(highOrderNode.getItem(0));
+		newLeftChild.insertItem(highOrderNode.getItem(LEFT_ITEM));
 
 		/*наибольший элемент вставляется в нового правого потомка*/
-		newRightChild.insertItem(highOrderNode.getItem(2));
+		newRightChild.insertItem(highOrderNode.getItem(RIGHT_ITEM));
 
 		/*источник разбиения левый потомок*/
-		if (highOrderNode.getItem(0).getDData() == newItem.getDData())
+		if (highOrderNode.getItem(LEFT_ITEM).getDData() == newItem.getDData())
 		{
 			/*если дочерний узел не содержит элементов данных, значит он подвергался разбиению, необходимые узлы лежат на уровень ниже*/
-			if (brokenBNode.getChild(0).getItem(0) == null)
+			if (brokenBNode.getChild(LEFT_CHILD).getItem(LEFT_ITEM) == null)
 			{
 				/*присоеднияем нового правого потомка к новому левому потомку*/
-				newLeftChild.connectChild(1, brokenBNode.getChild(0).disconnectChild(1));
+				newLeftChild.connectChild(CENTRAL_CHILD, brokenBNode.getChild(LEFT_CHILD).disconnectChild(CENTRAL_CHILD));
 
 				/*присоединяем левого потомка разбиваемого узла к новому левому потомку*/
-				newLeftChild.connectChild(0, brokenBNode.getChild(0).disconnectChild(0));
+				newLeftChild.connectChild(LEFT_CHILD, brokenBNode.getChild(LEFT_CHILD).disconnectChild(LEFT_CHILD));
 			}
 			/*дочерний узел не подвергался разбиению*/
 			else
 			{
 				/*присоеднияем нового правого потомка к новому левому потомку*/
-				newLeftChild.connectChild(1, getNewNode(brokenBNode.getChild(0).removeItem()));
+				newLeftChild.connectChild(CENTRAL_CHILD, getNewNode(brokenBNode.getChild(LEFT_CHILD).removeItem()));
 
 				/*присоединяем левого потомка разбиваемого узла к новому левому потомку*/
-				newLeftChild.connectChild(0, brokenBNode.disconnectChild(0));
+				newLeftChild.connectChild(LEFT_CHILD, brokenBNode.disconnectChild(LEFT_CHILD));
 			}
 
 			/*к новому правому потомку в качестве дочерних узлов присоединяем средний и правый узлы потомки разбиваемого узла*/
-			newRightChild.connectChild(0, brokenBNode.disconnectChild(1));
-			newRightChild.connectChild(1, brokenBNode.disconnectChild(2));
+			newRightChild.connectChild(LEFT_CHILD, brokenBNode.disconnectChild(CENTRAL_CHILD));
+			newRightChild.connectChild(CENTRAL_CHILD, brokenBNode.disconnectChild(RIGHT_CHILD));
 		}
 		/*источник разбиения правый потомок*/
-		else if (highOrderNode.getItem(2).getDData() == newItem.getDData())
+		else if (highOrderNode.getItem(RIGHT_ITEM).getDData() == newItem.getDData())
 		{
 			/*к новому левому потомку в качестве дочерних узлов присоединяем левый и средний узлы потомки разбиваемого узла*/
-			newLeftChild.connectChild(0, brokenBNode.disconnectChild(0));
-			newLeftChild.connectChild(1, brokenBNode.disconnectChild(1));
+			newLeftChild.connectChild(LEFT_CHILD, brokenBNode.disconnectChild(LEFT_CHILD));
+			newLeftChild.connectChild(CENTRAL_CHILD, brokenBNode.disconnectChild(CENTRAL_CHILD));
 
 			/*если дочерний узел не содержит элементов данных, значит он подвергался разбиению, необходимые узлы лежат на уровень ниже*/
-			if (brokenBNode.getChild(2).getItem(0) == null)
+			if (brokenBNode.getChild(RIGHT_CHILD).getItem(LEFT_ITEM) == null)
 			{
 				/*присоединяем левого потомка разбиваемого узла к новому правому потомку*/
-				newRightChild.connectChild(0, brokenBNode.getChild(2).disconnectChild(0));
+				newRightChild.connectChild(LEFT_CHILD, brokenBNode.getChild(RIGHT_CHILD).disconnectChild(LEFT_CHILD));
 
 				/*присоединяем правого потомка разбиваемого узла к новому правому потомку*/
-				newRightChild.connectChild(1, brokenBNode.getChild(2).disconnectChild(1));
+				newRightChild.connectChild(CENTRAL_CHILD, brokenBNode.getChild(RIGHT_CHILD).disconnectChild(CENTRAL_CHILD));
 			}
 			/*дочерний узел не подвергался разбиению*/
 			else
 			{
 				/*присоединяем правого потомка разбиваемого узла к новому правому потомку*/
-				newRightChild.connectChild(0, getNewNode(brokenBNode.getChild(2).getItem(0)));
+				newRightChild.connectChild(LEFT_CHILD, getNewNode(brokenBNode.getChild(RIGHT_CHILD).getItem(LEFT_ITEM)));
 
 				/*очищаем правого потомка разбиваемого узла и вновь заполняем наибольшим элементом данных*/
-				DataItem tempItem = brokenBNode.getChild(2).removeItem();
-				brokenBNode.getChild(2).removeItem();
-				brokenBNode.getChild(2).insertItem(tempItem);
+				DataItem tempItem = brokenBNode.getChild(RIGHT_CHILD).removeItem();
+				brokenBNode.getChild(RIGHT_CHILD).removeItem();
+				brokenBNode.getChild(RIGHT_CHILD).insertItem(tempItem);
 
 				/*присоединяем правого потомка разбиваемого узла к новому правому потомку*/
-				newRightChild.connectChild(1, brokenBNode.disconnectChild(2));
+				newRightChild.connectChild(CENTRAL_CHILD, brokenBNode.disconnectChild(RIGHT_CHILD));
 			}
 		}
 		/*источник разбиения средний потомок*/
-		else if (highOrderNode.getItem(1).getDData() == newItem.getDData())
+		else if (highOrderNode.getItem(CENTRAL_ITEM).getDData() == newItem.getDData())
 		{
 			/*к новому левому потомку в качестве дочернего узла присоединяем левого потомка разбиваемого узла*/
-			newLeftChild.connectChild(0, brokenBNode.disconnectChild(0));
+			newLeftChild.connectChild(LEFT_CHILD, brokenBNode.disconnectChild(LEFT_CHILD));
 
 			/*если дочерний узел не содержит элементов данных, значит он подвергался разбиению, необходимые узлы лежат на уровень ниже*/
-			if (brokenBNode.getChild(1).getItem(0) == null)
+			if (brokenBNode.getChild(CENTRAL_CHILD).getItem(LEFT_ITEM) == null)
 			{
 				/*к новому правому потомку в качестве дочернего узла присоединяем правого потомка, правого потомка разбиваемого узла*/
-				newRightChild.connectChild(0, brokenBNode.getChild(1).disconnectChild(1));
+				newRightChild.connectChild(LEFT_CHILD, brokenBNode.getChild(CENTRAL_CHILD).disconnectChild(CENTRAL_CHILD));
 
 				/*к новому левому потомку в качестве дочернего узла присоединяем левого потомка, правого потомка разбиваемого узла*/
-				newLeftChild.connectChild(1, brokenBNode.disconnectChild(1).disconnectChild(0));
+				newLeftChild.connectChild(CENTRAL_CHILD, brokenBNode.disconnectChild(CENTRAL_CHILD).disconnectChild(LEFT_CHILD));
 			}
 			/*дочерний узел не подвергался разбиению*/
 			else
 			{
 				/*к новому левому потомку в качестве дочернего узла присоединяем правого потомка разбиваемого узла*/
-				newLeftChild.connectChild(1, brokenBNode.disconnectChild(1));
+				newLeftChild.connectChild(CENTRAL_CHILD, brokenBNode.disconnectChild(CENTRAL_CHILD));
 
 				/*присоединяем левого потомка к новому правому потомку, элемент данных забираем из правого потомка нового левого потомка*/
-				newRightChild.connectChild(0, getNewNode(newLeftChild.getChild(1).removeItem()));
+				newRightChild.connectChild(LEFT_CHILD, getNewNode(newLeftChild.getChild(CENTRAL_CHILD).removeItem()));
 			}
 
 			/*присоединяем правого потомка разбиваемого узла к новому правому потомку*/
-			newRightChild.connectChild(1, brokenBNode.disconnectChild(2));
+			newRightChild.connectChild(CENTRAL_CHILD, brokenBNode.disconnectChild(RIGHT_CHILD));
 		}
 
 		return new Pair<>(newLeftChild, newRightChild);
@@ -561,7 +559,7 @@ class BTree
 		{
 			root = getNewNode();
 			parent = root;
-			root.connectChild(0, brokenBNode);
+			root.connectChild(LEFT_CHILD, brokenBNode);
 		}
 		/*получаем родителя*/
 		else
@@ -583,8 +581,8 @@ class BTree
 
 		/*разбираемся с узлом newRight*/
 		newRight.insertItem(itemC);
-		newRight.connectChild(0, child2);
-		newRight.connectChild(1, child3);
+		newRight.connectChild(LEFT_CHILD, child2);
+		newRight.connectChild(CENTRAL_CHILD, child3);
 	}
 
 	private void recDisplayTree(BNode thisNode, int level, int childNumber)
