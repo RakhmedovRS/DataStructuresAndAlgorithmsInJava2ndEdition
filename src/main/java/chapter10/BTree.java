@@ -167,7 +167,7 @@ class BTree
 			currentNode = currentNode.getChild(LEFT_CHILD);
 		}
 
-		return currentNode.getItem(0);
+		return currentNode.getItem(LEFT_ITEM);
 	}
 
 	/**
