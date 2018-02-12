@@ -11,7 +11,7 @@ import static util.Util.getInt;
  * @$Author$
  * @$Revision$
  */
-public class HashTableApp
+public class HashDoubleApp
 {
 	public static void main(String[] args) throws IOException
 	{
@@ -28,7 +28,7 @@ public class HashTableApp
 		n = getInt(System.in);
 		keysPerCell = 10;
 
-		LinearProbingHashTable linearProbingHashTable = new LinearProbingHashTable(size);
+		DoubleHashTable linearProbingHashTable = new DoubleHashTable(size);
 
 		for (int i = 0; i < n; i++)
 		{

@@ -7,8 +7,10 @@ package base;
  * @created 12.02.2018
  * @$Author$
  * @$Revision$
+ *
+ * @param <T> сущность реализающая {@link Item}
  */
-public interface HashTable<T>
+public interface HashTable<T extends Item>
 {
 	/**
 	 * Хэш-функция
@@ -24,7 +26,7 @@ public interface HashTable<T>
 	 *
 	 * @param item элемент данных
 	 */
-	void insert(T item);
+	void insert(Item item);
 
 	/**
 	 * Удалить элемент данных из хэщш-таблицы

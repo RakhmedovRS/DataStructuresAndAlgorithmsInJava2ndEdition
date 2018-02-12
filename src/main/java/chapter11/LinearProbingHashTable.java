@@ -1,5 +1,8 @@
 package chapter11;
 
+import base.HashTable;
+import base.Item;
+
 /**
  * Сущность хэш-таблицы с линейным пробированием
  *
@@ -8,7 +11,7 @@ package chapter11;
  * @$Author$
  * @$Revision$
  */
-public class HashTable implements base.HashTable<DataItem>
+public class LinearProbingHashTable implements HashTable<DataItem>
 {
 	private DataItem[] hashArray;
 	private int arraySize;
@@ -19,7 +22,7 @@ public class HashTable implements base.HashTable<DataItem>
 	 *
 	 * @param size размер хэш-таблицы
 	 */
-	public HashTable(int size)
+	public LinearProbingHashTable(int size)
 	{
 		arraySize = size;
 		hashArray = new DataItem[arraySize];
@@ -33,7 +36,7 @@ public class HashTable implements base.HashTable<DataItem>
 	}
 
 	@Override
-	public void insert(DataItem item)
+	public void insert(Item item)
 	{
 		int hashValue = hashFunction(item.getKey());
 
@@ -43,7 +46,7 @@ public class HashTable implements base.HashTable<DataItem>
 			hashValue %= arraySize;
 		}
 
-		hashArray[hashValue] = item;
+		hashArray[hashValue] = (DataItem) item;
 	}
 
 	@Override

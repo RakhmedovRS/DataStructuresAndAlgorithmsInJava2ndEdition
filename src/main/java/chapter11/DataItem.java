@@ -1,5 +1,7 @@
 package chapter11;
 
+import base.Item;
+
 /**
  * Сущность элемента данных
  *
@@ -8,7 +10,7 @@ package chapter11;
  * @$Author$
  * @$Revision$
  */
-public class DataItem
+public class DataItem implements Item
 {
 	private int key;
 
@@ -22,9 +24,7 @@ public class DataItem
 		this.key = key;
 	}
 
-	/**
-	 * @return ключ
-	 */
+	@Override
 	public int getKey()
 	{
 		return key;

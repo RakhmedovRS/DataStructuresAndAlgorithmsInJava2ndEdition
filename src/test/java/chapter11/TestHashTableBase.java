@@ -1,52 +1,39 @@
 package chapter11;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import java.util.stream.IntStream;
+import base.HashTable;
+import base.Item;
 
 import static junit.framework.TestCase.*;
 
 /**
- * Тестирование сущности {@link HashTable}
+ * Базовый класс для тестирования хэш-таблиц реализующих интерфейс {@link base.HashTable}
  *
  * @author rassoll
  * @created 12.02.2018
  * @$Author$
  * @$Revision$
  */
-public class TestHashTable
+abstract public class TestHashTableBase
 {
-	private static HashTable hashTable;
-
-	@Before
-	public void init()
-	{
-		int HASH_TABLE_SIZE = 200;
-		hashTable = new HashTable(HASH_TABLE_SIZE);
-
-		IntStream.range(0, HASH_TABLE_SIZE / 2).forEach(key -> hashTable.insert(new DataItem(key)));
-	}
+	static final int HASH_TABLE_SIZE = 200;
 
 	/**
 	 * Тестирование функции вычисляющей хэш-значение
 	 */
-	@Test
-	public void testHashFunction()
+	public static void testHashFunction(HashTable hashTable)
 	{
-		assertTrue(1 == hashTable.hashFunction(1));
-		assertTrue(1 == hashTable.hashFunction(201));
-		assertTrue(150 == hashTable.hashFunction(150));
-		assertTrue(0 == hashTable.hashFunction(400));
+		assertEquals(1, hashTable.hashFunction(1));
+		assertEquals(1, hashTable.hashFunction(201));
+		assertEquals(150, hashTable.hashFunction(150));
+		assertEquals(0, hashTable.hashFunction(400));
 	}
 
 	/**
 	 * Тестирование метода вставки в хэш-таблицу элементов данных
 	 */
-	@Test
-	public void testInsertMethod()
+	public static void testInsertMethod(HashTable hashTable)
 	{
-		DataItem insertedItem = new DataItem(101);
+		Item insertedItem = new DataItem(101);
 
 		hashTable.insert(insertedItem);
 
@@ -56,10 +43,9 @@ public class TestHashTable
 	/**
 	 * Тестирование метода удаления элементов данных из хэш-таблицы
 	 */
-	@Test
-	public void testDeleteMethod()
+	public static void testDeleteMethod(HashTable hashTable)
 	{
-		DataItem deletedItem = hashTable.delete(10);
+		Item deletedItem = hashTable.delete(10);
 
 		assertNotNull(deletedItem);
 		assertTrue(deletedItem.getKey() == 10);
@@ -71,8 +57,7 @@ public class TestHashTable
 	/**
 	 * Тестирование метода получения данных для печати хэш-таблицы
 	 */
-	@Test
-	public void testGetDisplayDataMethod()
+	public static void testGetDisplayDataMethod(HashTable hashTable)
 	{
 		assertNotNull(hashTable.getDisplayData());
 	}
