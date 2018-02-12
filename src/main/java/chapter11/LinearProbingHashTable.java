@@ -11,11 +11,11 @@ import base.Item;
  * @$Author$
  * @$Revision$
  */
-public class LinearProbingHashTable implements HashTable<DataItem>
+public class LinearProbingHashTable implements HashTable<Item>
 {
-	private DataItem[] hashArray;
+	private Item[] hashArray;
 	private int arraySize;
-	private DataItem deletedItem;
+	private Item deletedItem;
 
 	/**
 	 * Конструктор
@@ -46,11 +46,11 @@ public class LinearProbingHashTable implements HashTable<DataItem>
 			hashValue %= arraySize;
 		}
 
-		hashArray[hashValue] = (DataItem) item;
+		hashArray[hashValue] = item;
 	}
 
 	@Override
-	public DataItem delete(int key)
+	public Item delete(int key)
 	{
 		int hashValue = hashFunction(key);
 
@@ -58,7 +58,7 @@ public class LinearProbingHashTable implements HashTable<DataItem>
 		{
 			if (hashArray[hashValue].getKey() == key)
 			{
-				DataItem dataItem = hashArray[hashValue];
+				Item dataItem = hashArray[hashValue];
 				hashArray[hashValue] = deletedItem;
 				return dataItem;
 			}
@@ -69,7 +69,7 @@ public class LinearProbingHashTable implements HashTable<DataItem>
 	}
 
 	@Override
-	public DataItem find(int key)
+	public Item find(int key)
 	{
 		int hashValue = hashFunction(key);
 
