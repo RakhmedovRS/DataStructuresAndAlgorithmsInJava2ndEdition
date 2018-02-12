@@ -3,7 +3,6 @@ package chapter10;
 import org.junit.Before;
 import org.junit.Test;
 
-import static chapter10.Order.TREE_4_ORDER;
 import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.*;
 
@@ -17,7 +16,7 @@ import static org.junit.Assert.*;
  */
 public class TestNode4Order
 {
-	private static final Order bTreeOrder = TREE_4_ORDER;
+	private static final Order bTreeOrder = Order.TREE_4_ORDER;
 
 	private static final DataItem leftDataItem = new DataItem(5);
 	private static final DataItem centralDataItem = new DataItem(10);
@@ -84,9 +83,9 @@ public class TestNode4Order
 	@Test
 	public void testFindItemMethod()
 	{
-		assertTrue(bNode.findItem(centralDataItem.getDData()) == 1);
-		assertTrue(bNode.findItem(leftDataItem.getDData()) == 0);
-		assertTrue(bNode.findItem(rightDataItem.getDData()) == 2);
+		assertTrue(bNode.findItem(centralDataItem.getKey()) == 1);
+		assertTrue(bNode.findItem(leftDataItem.getKey()) == 0);
+		assertTrue(bNode.findItem(rightDataItem.getKey()) == 2);
 		assertTrue(bNode.findItem(100) == -1);
 	}
 
@@ -130,19 +129,19 @@ public class TestNode4Order
 	@Test
 	public void testGetDisplayData()
 	{
-		assertEquals(bNode.getDisplayData(), String.format("/%s/%s/%s/", leftDataItem.getDData(), centralDataItem.getDData(), rightDataItem.getDData()));
+		assertEquals(bNode.getDisplayData(), String.format("/%s/%s/%s/", leftDataItem.getKey(), centralDataItem.getKey(), rightDataItem.getKey()));
 		bNode.removeItem();
-		assertEquals(bNode.getDisplayData(), String.format("/%s/%s/", leftDataItem.getDData(), centralDataItem.getDData()));
+		assertEquals(bNode.getDisplayData(), String.format("/%s/%s/", leftDataItem.getKey(), centralDataItem.getKey()));
 		bNode.removeItem();
-		assertEquals(bNode.getDisplayData(), String.format("/%s/", leftDataItem.getDData()));
+		assertEquals(bNode.getDisplayData(), String.format("/%s/", leftDataItem.getKey()));
 		bNode.removeItem();
 		assertEquals("/", bNode.getDisplayData());
 		bNode.insertItem(leftDataItem);
-		assertEquals(bNode.getDisplayData(), String.format("/%s/", leftDataItem.getDData()));
+		assertEquals(bNode.getDisplayData(), String.format("/%s/", leftDataItem.getKey()));
 		bNode.insertItem(centralDataItem);
-		assertEquals(bNode.getDisplayData(), String.format("/%s/%s/", leftDataItem.getDData(), centralDataItem.getDData()));
+		assertEquals(bNode.getDisplayData(), String.format("/%s/%s/", leftDataItem.getKey(), centralDataItem.getKey()));
 		bNode.insertItem(rightDataItem);
-		assertEquals(bNode.getDisplayData(), String.format("/%s/%s/%s/", leftDataItem.getDData(), centralDataItem.getDData(), rightDataItem.getDData()));
+		assertEquals(bNode.getDisplayData(), String.format("/%s/%s/%s/", leftDataItem.getKey(), centralDataItem.getKey(), rightDataItem.getKey()));
 	}
 
 	/**

@@ -33,7 +33,7 @@ abstract public class TestHashTableBase
 	 */
 	public static void testInsertMethod(HashTable hashTable)
 	{
-		Item insertedItem = new DataItem(101);
+		DataItem insertedItem = new DataItem(101);
 
 		hashTable.insert(insertedItem);
 
@@ -48,7 +48,7 @@ abstract public class TestHashTableBase
 		Item deletedItem = hashTable.delete(10);
 
 		assertNotNull(deletedItem);
-		assertTrue(deletedItem.getKey() == 10);
+		assertTrue((int)deletedItem.getKey() == 10);
 
 		deletedItem = hashTable.delete(10);
 		assertNull(deletedItem);

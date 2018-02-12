@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import static chapter10.Order.TREE_3_ORDER;
 import static chapter10.Order.TREE_4_ORDER;
 
 /**

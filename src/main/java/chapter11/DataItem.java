@@ -29,4 +29,10 @@ public class DataItem implements Item
 	{
 		return key;
 	}
+
+	@Override
+	public String getDisplayData()
+	{
+		return String.valueOf(key);
+	}
 }

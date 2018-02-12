@@ -3,7 +3,6 @@ package chapter10;
 import org.junit.Before;
 import org.junit.Test;
 
-import static chapter10.BTreeOrder3Constants.*;
 import static chapter10.Order.TREE_3_ORDER;
 import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.*;
@@ -79,8 +78,8 @@ public class TestNode3Order
 	@Test
 	public void testFindItemMethod()
 	{
-		assertTrue(bNode.findItem(leftDataItem.getDData()) == 0);
-		assertTrue(bNode.findItem(rightDataItem.getDData()) == 1);
+		assertTrue(bNode.findItem(leftDataItem.getKey()) == 0);
+		assertTrue(bNode.findItem(rightDataItem.getKey()) == 1);
 		assertTrue(bNode.findItem(100) == -1);
 	}
 
@@ -120,15 +119,15 @@ public class TestNode3Order
 	@Test
 	public void testGetDisplayData()
 	{
-		assertEquals(bNode.getDisplayData(), String.format("/%s/%s/", leftDataItem.getDData(), rightDataItem.getDData()));
+		assertEquals(bNode.getDisplayData(), String.format("/%s/%s/", leftDataItem.getKey(), rightDataItem.getKey()));
 		bNode.removeItem();
-		assertEquals(bNode.getDisplayData(), String.format("/%s/", leftDataItem.getDData()));
+		assertEquals(bNode.getDisplayData(), String.format("/%s/", leftDataItem.getKey()));
 		bNode.removeItem();
 		assertEquals("/", bNode.getDisplayData());
 		bNode.insertItem(leftDataItem);
-		assertEquals(bNode.getDisplayData(), String.format("/%s/", leftDataItem.getDData()));
+		assertEquals(bNode.getDisplayData(), String.format("/%s/", leftDataItem.getKey()));
 		bNode.insertItem(rightDataItem);
-		assertEquals(bNode.getDisplayData(), String.format("/%s/%s/", leftDataItem.getDData(), rightDataItem.getDData()));
+		assertEquals(bNode.getDisplayData(), String.format("/%s/%s/", leftDataItem.getKey(), rightDataItem.getKey()));
 	}
 
 	/**
@@ -137,8 +136,8 @@ public class TestNode3Order
 	@Test
 	public void testGettingItem()
 	{
-		assertEquals(leftDataItem, bNode.getItem(LEFT_ITEM));
-		assertEquals(rightDataItem, bNode.getItem(CENTRAL_ITEM));
+		assertEquals(leftDataItem, bNode.getItem(BTreeOrder3Constants.LEFT_ITEM));
+		assertEquals(rightDataItem, bNode.getItem(BTreeOrder3Constants.CENTRAL_ITEM));
 		assertNull(bNode.getItem(-1));
 		assertNull(bNode.getItem(-1));
 	}
@@ -149,13 +148,13 @@ public class TestNode3Order
 	@Test
 	public void testConnectingAndGettingChild()
 	{
-		bNode.connectChild(LEFT_CHILD, firstChildNode);
-		bNode.connectChild(CENTRAL_CHILD, secondChildNode);
-		bNode.connectChild(RIGHT_CHILD, thirdChildNode);
+		bNode.connectChild(BTreeOrder3Constants.LEFT_CHILD, firstChildNode);
+		bNode.connectChild(BTreeOrder3Constants.CENTRAL_CHILD, secondChildNode);
+		bNode.connectChild(BTreeOrder3Constants.RIGHT_CHILD, thirdChildNode);
 
-		assertEquals(firstChildNode, bNode.getChild(LEFT_CHILD));
-		assertEquals(secondChildNode, bNode.getChild(CENTRAL_CHILD));
-		assertEquals(thirdChildNode, bNode.getChild(RIGHT_CHILD));
+		assertEquals(firstChildNode, bNode.getChild(BTreeOrder3Constants.LEFT_CHILD));
+		assertEquals(secondChildNode, bNode.getChild(BTreeOrder3Constants.CENTRAL_CHILD));
+		assertEquals(thirdChildNode, bNode.getChild(BTreeOrder3Constants.RIGHT_CHILD));
 	}
 
 	/**
@@ -164,20 +163,20 @@ public class TestNode3Order
 	@Test
 	public void testDisconnectingChild()
 	{
-		bNode.connectChild(LEFT_CHILD, firstChildNode);
-		bNode.connectChild(CENTRAL_CHILD, secondChildNode);
-		bNode.connectChild(RIGHT_CHILD, thirdChildNode);
+		bNode.connectChild(BTreeOrder3Constants.LEFT_CHILD, firstChildNode);
+		bNode.connectChild(BTreeOrder3Constants.CENTRAL_CHILD, secondChildNode);
+		bNode.connectChild(BTreeOrder3Constants.RIGHT_CHILD, thirdChildNode);
 
-		assertEquals(firstChildNode, bNode.disconnectChild(LEFT_CHILD));
-		assertNull(bNode.getChild(LEFT_CHILD));
-		assertEquals(secondChildNode, bNode.disconnectChild(CENTRAL_CHILD));
-		assertNull(bNode.getChild(CENTRAL_CHILD));
-		assertEquals(thirdChildNode, bNode.disconnectChild(RIGHT_CHILD));
-		assertNull(bNode.getChild(RIGHT_CHILD));
+		assertEquals(firstChildNode, bNode.disconnectChild(BTreeOrder3Constants.LEFT_CHILD));
+		assertNull(bNode.getChild(BTreeOrder3Constants.LEFT_CHILD));
+		assertEquals(secondChildNode, bNode.disconnectChild(BTreeOrder3Constants.CENTRAL_CHILD));
+		assertNull(bNode.getChild(BTreeOrder3Constants.CENTRAL_CHILD));
+		assertEquals(thirdChildNode, bNode.disconnectChild(BTreeOrder3Constants.RIGHT_CHILD));
+		assertNull(bNode.getChild(BTreeOrder3Constants.RIGHT_CHILD));
 
-		assertNull(bNode.disconnectChild(LEFT_CHILD));
-		assertNull(bNode.disconnectChild(CENTRAL_CHILD));
-		assertNull(bNode.disconnectChild(RIGHT_CHILD));
+		assertNull(bNode.disconnectChild(BTreeOrder3Constants.LEFT_CHILD));
+		assertNull(bNode.disconnectChild(BTreeOrder3Constants.CENTRAL_CHILD));
+		assertNull(bNode.disconnectChild(BTreeOrder3Constants.RIGHT_CHILD));
 	}
 
 	/**
@@ -187,13 +186,13 @@ public class TestNode3Order
 	public void checkIsLeafMethod()
 	{
 		assertTrue(bNode.isLeaf());
-		bNode.connectChild(LEFT_CHILD, firstChildNode);
+		bNode.connectChild(BTreeOrder3Constants.LEFT_CHILD, firstChildNode);
 		assertFalse(bNode.isLeaf());
-		bNode.connectChild(LEFT_CHILD, secondChildNode);
+		bNode.connectChild(BTreeOrder3Constants.LEFT_CHILD, secondChildNode);
 		assertFalse(bNode.isLeaf());
-		bNode.disconnectChild(CENTRAL_CHILD);
+		bNode.disconnectChild(BTreeOrder3Constants.CENTRAL_CHILD);
 		assertFalse(bNode.isLeaf());
-		bNode.disconnectChild(LEFT_CHILD);
+		bNode.disconnectChild(BTreeOrder3Constants.LEFT_CHILD);
 		assertTrue(bNode.isLeaf());
 	}
 
@@ -203,9 +202,9 @@ public class TestNode3Order
 	@Test
 	public void checkGettingParent()
 	{
-		bNode.connectChild(LEFT_CHILD, firstChildNode);
-		bNode.connectChild(CENTRAL_CHILD, secondChildNode);
-		bNode.connectChild(RIGHT_CHILD, thirdChildNode);
+		bNode.connectChild(BTreeOrder3Constants.LEFT_CHILD, firstChildNode);
+		bNode.connectChild(BTreeOrder3Constants.CENTRAL_CHILD, secondChildNode);
+		bNode.connectChild(BTreeOrder3Constants.RIGHT_CHILD, thirdChildNode);
 
 		assertEquals(bNode, firstChildNode.getParent());
 		assertEquals(bNode, secondChildNode.getParent());

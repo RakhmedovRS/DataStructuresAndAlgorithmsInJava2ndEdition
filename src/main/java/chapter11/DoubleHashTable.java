@@ -11,11 +11,11 @@ import base.Item;
  * @$Author$
  * @$Revision$
  */
-public class DoubleHashTable implements HashTable<DataItem>
+public class DoubleHashTable implements HashTable<Item>
 {
-	private DataItem[] hashArray;
-	private int arraySize;
-	private DataItem deletedItem;
+	private Item[] hashArray;
+	private Integer arraySize;
+	private Item deletedItem;
 
 	/**
 	 * Конструктор
@@ -25,7 +25,7 @@ public class DoubleHashTable implements HashTable<DataItem>
 	public DoubleHashTable(int size)
 	{
 		this.arraySize = size;
-		hashArray = new DataItem[arraySize];
+		hashArray = new Item[arraySize];
 		deletedItem = new DataItem(-1);
 	}
 
@@ -63,11 +63,11 @@ public class DoubleHashTable implements HashTable<DataItem>
 			hashValue %= arraySize;
 		}
 
-		hashArray[hashValue] = (DataItem) item;
+		hashArray[hashValue] = item;
 	}
 
 	@Override
-	public DataItem delete(int key)
+	public Item delete(int key)
 	{
 		int hashValue = hashFunction(key);
 		int stepSize = hashFunction2(key);
@@ -76,9 +76,9 @@ public class DoubleHashTable implements HashTable<DataItem>
 		{
 			if (hashArray[hashValue].getKey() == key)
 			{
-				DataItem dataItem = hashArray[hashValue];
+				Item item = hashArray[hashValue];
 				hashArray[hashValue] = deletedItem;
-				return dataItem;
+				return item;
 			}
 			/*смещение*/
 			hashValue += stepSize;
@@ -89,7 +89,7 @@ public class DoubleHashTable implements HashTable<DataItem>
 	}
 
 	@Override
-	public DataItem find(int key)
+	public Item find(int key)
 	{
 		int hashValue = hashFunction(key);
 		int stepSize = hashFunction2(key);

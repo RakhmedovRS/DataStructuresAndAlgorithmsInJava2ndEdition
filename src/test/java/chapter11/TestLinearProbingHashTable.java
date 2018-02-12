@@ -5,9 +5,6 @@ import org.junit.Test;
 
 import java.util.stream.IntStream;
 
-import static chapter11.TestHashTableBase.HASH_TABLE_SIZE;
-import static junit.framework.TestCase.*;
-
 /**
  * Тестирование сущности {@link LinearProbingHashTable}
  *
@@ -23,9 +20,9 @@ public class TestLinearProbingHashTable
 	@Before
 	public void init()
 	{
-		linearProbingHashTable = new LinearProbingHashTable(HASH_TABLE_SIZE);
+		linearProbingHashTable = new LinearProbingHashTable(TestHashTableBase.HASH_TABLE_SIZE);
 
-		IntStream.range(0, HASH_TABLE_SIZE / 2).forEach(key -> linearProbingHashTable.insert(new DataItem(key)));
+		IntStream.range(0, TestHashTableBase.HASH_TABLE_SIZE / 2).forEach(key -> linearProbingHashTable.insert(new DataItem(key)));
 	}
 
 	@Test

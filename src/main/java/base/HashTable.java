@@ -3,12 +3,11 @@ package base;
 /**
  * Интерфейс описывающий структуру хэш-таблица
  *
+ * @param <T> сущность реализающая {@link Item}
  * @author rassoll
  * @created 12.02.2018
  * @$Author$
  * @$Revision$
- *
- * @param <T> сущность реализающая {@link Item}
  */
 public interface HashTable<T extends Item>
 {

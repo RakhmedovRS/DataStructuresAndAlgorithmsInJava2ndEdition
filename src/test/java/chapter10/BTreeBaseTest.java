@@ -1,5 +1,7 @@
 package chapter10;
 
+import base.Item;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,10 +29,10 @@ abstract class BTreeBaseTest
 	/**
 	 * Тестирование метода поиска позиции элемента
 	 */
-	static void testFindMethod(BTree bTree, DataItem minDataItem)
+	static void testFindMethod(BTree bTree, Item minDataItem)
 	{
-		assertTrue(bTree.find(minDataItem.getDData() - 1) == -1);
-		assertTrue(bTree.find(minDataItem.getDData()) != -1);
+		assertTrue(bTree.find((long)minDataItem.getKey() - 1) == -1);
+		assertTrue(bTree.find((long)minDataItem.getKey()) != -1);
 	}
 
 	/**
@@ -38,13 +40,13 @@ abstract class BTreeBaseTest
 	 */
 	static void testInsertMethod(BTree bTree)
 	{
-		for (int i = 100; i < 200; i += 10)
+		for (long i = 100; i < 200; i += 10)
 		{
 			bTree.insert(i);
 			bTree.insert(i * 2);
 		}
 
-		for (int i = 100; i < 200; i += 10)
+		for (long i = 100; i < 200; i += 10)
 		{
 			assertTrue(bTree.find(i) != -1);
 			assertTrue(bTree.find(i * 2) != -1);
@@ -71,8 +73,8 @@ abstract class BTreeBaseTest
 	static void testReqSymmetricalBTreeWalkMethod(Order bTreeOrder)
 	{
 		BTree bTree = new BTree(bTreeOrder);
-		ArrayList<DataItem> localDataItems = new ArrayList<>();
-		ArrayList<DataItem> dataItems = new ArrayList<>();
+		ArrayList<Item> localDataItems = new ArrayList<>();
+		ArrayList<Item> dataItems = new ArrayList<>();
 
 		for (int i = 10; i < 80; i += 10)
 		{
@@ -96,11 +98,11 @@ abstract class BTreeBaseTest
 
 		localDataItems.sort((dataItem, t1) ->
 		{
-			if (dataItem.getDData() > t1.getDData())
+			if ((long)dataItem.getKey() > (long)t1.getKey())
 			{
 				return 1;
 			}
-			else if (dataItem.getDData() > t1.getDData())
+			else if ((long)dataItem.getKey() > (long)t1.getKey())
 			{
 				return 0;
 			}
@@ -118,23 +120,23 @@ abstract class BTreeBaseTest
 	 */
 	static void sortTest(Order bTreeOrder)
 	{
-		List<DataItem> unsortedDataItems = new ArrayList<>();
+		List<Item> unsortedDataItems = new ArrayList<>();
 
 		for (int i = 100; i >= 0; i--)
 		{
 			unsortedDataItems.add(new DataItem(i));
 		}
 
-		List<DataItem> dataItems = new ArrayList<>(unsortedDataItems);
+		List<Item> dataItems = new ArrayList<>(unsortedDataItems);
 		BTree.sort(dataItems, bTreeOrder);
 
 		unsortedDataItems.sort((dt1, dt2) ->
 		{
-			if (dt1.getDData() > dt2.getDData())
+			if ((long)dt1.getKey() > (long)dt2.getKey())
 			{
 				return 1;
 			}
-			else if (dt1.getDData() == dt2.getDData())
+			else if ((long)dt1.getKey() == (long)dt2.getKey())
 			{
 				return 0;
 			}

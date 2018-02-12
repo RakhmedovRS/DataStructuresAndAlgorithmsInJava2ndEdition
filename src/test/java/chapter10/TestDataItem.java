@@ -23,10 +23,10 @@ public class TestDataItem
 	{
 		DataItem dataItem = new DataItem(1L);
 
-		assertEquals(dataItem.getDisplayData(), String.format("/%s", dataItem.getDData()));
+		assertEquals(dataItem.getDisplayData(), String.format("/%s", dataItem.getKey()));
 
 		dataItem = new DataItem(10L);
 
-		assertEquals(dataItem.getDisplayData(), String.format("/%s", dataItem.getDData()));
+		assertEquals(dataItem.getDisplayData(), String.format("/%s", dataItem.getKey()));
 	}
 }

@@ -1,5 +1,7 @@
 package chapter11;
 
+import base.Item;
+
 import java.io.IOException;
 
 import static util.Util.getChar;
@@ -15,7 +17,7 @@ public class HashDoubleApp
 {
 	public static void main(String[] args) throws IOException
 	{
-		DataItem aDataItem;
+		Item aItem;
 		int aKey;
 		int size;
 		int n;
@@ -61,8 +63,8 @@ public class HashDoubleApp
 				case 'f':
 					System.out.println("Enter key value to find: ");
 					aKey = getInt(System.in);
-					aDataItem = linearProbingHashTable.find(aKey);
-					if (aDataItem != null)
+					aItem = linearProbingHashTable.find(aKey);
+					if (aItem != null)
 					{
 						System.out.println("Found " + aKey);
 					}

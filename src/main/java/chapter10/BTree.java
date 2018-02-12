@@ -1,5 +1,6 @@
 package chapter10;
 
+import base.Item;
 import javafx.util.Pair;
 
 import java.util.List;
@@ -45,7 +46,7 @@ class BTree
 		int numItems = bNode.getNumItems();
 		for (i = 0; i < numItems; i++)
 		{
-			if (value < bNode.getItem(i).getDData())
+			if (value < bNode.getItem(i).getKey())
 			{
 				return bNode.getChild(i);
 			}
@@ -57,18 +58,18 @@ class BTree
 	 * Программный проект 10.3 - Program project 10.3
 	 * Выполнить сортировку коллекции при помощи рекурсивного симметричного обхода дерева
 	 *
-	 * @param dataItems коллекция для сортировки
-	 * @param order     порядок дерева используещегося для сортировки
+	 * @param items коллекция для сортировки
+	 * @param order порядок дерева используещегося для сортировки
 	 * @return отсортированная коллекция
 	 */
-	static List<DataItem> sort(List<DataItem> dataItems, Order order)
+	static List<Item> sort(List<Item> items, Order order)
 	{
 		BTree tempTree = new BTree(order);
-		dataItems.forEach(tempTree::insert);
-		dataItems.clear();
+		items.forEach(tempTree::insert);
+		items.clear();
 
-		tempTree.reqSymmetricalBTreeWalk(tempTree.getRoot(), dataItems);
-		return dataItems;
+		tempTree.reqSymmetricalBTreeWalk(tempTree.getRoot(), items);
+		return items;
 	}
 
 	/**
@@ -116,7 +117,7 @@ class BTree
 	 *
 	 * @param newItem вставляемый элемент данных
 	 */
-	public void insert(DataItem newItem)
+	public void insert(Item newItem)
 	{
 		if (getTreeOrder().equals(TREE_3_ORDER))
 		{
@@ -156,9 +157,9 @@ class BTree
 	 * Программный проект 10.1 - Program project 10.1
 	 * Получение минимального элемента данных в дереве
 	 *
-	 * @return минимальный {@link DataItem}
+	 * @return минимальный {@link Item}
 	 */
-	DataItem getMinDataItem()
+	Item getMinDataItem()
 	{
 		BNode currentNode = root;
 
@@ -175,9 +176,9 @@ class BTree
 	 * Выполнить симметричный обход дерева
 	 *
 	 * @param rootBNode ссылка на корень дерева
-	 * @param dataItems коллекция для помещения элементов данных
+	 * @param items     коллекция для помещения элементов данных
 	 */
-	void reqSymmetricalBTreeWalk(BNode rootBNode, List<DataItem> dataItems)
+	void reqSymmetricalBTreeWalk(BNode rootBNode, List<Item> items)
 	{
 		/*базовое ограничение рекурсии*/
 		if (rootBNode.isLeaf())
@@ -188,7 +189,7 @@ class BTree
 				{
 					break;
 				}
-				dataItems.add(rootBNode.getItem(i));
+				items.add(rootBNode.getItem(i));
 			}
 		}
 
@@ -197,10 +198,10 @@ class BTree
 		{
 			if (rootBNode.getChild(i) != null)
 			{
-				reqSymmetricalBTreeWalk(rootBNode.getChild(i), dataItems);
+				reqSymmetricalBTreeWalk(rootBNode.getChild(i), items);
 				if (rootBNode.getItem(i) != null)
 				{
-					dataItems.add(rootBNode.getItem(i));
+					items.add(rootBNode.getItem(i));
 				}
 			}
 			else
@@ -226,7 +227,7 @@ class BTree
 	 * @param newItem элемент данных
 	 * @return новый узел соотвествующий порядку дерева
 	 */
-	private BNode getNewNode(DataItem newItem)
+	private BNode getNewNode(Item newItem)
 	{
 		return new BNode(getTreeOrder(), newItem);
 	}
@@ -236,14 +237,14 @@ class BTree
 	 *
 	 * @param newItem вставляемый элемент данных
 	 */
-	private void insertIntoBTreeOrder3(DataItem newItem)
+	private void insertIntoBTreeOrder3(Item newItem)
 	{
 		BNode currentBNode = root;
 
 		/*двигаемся вниз пока не найдем позицию для вставки нового элемента*/
 		while (!currentBNode.isLeaf())
 		{
-			currentBNode = getNextChild(currentBNode, newItem.getDData());
+			currentBNode = getNextChild(currentBNode, (newItem.getKey()));
 		}
 
 		/*если найденный листовой узел для вставки полный, разбиваем его, иначе вставляем новый элемент*/
@@ -262,7 +263,7 @@ class BTree
 	 *
 	 * @param newItem вставляемый элемент
 	 */
-	private void insertIntoBTree(DataItem newItem)
+	private void insertIntoBTree(Item newItem)
 	{
 		BNode currentBNode = root;
 
@@ -273,7 +274,7 @@ class BTree
 			{
 				splitBNode(currentBNode);
 				currentBNode = currentBNode.getParent();
-				currentBNode = getNextChild(currentBNode, newItem.getDData());
+				currentBNode = getNextChild(currentBNode, (newItem.getKey()));
 			}
 			/*узел листовой*/
 			else if (currentBNode.isLeaf())
@@ -282,7 +283,7 @@ class BTree
 			}
 			else
 			{
-				currentBNode = getNextChild(currentBNode, newItem.getDData());
+				currentBNode = getNextChild(currentBNode, (newItem.getKey()));
 			}
 		}
 		currentBNode.insertItem(newItem);
@@ -298,7 +299,7 @@ class BTree
 	 * @param brokenBNode разбиваемый узел(предполагается, что разбиваемый узел полон)
 	 * @param newItem     вставляемый элемент данных
 	 */
-	private void splitNodeOrder3(BNode brokenBNode, DataItem newItem)
+	private void splitNodeOrder3(BNode brokenBNode, Item newItem)
 	{
 		/*создание и наполнение ноды более высокого порядка для сортировки элементов*/
 		BNode highOrderNode = new BNode(getTreeOrder().nextOrder(), newItem);
@@ -377,7 +378,7 @@ class BTree
 					brokenBNode.clean();
 
 					/*разбиение происходит в левом элементе*/
-					if (highOrderNode.getItem(CENTRAL_ITEM).getDData() < parentNode.getItem(LEFT_ITEM).getDData())
+					if (highOrderNode.getItem(CENTRAL_ITEM).getKey() < parentNode.getItem(LEFT_ITEM).getKey())
 					{
 						/*брат разбиваемого узла смещается на 1 позицию правее*/
 						parentNode.connectChild(RIGHT_CHILD, parentNode.disconnectChild(CENTRAL_CHILD));
@@ -385,7 +386,7 @@ class BTree
 						parentNode.connectChild(CENTRAL_CHILD, getNewNode(highOrderNode.getItem(RIGHT_ITEM)));
 					}
 					/*разбиение происходит в правом узле элементе*/
-					else if (highOrderNode.getItem(CENTRAL_ITEM).getDData() > parentNode.getItem(LEFT_ITEM).getDData())
+					else if (highOrderNode.getItem(CENTRAL_ITEM).getKey() > parentNode.getItem(LEFT_ITEM).getKey())
 					{
 						/*к родительскому узлу прикрепляется новый брат разбиваемого узла содержащий наибольший элемент*/
 						parentNode.connectChild(RIGHT_CHILD, getNewNode(highOrderNode.getItem(RIGHT_ITEM)));
@@ -403,7 +404,7 @@ class BTree
 					Pair<BNode, BNode> childNodes = getNewChildNodes(highOrderNode, brokenBNode, newItem);
 
 					/*распределяем дочерние элементы родителького узла*/
-					if (parentNode.getItem(LEFT_ITEM).getDData() > childNodes.getValue().getItem(LEFT_ITEM).getDData())
+					if (parentNode.getItem(LEFT_ITEM).getKey() > childNodes.getValue().getItem(LEFT_ITEM).getKey())
 					{
 						/*смешаем среднего потомка родительского элемента на одну позицию правее*/
 						parentNode.connectChild(RIGHT_CHILD, parentNode.disconnectChild(CENTRAL_CHILD));
@@ -434,7 +435,7 @@ class BTree
 	 * @param newItem       новый элемент данных
 	 * @return пара содержащая новую левую и правую ноды
 	 */
-	private Pair<BNode, BNode> getNewChildNodes(BNode highOrderNode, BNode brokenBNode, DataItem newItem)
+	private Pair<BNode, BNode> getNewChildNodes(BNode highOrderNode, BNode brokenBNode, Item newItem)
 	{
 		BNode newLeftChild = getNewNode();
 		BNode newRightChild = getNewNode();
@@ -449,7 +450,7 @@ class BTree
 		newRightChild.insertItem(highOrderNode.getItem(RIGHT_ITEM));
 
 		/*источник разбиения левый потомок*/
-		if (highOrderNode.getItem(LEFT_ITEM).getDData() == newItem.getDData())
+		if (highOrderNode.getItem(LEFT_ITEM).getKey() == newItem.getKey())
 		{
 			/*если дочерний узел не содержит элементов данных, значит он подвергался разбиению, необходимые узлы лежат на уровень ниже*/
 			if (brokenBNode.getChild(LEFT_CHILD).getItem(LEFT_ITEM) == null)
@@ -475,7 +476,7 @@ class BTree
 			newRightChild.connectChild(CENTRAL_CHILD, brokenBNode.disconnectChild(RIGHT_CHILD));
 		}
 		/*источник разбиения правый потомок*/
-		else if (highOrderNode.getItem(RIGHT_ITEM).getDData() == newItem.getDData())
+		else if (highOrderNode.getItem(RIGHT_ITEM).getKey() == newItem.getKey())
 		{
 			/*к новому левому потомку в качестве дочерних узлов присоединяем левый и средний узлы потомки разбиваемого узла*/
 			newLeftChild.connectChild(LEFT_CHILD, brokenBNode.disconnectChild(LEFT_CHILD));
@@ -497,7 +498,7 @@ class BTree
 				newRightChild.connectChild(LEFT_CHILD, getNewNode(brokenBNode.getChild(RIGHT_CHILD).getItem(LEFT_ITEM)));
 
 				/*очищаем правого потомка разбиваемого узла и вновь заполняем наибольшим элементом данных*/
-				DataItem tempItem = brokenBNode.getChild(RIGHT_CHILD).removeItem();
+				Item tempItem = brokenBNode.getChild(RIGHT_CHILD).removeItem();
 				brokenBNode.getChild(RIGHT_CHILD).removeItem();
 				brokenBNode.getChild(RIGHT_CHILD).insertItem(tempItem);
 
@@ -506,7 +507,7 @@ class BTree
 			}
 		}
 		/*источник разбиения средний потомок*/
-		else if (highOrderNode.getItem(CENTRAL_ITEM).getDData() == newItem.getDData())
+		else if (highOrderNode.getItem(CENTRAL_ITEM).getKey() == newItem.getKey())
 		{
 			/*к новому левому потомку в качестве дочернего узла присоединяем левого потомка разбиваемого узла*/
 			newLeftChild.connectChild(LEFT_CHILD, brokenBNode.disconnectChild(LEFT_CHILD));
@@ -547,8 +548,8 @@ class BTree
 		BNode parent;
 		int itemIndex;
 
-		DataItem itemC = brokenBNode.removeItem();
-		DataItem itemB = brokenBNode.removeItem();
+		Item itemC = brokenBNode.removeItem();
+		Item itemB = brokenBNode.removeItem();
 
 		BNode child2 = brokenBNode.disconnectChild(getTreeOrder().getOrder() - 2);
 		BNode child3 = brokenBNode.disconnectChild(getTreeOrder().getOrder() - 1);

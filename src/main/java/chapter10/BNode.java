@@ -1,5 +1,7 @@
 package chapter10;
 
+import base.Item;
+
 /**
  * Узел B-дерева
  *
@@ -13,7 +15,7 @@ class BNode
 	private final int order;
 	private int numItems;
 	private BNode parent;
-	private DataItem[] itemArray;
+	private Item[] itemArray;
 	private BNode[] childArray;
 
 	/**
@@ -24,7 +26,7 @@ class BNode
 	BNode(Order order)
 	{
 		this.order = order.getOrder();
-		itemArray = new DataItem[this.order - 1];
+		itemArray = new Item[this.order - 1];
 		childArray = new BNode[this.order];
 	}
 
@@ -32,12 +34,12 @@ class BNode
 	 * ctor
 	 *
 	 * @param order    порядок B-дерева
-	 * @param dataItem элемент данных
+	 * @param item элемент данных
 	 */
-	BNode(Order order, DataItem dataItem)
+	BNode(Order order, Item item)
 	{
 		this(order);
-		this.insertItem(dataItem);
+		this.insertItem(item);
 	}
 
 	/**
@@ -54,7 +56,7 @@ class BNode
 	 * @param index индекс элемента данных
 	 * @return элемент данных
 	 */
-	DataItem getItem(int index)
+	Item getItem(int index)
 	{
 		if ((index < 0) || (index >= itemArray.length))
 		{
@@ -143,7 +145,7 @@ class BNode
 			{
 				break;
 			}
-			else if (itemArray[i].getDData() == key)
+			else if ((long)itemArray[i].getKey() == key)
 			{
 				return i;
 			}
@@ -158,15 +160,15 @@ class BNode
 	 * @param newItem элемент данных
 	 * @return индекс вставленного элемента данных
 	 */
-	int insertItem(DataItem newItem)
+	int insertItem(Item newItem)
 	{
 		numItems++;
-		long newKey = newItem.getDData();
+		long newKey = (long)newItem.getKey();
 		for (int i = order - 2; i >= 0; i--)
 		{
 			if (itemArray[i] != null)
 			{
-				long itsKey = itemArray[i].getDData();
+				long itsKey = (long)itemArray[i].getKey();
 				if (newKey < itsKey)
 				{
 					itemArray[i + 1] = itemArray[i];
@@ -199,14 +201,14 @@ class BNode
 	 *
 	 * @return удаленный элемент данных
 	 */
-	DataItem removeItem()
+	Item removeItem()
 	{
 		if (numItems == 0)
 		{
 			return null;
 		}
 
-		DataItem temp = itemArray[numItems - 1];
+		Item temp = itemArray[numItems - 1];
 		itemArray[numItems - 1] = null;
 		numItems--;
 		return temp;

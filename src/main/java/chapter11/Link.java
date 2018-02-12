@@ -30,4 +30,10 @@ public class Link implements Item
 	{
 		return data;
 	}
+
+	@Override
+	public String getDisplayData()
+	{
+		return String.valueOf(data);
+	}
 }
