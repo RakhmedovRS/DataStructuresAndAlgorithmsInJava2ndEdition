@@ -29,7 +29,7 @@ public class Test
 
 		for (int i = 0, j = 0, freq = 1000; i < freq; i++)
 		{
-			list.insertFirst(i, i * 0.1D);
+			list.insert(i, i * 0.1D);
 
 			if (i == 999)
 			{
@@ -45,14 +45,14 @@ public class Test
 
 		LinkedList list = new SortedLinkedList();
 
-		list.insertFirst(10, 100);
-		list.insertFirst(11, 111);
-		list.insertFirst(12, 16);
-		list.insertFirst(13, 15);
-		list.insertFirst(17, 11);
-		list.insertFirst(14, 14);
-		list.insertFirst(15, 13);
-		list.insertFirst(16, 12);
+		list.insert(10, 100);
+		list.insert(11, 111);
+		list.insert(12, 16);
+		list.insert(13, 15);
+		list.insert(17, 11);
+		list.insert(14, 14);
+		list.insert(15, 13);
+		list.insert(16, 12);
 
 		list.displayList();
 
@@ -117,14 +117,14 @@ public class Test
 
 		CyclicList list = new CyclicList();
 
-		list.insertFirst(1, 1);
-		list.insertFirst(2, 2);
-		list.insertFirst(3, 3);
-		list.insertFirst(4, 4);
-		list.insertFirst(5, 5);
-		list.insertFirst(6, 6);
-		list.insertFirst(7, 7);
-		list.insertFirst(8, 8);
+		list.insert(1, 1);
+		list.insert(2, 2);
+		list.insert(3, 3);
+		list.insert(4, 4);
+		list.insert(5, 5);
+		list.insert(6, 6);
+		list.insert(7, 7);
+		list.insert(8, 8);
 
 		list.displayList();
 		list.delete(5);

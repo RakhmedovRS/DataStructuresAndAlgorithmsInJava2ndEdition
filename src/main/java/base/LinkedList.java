@@ -21,10 +21,10 @@ public interface LinkedList<T extends LinkItem>
 	/**
 	 * Вставка элемента в список
 	 *
-	 * @param iData ключ
-	 * @param dData значение
+	 * @param key ключ
+	 * @param data значение
 	 */
-	void insertFirst(int iData, double dData);
+	void insert(int key, double data);
 
 	/**
 	 * Удаление первого элемента в списке

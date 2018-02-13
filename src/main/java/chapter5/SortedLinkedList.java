@@ -27,13 +27,13 @@ class SortedLinkedList implements LinkedList<LinkItem>
 	}
 
 	@Override
-	public void insertFirst(int iData, double dData)
+	public void insert(int key, double data)
 	{
-		LinkItem newLink = new Link(iData, dData);
+		LinkItem newLink = new Link(key, data);
 
 		if (!isEmpty())
 		{
-			if (first.getData() > dData)
+			if (first.getData() > data)
 			{
 				newLink.setNext(first);
 				first = newLink;
@@ -43,7 +43,7 @@ class SortedLinkedList implements LinkedList<LinkItem>
 				LinkItem current = first;
 				while (current.getNext() != null)
 				{
-					if (current.getData() <= dData && current.getNext().getData() > dData)
+					if (current.getData() <= data && current.getNext().getData() > data)
 					{
 						break;
 					}

@@ -4,6 +4,7 @@ import base.LinkItem;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Random;
 import java.util.stream.IntStream;
 
 import static org.junit.Assert.*;
@@ -31,7 +32,7 @@ public class SortedLinkListTest
 	{
 		assertTrue(sortedLinkList.isEmpty());
 
-		sortedLinkList.insertFirst(1, 1);
+		sortedLinkList.insert(1, 1);
 
 		assertFalse(sortedLinkList.isEmpty());
 	}
@@ -39,18 +40,18 @@ public class SortedLinkListTest
 	@Test
 	public void checkGetFirstMethod()
 	{
-		sortedLinkList.insertFirst(1, 1);
+		sortedLinkList.insert(1, 1);
 		assertNotNull(sortedLinkList.getFirst());
 	}
 
 	@Test
 	public void checkInsertFirstMethod()
 	{
-		IntStream.range(1, 10).forEach(k -> sortedLinkList.insertFirst(k, k));
+		IntStream.range(1, 10).forEach(k -> sortedLinkList.insert(k, k));
 
 		assertTrue(1 == sortedLinkList.getFirst().getData());
 
-		sortedLinkList.insertFirst(0, 0);
+		sortedLinkList.insert(0, 0);
 
 		assertTrue(0 == sortedLinkList.getFirst().getData());
 	}
@@ -58,7 +59,7 @@ public class SortedLinkListTest
 	@Test
 	public void checkLinkSearch()
 	{
-		IntStream.range(0, 10).forEach(k -> sortedLinkList.insertFirst(k, k));
+		IntStream.range(0, 10).forEach(k -> sortedLinkList.insert(k, k));
 		assertNotNull(sortedLinkList.find(5));
 	}
 
@@ -71,7 +72,7 @@ public class SortedLinkListTest
 	@Test
 	public void checkDeleteFirstMethodOnFilledLinkedList()
 	{
-		IntStream.range(0, 10).forEach(k -> sortedLinkList.insertFirst(k, k));
+		IntStream.range(0, 10).forEach(k -> sortedLinkList.insert(k, k));
 
 		LinkItem link = sortedLinkList.getFirst();
 
@@ -83,12 +84,31 @@ public class SortedLinkListTest
 	@Test
 	public void checkDeleteMethod()
 	{
-		IntStream.range(0, 10).forEach(k -> sortedLinkList.insertFirst(k, k));
+		IntStream.range(0, 10).forEach(k -> sortedLinkList.insert(k, k));
 
 		assertNotNull(sortedLinkList.find(5));
 
 		sortedLinkList.delete(5);
 
 		assertNull(sortedLinkList.find(5));
+	}
+
+	@Test
+	public void checkSorting()
+	{
+		sortedLinkList = new SortedLinkedList();
+
+		IntStream.range(0, 100).forEach((key) -> sortedLinkList.insert(key, java.lang.Math.random() * 100));
+
+		LinkItem current = sortedLinkList.getFirst();
+		LinkItem next = current.getNext();
+
+		while (next != null)
+		{
+			assertTrue(current.getData() < next.getData());
+
+			current = next;
+			next = current.getNext();
+		}
 	}
 }

@@ -29,7 +29,7 @@ public class LinkListTest
 	{
 		assertTrue(linkList.isEmpty());
 
-		linkList.insertFirst(1, 1);
+		linkList.insert(1, 1);
 
 		assertFalse(linkList.isEmpty());
 	}
@@ -37,14 +37,14 @@ public class LinkListTest
 	@Test
 	public void checkGetFirstMethod()
 	{
-		linkList.insertFirst(1, 1);
+		linkList.insert(1, 1);
 		assertNotNull(linkList.getFirst());
 	}
 
 	@Test
 	public void checkLinkSearch()
 	{
-		IntStream.range(0, 10).forEach(k -> linkList.insertFirst(k, k));
+		IntStream.range(0, 10).forEach(k -> linkList.insert(k, k));
 		assertNotNull(linkList.find(5));
 	}
 
@@ -57,7 +57,7 @@ public class LinkListTest
 	@Test
 	public void checkDeleteFirstMethodOnFilledLinkedList()
 	{
-		IntStream.range(0, 10).forEach(k -> linkList.insertFirst(k, k));
+		IntStream.range(0, 10).forEach(k -> linkList.insert(k, k));
 
 		LinkItem link = linkList.getFirst();
 
@@ -69,7 +69,7 @@ public class LinkListTest
 	@Test
 	public void checkDeleteMethod()
 	{
-		IntStream.range(0, 10).forEach(k -> linkList.insertFirst(k, k));
+		IntStream.range(0, 10).forEach(k -> linkList.insert(k, k));
 
 		assertNotNull(linkList.find(5));
 

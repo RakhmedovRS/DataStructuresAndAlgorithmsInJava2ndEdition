@@ -20,7 +20,7 @@ class PriorityQueueOnSortedLinkedList implements Queue
 	@Override
 	public void insert(long value)
 	{
-		list.insertFirst(counter++, value);
+		list.insert(counter++, value);
 	}
 
 	@Override

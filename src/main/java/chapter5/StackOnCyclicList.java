@@ -24,7 +24,7 @@ class StackOnCyclicList implements Queue
 	@Override
 	public void insert(long value)
 	{
-		cyclicList.insertFirst(counter++, value);
+		cyclicList.insert(counter++, value);
 	}
 
 	@Override

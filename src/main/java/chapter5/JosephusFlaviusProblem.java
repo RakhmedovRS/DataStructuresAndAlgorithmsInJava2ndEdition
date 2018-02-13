@@ -19,10 +19,10 @@ public class JosephusFlaviusProblem
 	{
 		CyclicList cyclicList = new CyclicList();
 
-		cyclicList.insertFirst(1, 1);
+		cyclicList.insert(1, 1);
 		for (int i = peopleCount; i > 1; i--)
 		{
-			cyclicList.insertFirst(i, i);
+			cyclicList.insert(i, i);
 		}
 
 		while (cyclicList.current.getKey() != peopleNumber)

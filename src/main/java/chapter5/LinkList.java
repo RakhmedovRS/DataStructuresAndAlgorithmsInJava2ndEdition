@@ -27,9 +27,9 @@ class LinkList implements LinkedList<LinkItem>
 	}
 
 	@Override
-	public void insertFirst(int iData, double dData)
+	public void insert(int key, double data)
 	{
-		Link newLink = new Link(iData, dData);
+		Link newLink = new Link(key, data);
 		newLink.setNext(first);
 		first = newLink;
 	}

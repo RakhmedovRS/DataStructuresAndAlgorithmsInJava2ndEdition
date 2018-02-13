@@ -16,10 +16,10 @@ public class Link implements LinkItem
 	private int key;
 	private LinkItem next;
 
-	Link(int iData, double dData)
+	Link(int key, double data)
 	{
-		this.key = iData;
-		this.data = dData;
+		this.key = key;
+		this.data = data;
 	}
 
 	@Override
