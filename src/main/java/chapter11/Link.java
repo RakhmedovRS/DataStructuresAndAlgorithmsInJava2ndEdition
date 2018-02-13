@@ -1,6 +1,6 @@
 package chapter11;
 
-import base.Item;
+import base.LinkItem;
 
 /**
  * Сущность элемент списка
@@ -10,10 +10,10 @@ import base.Item;
  * @$Author$
  * @$Revision$
  */
-public class Link implements Item
+public class Link implements LinkItem
 {
 	private int data;
-	public Link next;
+	private LinkItem next;
 
 	/**
 	 * Конструктор
@@ -23,6 +23,30 @@ public class Link implements Item
 	public Link(int data)
 	{
 		this.data = data;
+	}
+
+	@Override
+	public double getData()
+	{
+		return data;
+	}
+
+	@Override
+	public LinkItem getNext()
+	{
+		return next;
+	}
+
+	@Override
+	public void setNext(LinkItem next)
+	{
+		this.next = next;
+	}
+
+	@Override
+	public void displayLink()
+	{
+		System.out.println(getDisplayData());
 	}
 
 	@Override

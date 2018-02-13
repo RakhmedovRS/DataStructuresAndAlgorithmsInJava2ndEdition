@@ -27,6 +27,13 @@ public interface LinkedList<T extends LinkItem>
 	void insert(int key, double data);
 
 	/**
+	 * Вставка элемента в список
+	 *
+	 * @param item вставляемый элемент
+	 */
+	void insert(T item);
+
+	/**
 	 * Удаление первого элемента в списке
 	 *
 	 * @return удаленный элемент

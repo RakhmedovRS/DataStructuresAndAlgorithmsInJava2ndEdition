@@ -25,7 +25,7 @@ public interface HashTable<T extends Item>
 	 *
 	 * @param item элемент данных
 	 */
-	void insert(Item item);
+	void insert(T item);
 
 	/**
 	 * Удалить элемент данных из хэщш-таблицы

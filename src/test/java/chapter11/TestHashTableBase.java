@@ -20,7 +20,7 @@ abstract public class TestHashTableBase
 	/**
 	 * Тестирование функции вычисляющей хэш-значение
 	 */
-	public static void testHashFunction(HashTable hashTable)
+	public static void testHashFunction(HashTable<? extends Item> hashTable)
 	{
 		assertEquals(1, hashTable.hashFunction(1));
 		assertEquals(1, hashTable.hashFunction(201));
@@ -31,9 +31,9 @@ abstract public class TestHashTableBase
 	/**
 	 * Тестирование метода вставки в хэш-таблицу элементов данных
 	 */
-	public static void testInsertMethod(HashTable hashTable)
+	public static void testInsertMethod(HashTable<? super Item> hashTable)
 	{
-		DataItem insertedItem = new DataItem(101);
+		Item insertedItem = new DataItem(101);
 
 		hashTable.insert(insertedItem);
 
@@ -43,12 +43,12 @@ abstract public class TestHashTableBase
 	/**
 	 * Тестирование метода удаления элементов данных из хэш-таблицы
 	 */
-	public static void testDeleteMethod(HashTable hashTable)
+	public static void testDeleteMethod(HashTable<? extends Item> hashTable)
 	{
 		Item deletedItem = hashTable.delete(10);
 
 		assertNotNull(deletedItem);
-		assertTrue((int)deletedItem.getKey() == 10);
+		assertTrue(deletedItem.getKey() == 10);
 
 		deletedItem = hashTable.delete(10);
 		assertNull(deletedItem);
@@ -57,7 +57,7 @@ abstract public class TestHashTableBase
 	/**
 	 * Тестирование метода получения данных для печати хэш-таблицы
 	 */
-	public static void testGetDisplayDataMethod(HashTable hashTable)
+	public static void testGetDisplayDataMethod(HashTable<? extends Item> hashTable)
 	{
 		assertNotNull(hashTable.getDisplayData());
 	}

@@ -11,11 +11,11 @@ import base.LinkedList;
  * @$Author$
  * @$Revision$
  */
-class SortedLinkedList implements LinkedList<LinkItem>
+public class SortedLinkedList implements LinkedList<LinkItem>
 {
 	private LinkItem first;
 
-	SortedLinkedList()
+	public SortedLinkedList()
 	{
 		first = null;
 	}
@@ -29,34 +29,38 @@ class SortedLinkedList implements LinkedList<LinkItem>
 	@Override
 	public void insert(int key, double data)
 	{
-		LinkItem newLink = new Link(key, data);
+		insert(new Link(key, data));
+	}
 
+	@Override
+	public void insert(LinkItem item)
+	{
 		if (!isEmpty())
 		{
-			if (first.getData() > data)
+			if (first.getData() > item.getData())
 			{
-				newLink.setNext(first);
-				first = newLink;
+				item.setNext(first);
+				first = item;
 			}
 			else
 			{
 				LinkItem current = first;
 				while (current.getNext() != null)
 				{
-					if (current.getData() <= data && current.getNext().getData() > data)
+					if (current.getData() <= item.getData() && current.getNext().getData() > item.getData())
 					{
 						break;
 					}
 					current = current.getNext();
 				}
-				newLink.setNext(current.getNext());
-				current.setNext(newLink);
+				item.setNext(current.getNext());
+				current.setNext(item);
 			}
 		}
 		else
 		{
-			newLink.setNext(first);
-			first = newLink;
+			item.setNext(first);
+			first = item;
 		}
 	}
 
@@ -96,8 +100,14 @@ class SortedLinkedList implements LinkedList<LinkItem>
 	public LinkItem delete(int key)
 	{
 		LinkItem current = first;
-		LinkItem prev = first;
-		while (current.getKey() != key)
+		LinkItem previous = null;
+
+		if (isEmpty())
+		{
+			return null;
+		}
+
+		while (current.getKey() != key && current.getKey() < key)
 		{
 			if (current.getNext() == null)
 			{
@@ -105,10 +115,19 @@ class SortedLinkedList implements LinkedList<LinkItem>
 			}
 			else
 			{
+				previous = current;
 				current = current.getNext();
 			}
 		}
-		prev.setNext(current.getNext());
+
+		if (previous == null)
+		{
+			first = null;
+		}
+		else
+		{
+			previous.setNext(current.getNext());
+		}
 
 		return current;
 	}
@@ -122,14 +141,40 @@ class SortedLinkedList implements LinkedList<LinkItem>
 	@Override
 	public void displayList()
 	{
-		System.out.print("List (first-->last): ");
+		System.out.println(getDisplayData());
+	}
+
+	/**
+	 * @return данные для вывода связанного списка на печать
+	 */
+	public String getDisplayData()
+	{
+		StringBuilder stringBuilder = new StringBuilder();
+
+		stringBuilder.append("List (first-->last): ");
 		LinkItem current = first;
+
+		if (current == null)
+		{
+			return stringBuilder.toString();
+		}
+
 		while (current.getNext() != null)
 		{
-			current.displayLink();
-			current = current.getNext();
+			stringBuilder.append(current.getDisplayData());
+
+			if (current.getNext() != null)
+			{
+				current = current.getNext();
+			}
+			else
+			{
+				break;
+			}
 		}
-		current.displayLink();
-		System.out.println("");
+		stringBuilder.append(current.getDisplayData());
+		stringBuilder.append("");
+
+		return stringBuilder.toString();
 	}
 }

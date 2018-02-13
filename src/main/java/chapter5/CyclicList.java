@@ -31,17 +31,21 @@ class CyclicList implements LinkedList<LinkItem>
 	@Override
 	public void insert(int key, double data)
 	{
-		Link newLink = new Link(key, data);
+		insert(new Link(key, data));
+	}
 
+	@Override
+	public void insert(LinkItem item)
+	{
 		if (current == null)
 		{
-			current = newLink;
-			newLink.setNext(current);
+			current = item;
+			item.setNext(current);
 		}
 		else
 		{
-			newLink.setNext(current.getNext());
-			current.setNext(newLink);
+			item.setNext(current.getNext());
+			current.setNext(item);
 		}
 	}
 
