@@ -1,5 +1,6 @@
 package chapter5;
 
+import base.LinkItem;
 import base.LinkedList;
 
 /**
@@ -12,9 +13,9 @@ import base.LinkedList;
  * @$Author$
  * @$Revision$
  */
-class CyclicList implements LinkedList
+class CyclicList implements LinkedList<LinkItem>
 {
-	Link current;
+	LinkItem current;
 
 	CyclicList()
 	{
@@ -35,31 +36,31 @@ class CyclicList implements LinkedList
 		if (current == null)
 		{
 			current = newLink;
-			newLink.next = current;
+			newLink.setNext(current);
 		}
 		else
 		{
-			newLink.next = current.next;
-			current.next = newLink;
+			newLink.setNext(current.getNext());
+			current.setNext(newLink);
 		}
 	}
 
 	@Override
-	public Link deleteFirst()
+	public LinkItem deleteFirst()
 	{
-		Link temp = current;
+		LinkItem temp = current;
 
 		if (!isEmpty())
 		{
-			if (current.next == current)
+			if (current.getNext() == current)
 			{
 				temp = current;
 				current = null;
 			}
 			else
 			{
-				temp = current.next;
-				current.next = current.next.next;
+				temp = current.getNext();
+				current.setNext(current.getNext().getNext());
 			}
 		}
 
@@ -67,20 +68,20 @@ class CyclicList implements LinkedList
 	}
 
 	@Override
-	public Link find(int key)
+	public LinkItem find(int key)
 	{
 		if (!isEmpty())
 		{
-			Link temp = this.current;
-			while (temp.iData != key)
+			LinkItem temp = this.current;
+			while (temp.getKey() != key)
 			{
-				if ((temp.next == null) || (temp.next == this.current))
+				if ((temp.getNext() == null) || (temp.getNext() == this.current))
 				{
 					return null;
 				}
 				else
 				{
-					temp = temp.next;
+					temp = temp.getNext();
 				}
 			}
 
@@ -93,24 +94,24 @@ class CyclicList implements LinkedList
 	}
 
 	@Override
-	public Link delete(int key)
+	public LinkItem delete(int key)
 	{
-		Link tempCurrent;
+		LinkItem tempCurrent;
 
-		while (current.next.iData != key)
+		while (current.getNext().getKey() != key)
 		{
-			current = current.next;
+			current = current.getNext();
 		}
 
-		if (current.next == current)
+		if (current.getNext() == current)
 		{
 			tempCurrent = current;
 			current = null;
 		}
 		else
 		{
-			tempCurrent = current.next;
-			current.next = current.next.next;
+			tempCurrent = current.getNext();
+			current.setNext(current.getNext().getNext());
 			step();
 		}
 
@@ -118,7 +119,7 @@ class CyclicList implements LinkedList
 	}
 
 	@Override
-	public Link getFirst()
+	public LinkItem getFirst()
 	{
 		return current;
 	}
@@ -126,14 +127,14 @@ class CyclicList implements LinkedList
 	@Override
 	public void displayList()
 	{
-		Link temp = current;
+		LinkItem temp = current;
 		System.out.print("List (current->current-1): ");
 		if (!isEmpty())
 		{
 			while (true)
 			{
-				System.out.print(temp.dData + " ");
-				temp = temp.next;
+				System.out.print(temp.getData() + " ");
+				temp = temp.getNext();
 
 				if (temp == current)
 				{
@@ -148,11 +149,11 @@ class CyclicList implements LinkedList
 		System.out.println("");
 	}
 
-	Link step()
+	LinkItem step()
 	{
 		if (current != null)
 		{
-			current = current.next;
+			current = current.getNext();
 			return current;
 		}
 		else

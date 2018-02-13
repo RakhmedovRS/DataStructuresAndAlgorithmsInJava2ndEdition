@@ -1,5 +1,7 @@
 package chapter5;
 
+import base.LinkItem;
+
 /**
  * Элемент списка
  *
@@ -8,20 +10,51 @@ package chapter5;
  * @$Author$
  * @$Revision$
  */
-public class Link
+public class Link implements LinkItem
 {
-	public double dData;
-	int iData;
-	Link next;
+	private double data;
+	private int key;
+	private LinkItem next;
 
 	Link(int iData, double dData)
 	{
-		this.iData = iData;
-		this.dData = dData;
+		this.key = iData;
+		this.data = dData;
 	}
 
-	void displayLink()
+	@Override
+	public int getKey()
 	{
-		System.out.print(String.format("{%s, %s}", iData, dData));
+		return key;
+	}
+
+	@Override
+	public double getData()
+	{
+		return data;
+	}
+
+	@Override
+	public LinkItem getNext()
+	{
+		return next;
+	}
+
+	@Override
+	public void setNext(LinkItem next)
+	{
+		this.next = next;
+	}
+
+	@Override
+	public String getDisplayData()
+	{
+		return String.format("{%s, %s}", key, data);
+	}
+
+	@Override
+	public void displayLink()
+	{
+		System.out.print(getDisplayData());
 	}
 }

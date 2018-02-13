@@ -42,7 +42,7 @@ public class CyclicListTest
 
 		Link link = new Link(1, 1);
 
-		assertTrue(link.dData == cyclicList.getFirst().dData);
+		assertTrue(link.getData() == cyclicList.getFirst().getData());
 	}
 
 	@Test
@@ -55,8 +55,8 @@ public class CyclicListTest
 		cyclicList.insertFirst(2, 2);
 		cyclicList.insertFirst(3, 3);
 
-		assertTrue(link2.dData == cyclicList.deleteFirst().dData);
-		assertTrue(link.dData == cyclicList.getFirst().dData);
+		assertTrue(link2.getData() == cyclicList.deleteFirst().getData());
+		assertTrue(link.getData() == cyclicList.getFirst().getData());
 	}
 
 	@Test
@@ -69,8 +69,8 @@ public class CyclicListTest
 		cyclicList.insertFirst(2, 2);
 		cyclicList.insertFirst(3, 3);
 
-		assertTrue(link.dData == cyclicList.find(link.iData).dData);
-		assertTrue(link2.dData == cyclicList.find(link2.iData).dData);
+		assertTrue(link.getData() == cyclicList.find(link.getKey()).getData());
+		assertTrue(link2.getData() == cyclicList.find(link2.getKey()).getData());
 	}
 
 	@Test
@@ -82,8 +82,8 @@ public class CyclicListTest
 		cyclicList.insertFirst(2, 2);
 		cyclicList.insertFirst(3, 3);
 
-		assertTrue(link.dData == cyclicList.find(link.iData).dData);
-		cyclicList.delete(link.iData);
-		assertNull(cyclicList.find(link.iData));
+		assertTrue(link.getData() == cyclicList.find(link.getKey()).getData());
+		cyclicList.delete(link.getKey());
+		assertNull(cyclicList.find(link.getKey()));
 	}
 }

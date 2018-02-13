@@ -1,5 +1,6 @@
 package chapter5;
 
+import base.DoubleLinkItem;
 import base.DoublyLinkedList;
 
 /**
@@ -10,10 +11,10 @@ import base.DoublyLinkedList;
  * @$Author$
  * @$Revision$
  */
-class DLinkList implements DoublyLinkedList
+class DLinkList implements DoublyLinkedList<DoubleLinkItem>
 {
-	private DoubleLink first;
-	private DoubleLink last;
+	private DoubleLinkItem first;
+	private DoubleLinkItem last;
 
 	DLinkList()
 	{
@@ -30,15 +31,15 @@ class DLinkList implements DoublyLinkedList
 	@Override
 	public void insertFirst(long value)
 	{
-		DoubleLink newLink = new DoubleLink(value);
+		DoubleLinkItem newLink = new DoubleLink(value);
 		if (isEmpty())
 		{
 			last = newLink;
 		}
 		else
 		{
-			first.previous = newLink;
-			newLink.next = first;
+			first.setPrevious(newLink);
+			newLink.setNext(first);
 		}
 		first = newLink;
 	}
@@ -53,42 +54,42 @@ class DLinkList implements DoublyLinkedList
 		}
 		else
 		{
-			last.next = newLink;
-			newLink.previous = last;
+			last.setNext(newLink);
+			newLink.setPrevious(last);
 		}
 		last = newLink;
 	}
 
 	@Override
-	public DoubleLink deleteFirst()
+	public DoubleLinkItem deleteFirst()
 	{
-		DoubleLink temp = first;
-		if (first.next == null)
+		DoubleLinkItem temp = first;
+		if (first.getNext() == null)
 		{
 			last = null;
 		}
 		else
 		{
-			first.next.previous = null;
+			first.getNext().setPrevious(null);
 		}
-		first = first.next;
+		first = first.getNext();
 
 		return temp;
 	}
 
 	@Override
-	public DoubleLink deleteLast()
+	public DoubleLinkItem deleteLast()
 	{
-		DoubleLink temp = last;
-		if (first.next == null)
+		DoubleLinkItem temp = last;
+		if (first.getNext() == null)
 		{
 			first = null;
 		}
 		else
 		{
-			last.previous.next = null;
+			last.getPrevious().setNext(null);
 		}
-		last = last.previous;
+		last = last.getPrevious();
 
 		return temp;
 	}
@@ -96,10 +97,10 @@ class DLinkList implements DoublyLinkedList
 	@Override
 	public boolean insertAfter(long key, long dd)
 	{
-		DoubleLink current = first;
-		while (current.dData != key)
+		DoubleLinkItem current = first;
+		while (current.getData() != key)
 		{
-			current = current.next;
+			current = current.getNext();
 			if (current == null)
 			{
 				return false;
@@ -109,34 +110,34 @@ class DLinkList implements DoublyLinkedList
 		DoubleLink newLink = new DoubleLink(dd);
 		if (current == last)
 		{
-			newLink.next = null;
+			newLink.setNext(null);
 			last = newLink;
 		}
 		else
 		{
-			newLink.next = current.next;
-			current.next.previous = newLink;
+			newLink.setNext(current.getNext());
+			current.getNext().setPrevious(newLink);
 		}
 
-		newLink.previous = current;
-		current.next = newLink;
+		newLink.setPrevious(current);
+		current.setNext(newLink);
 
 		return true;
 	}
 
 	@Override
-	public DoubleLink deleteKey(long key)
+	public DoubleLinkItem deleteKey(long key)
 	{
-		DoubleLink current = first;
+		DoubleLinkItem current = first;
 
 		if (first == null)
 		{
 			return current;
 		}
 
-		while (current.dData != key)
+		while (current.getData() != key)
 		{
-			current = current.next;
+			current = current.getNext();
 			if (current == null)
 			{
 				return null;
@@ -145,20 +146,20 @@ class DLinkList implements DoublyLinkedList
 
 		if (current == first)
 		{
-			first = current.next;
+			first = current.getNext();
 		}
 		else
 		{
-			current.previous.next = current.next;
+			current.getPrevious().setNext(current.getNext());
 		}
 
 		if (current == last)
 		{
-			last = current.previous;
+			last = current.getPrevious();
 		}
 		else
 		{
-			current.next.previous = current.previous;
+			current.getNext().setPrevious(current.getPrevious());
 		}
 
 		return current;
@@ -168,12 +169,12 @@ class DLinkList implements DoublyLinkedList
 	public void displayForward()
 	{
 		System.out.print("List (first-->last): ");
-		DoubleLink current = first;
+		DoubleLinkItem current = first;
 
 		while (current != null)
 		{
 			current.displayLink();
-			current = current.next;
+			current = current.getNext();
 		}
 		System.out.println("");
 	}
@@ -182,22 +183,22 @@ class DLinkList implements DoublyLinkedList
 	public void displayBackward()
 	{
 		System.out.print("List (last-->first): ");
-		DoubleLink current = last;
+		DoubleLinkItem current = last;
 
 		while (current != null)
 		{
 			current.displayLink();
-			current = current.previous;
+			current = current.getPrevious();
 		}
 		System.out.println("");
 	}
 
-	DoubleLink getFirst()
+	DoubleLinkItem getFirst()
 	{
 		return first;
 	}
 
-	DoubleLink getLast()
+	DoubleLinkItem getLast()
 	{
 		return last;
 	}

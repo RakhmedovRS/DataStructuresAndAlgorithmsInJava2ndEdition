@@ -1,5 +1,6 @@
 package chapter5;
 
+import base.LinkItem;
 import base.LinkedList;
 
 /**
@@ -10,9 +11,9 @@ import base.LinkedList;
  * @$Author$
  * @$Revision$
  */
-class LinkList implements LinkedList
+class LinkList implements LinkedList<LinkItem>
 {
-	private Link first;
+	private LinkItem first;
 
 	LinkList()
 	{
@@ -29,36 +30,36 @@ class LinkList implements LinkedList
 	public void insertFirst(int iData, double dData)
 	{
 		Link newLink = new Link(iData, dData);
-		newLink.next = first;
+		newLink.setNext(first);
 		first = newLink;
 	}
 
 	@Override
-	public Link deleteFirst()
+	public LinkItem deleteFirst()
 	{
 		if (isEmpty())
 		{
 			throw new UnsupportedOperationException("Link list is empty");
 		}
 
-		Link temp = first;
-		first = first.next;
+		LinkItem temp = first;
+		first = first.getNext();
 		return temp;
 	}
 
 	@Override
-	public Link find(int key)
+	public LinkItem find(int key)
 	{
-		Link current = first;
-		while (current.iData != key)
+		LinkItem current = first;
+		while (current.getKey() != key)
 		{
-			if (current.next == null)
+			if (current.getNext() == null)
 			{
 				return null;
 			}
 			else
 			{
-				current = current.next;
+				current = current.getNext();
 			}
 		}
 
@@ -66,29 +67,29 @@ class LinkList implements LinkedList
 	}
 
 	@Override
-	public Link delete(int key)
+	public LinkItem delete(int key)
 	{
-		Link current = first;
-		Link prev = first;
-		while (current.iData != key)
+		LinkItem current = first;
+		LinkItem prev = first;
+		while (current.getKey() != key)
 		{
-			if (current.next == null)
+			if (current.getNext() == null)
 			{
 				return null;
 			}
 			else
 			{
 				prev = current;
-				current = current.next;
+				current = current.getNext();
 			}
 		}
-		prev.next = current.next;
+		prev.setNext(current.getNext());
 
 		return current;
 	}
 
 	@Override
-	public Link getFirst()
+	public LinkItem getFirst()
 	{
 		return first;
 	}
@@ -97,11 +98,11 @@ class LinkList implements LinkedList
 	public void displayList()
 	{
 		System.out.print("List (first-->last): ");
-		Link current = first;
-		while (current.next != null)
+		LinkItem current = first;
+		while (current.getNext() != null)
 		{
 			current.displayLink();
-			current = current.next;
+			current = current.getNext();
 		}
 		System.out.println("");
 	}

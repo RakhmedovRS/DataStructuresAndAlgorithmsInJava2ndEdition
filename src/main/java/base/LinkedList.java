@@ -1,16 +1,15 @@
 package base;
 
-import chapter5.Link;
-
 /**
- * Интерфейс описывающий односторонний связанный список
+ * * Интерфейс описывающий односторонний связанный список
  *
+ * @param <T> тип расширающий интерфейс {@link LinkItem}
  * @author rassoll
  * @created 14.10.2017
  * @$Author$
  * @$Revision$
  */
-public interface LinkedList
+public interface LinkedList<T extends LinkItem>
 {
 	/**
 	 * Проверить пустоту коллекции
@@ -32,7 +31,7 @@ public interface LinkedList
 	 *
 	 * @return удаленный элемент
 	 */
-	Link deleteFirst();
+	T deleteFirst();
 
 	/**
 	 * Поиск элемента в списке
@@ -40,7 +39,7 @@ public interface LinkedList
 	 * @param key ключ для поиска
 	 * @return найденный элемент
 	 */
-	Link find(int key);
+	T find(int key);
 
 	/**
 	 * Удаление элемента с ключем key из списка
@@ -48,14 +47,14 @@ public interface LinkedList
 	 * @param key ключ для поиска удаляемого элемента
 	 * @return найденный элемент
 	 */
-	Link delete(int key);
+	T delete(int key);
 
 	/**
 	 * Получение первого элемента в списке
 	 *
 	 * @return первый элемент
 	 */
-	Link getFirst();
+	T getFirst();
 
 	/**
 	 * Вывод содержимого массива

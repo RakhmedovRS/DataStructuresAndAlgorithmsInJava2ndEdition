@@ -1,16 +1,15 @@
 package base;
 
-import chapter5.DoubleLink;
-
 /**
  * Интерфейс описывающий двухторонний связанный список
  *
+ * @param <T> тип реализующий интерфейс {@link DoubleLinkItem}
  * @author rassoll
  * @created 15.10.2017
  * @$Author$
  * @$Revision$
  */
-public interface DoublyLinkedList
+public interface DoublyLinkedList<T extends DoubleLinkItem>
 {
 	/**
 	 * Проверить пустоту коллекции
@@ -38,14 +37,14 @@ public interface DoublyLinkedList
 	 *
 	 * @return удаленный элемент
 	 */
-	DoubleLink deleteFirst();
+	T deleteFirst();
 
 	/**
 	 * Удаление элемента из конца списка
 	 *
 	 * @return удаленный элемент
 	 */
-	DoubleLink deleteLast();
+	T deleteLast();
 
 	/**
 	 * Вставка элемента dd после элемента key
@@ -62,7 +61,7 @@ public interface DoublyLinkedList
 	 * @param key удаляемый элемент
 	 * @return признак успешности удаления
 	 */
-	DoubleLink deleteKey(long key);
+	T deleteKey(long key);
 
 	/**
 	 * Отобразить содержимое в прямом порядке от first до last

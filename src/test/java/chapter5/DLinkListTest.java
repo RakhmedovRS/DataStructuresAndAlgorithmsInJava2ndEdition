@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
  */
 public class DLinkListTest
 {
-	DLinkList dLinkList;
+	private DLinkList dLinkList;
 
 	@Before
 	public void init()
@@ -54,19 +54,19 @@ public class DLinkListTest
 
 		DoubleLink doubleLink = new DoubleLink(3L);
 
-		assertEquals(doubleLink.dData, dLinkList.getFirst().dData);
+		assertTrue(doubleLink.getData() == dLinkList.getFirst().getData());
 	}
 
 	@Test
 	public void checkInsertLastMethod()
 	{
-		dLinkList.insertLast(1L);
-		dLinkList.insertLast(2L);
-		dLinkList.insertLast(3L);
+		dLinkList.insertLast(1);
+		dLinkList.insertLast(2);
+		dLinkList.insertLast(3);
 
 		DoubleLink doubleLink = new DoubleLink(3L);
 
-		assertEquals(doubleLink.dData, dLinkList.getLast().dData);
+		assertTrue(doubleLink.getData() == dLinkList.getLast().getData());
 	}
 
 	@Test
@@ -79,8 +79,8 @@ public class DLinkListTest
 		dLinkList.insertFirst(2L);
 		dLinkList.insertFirst(3L);
 
-		assertEquals(doubleLink2.dData, dLinkList.deleteFirst().dData);
-		assertEquals(doubleLink.dData, dLinkList.getFirst().dData);
+		assertTrue(doubleLink2.getData() == dLinkList.deleteFirst().getData());
+		assertTrue(doubleLink.getData() ==dLinkList.getFirst().getData());
 	}
 
 	@Test
@@ -93,8 +93,8 @@ public class DLinkListTest
 		dLinkList.insertLast(2L);
 		dLinkList.insertLast(3L);
 
-		assertEquals(doubleLink2.dData, dLinkList.deleteLast().dData);
-		assertEquals(doubleLink.dData, dLinkList.getLast().dData);
+		assertTrue(doubleLink2.getData() == dLinkList.deleteLast().getData());
+		assertTrue(doubleLink.getData() == dLinkList.getLast().getData());
 	}
 
 	@Test
@@ -106,15 +106,15 @@ public class DLinkListTest
 
 		dLinkList.insertAfter(3, 10);
 
-		assertTrue(dLinkList.getLast().dData == 10);
+		assertTrue(dLinkList.getLast().getData() == 10);
 	}
 
 	@Test
 	public void checkDeleteKeyMethod()
 	{
-		dLinkList.insertLast(1L);
-		dLinkList.insertLast(2L);
-		dLinkList.insertLast(3L);
+		dLinkList.insertLast(1);
+		dLinkList.insertLast(2);
+		dLinkList.insertLast(3);
 
 		dLinkList.deleteKey(2);
 		assertNull(dLinkList.deleteKey(2));

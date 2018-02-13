@@ -30,13 +30,13 @@ class StackOnCyclicList implements Queue
 	@Override
 	public long remove()
 	{
-		return (long) cyclicList.deleteFirst().dData;
+		return (long) cyclicList.deleteFirst().getData();
 	}
 
 	@Override
 	public long peekFront()
 	{
-		return (long) cyclicList.getFirst().dData;
+		return (long) cyclicList.getFirst().getData();
 	}
 
 	@Override

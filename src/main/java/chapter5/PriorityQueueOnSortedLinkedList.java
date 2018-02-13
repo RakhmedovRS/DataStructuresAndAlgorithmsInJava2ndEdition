@@ -26,13 +26,13 @@ class PriorityQueueOnSortedLinkedList implements Queue
 	@Override
 	public long remove()
 	{
-		return (long) list.deleteFirst().dData;
+		return (long) list.deleteFirst().getData();
 	}
 
 	@Override
 	public long peekFront()
 	{
-		return (long) list.getFirst().dData;
+		return (long) list.getFirst().getData();
 	}
 
 	@Override

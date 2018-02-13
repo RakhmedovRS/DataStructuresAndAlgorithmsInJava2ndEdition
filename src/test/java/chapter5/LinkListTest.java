@@ -1,5 +1,6 @@
 package chapter5;
 
+import base.LinkItem;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -58,7 +59,7 @@ public class LinkListTest
 	{
 		IntStream.range(0, 10).forEach(k -> linkList.insertFirst(k, k));
 
-		Link link = linkList.getFirst();
+		LinkItem link = linkList.getFirst();
 
 		linkList.deleteFirst();
 

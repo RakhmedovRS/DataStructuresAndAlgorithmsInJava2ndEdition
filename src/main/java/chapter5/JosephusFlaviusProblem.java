@@ -25,7 +25,7 @@ public class JosephusFlaviusProblem
 			cyclicList.insertFirst(i, i);
 		}
 
-		while (cyclicList.current.iData != peopleNumber)
+		while (cyclicList.current.getKey() != peopleNumber)
 		{
 			cyclicList.step();
 		}
@@ -39,8 +39,8 @@ public class JosephusFlaviusProblem
 				cyclicList.step();
 			}
 
-			stringBuilder.append(cyclicList.current.iData + " ");
-			cyclicList.delete(cyclicList.current.iData);
+			stringBuilder.append(cyclicList.current.getKey() + " ");
+			cyclicList.delete(cyclicList.current.getKey());
 		}
 
 		return stringBuilder.toString();

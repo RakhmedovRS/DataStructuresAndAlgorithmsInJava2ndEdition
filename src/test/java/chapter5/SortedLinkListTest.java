@@ -1,5 +1,6 @@
 package chapter5;
 
+import base.LinkItem;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -47,11 +48,11 @@ public class SortedLinkListTest
 	{
 		IntStream.range(1, 10).forEach(k -> sortedLinkList.insertFirst(k, k));
 
-		assertTrue(1 == sortedLinkList.getFirst().dData);
+		assertTrue(1 == sortedLinkList.getFirst().getData());
 
 		sortedLinkList.insertFirst(0, 0);
 
-		assertTrue(0 == sortedLinkList.getFirst().dData);
+		assertTrue(0 == sortedLinkList.getFirst().getData());
 	}
 
 	@Test
@@ -72,7 +73,7 @@ public class SortedLinkListTest
 	{
 		IntStream.range(0, 10).forEach(k -> sortedLinkList.insertFirst(k, k));
 
-		Link link = sortedLinkList.getFirst();
+		LinkItem link = sortedLinkList.getFirst();
 
 		sortedLinkList.deleteFirst();
 

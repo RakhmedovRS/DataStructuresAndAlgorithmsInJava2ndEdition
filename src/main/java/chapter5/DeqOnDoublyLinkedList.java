@@ -36,25 +36,25 @@ class DeqOnDoublyLinkedList implements Dequeue
 	@Override
 	public long removeLeft()
 	{
-		return dLinkList.deleteFirst().dData;
+		return (long)dLinkList.deleteFirst().getData();
 	}
 
 	@Override
 	public long removeRight()
 	{
-		return dLinkList.deleteLast().dData;
+		return (long)dLinkList.deleteLast().getData();
 	}
 
 	@Override
 	public long peekLeft()
 	{
-		return dLinkList.getFirst().dData;
+		return (long)dLinkList.getFirst().getData();
 	}
 
 	@Override
 	public long peekRight()
 	{
-		return dLinkList.getLast().dData;
+		return (long)dLinkList.getLast().getData();
 	}
 
 	@Override
