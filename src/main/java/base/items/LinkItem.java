@@ -1,4 +1,4 @@
-package base;
+package base.items;
 
 /**
  * Интерфейс элемента связаного списка
@@ -8,8 +8,18 @@ package base;
  * @$Author$
  * @$Revision$
  */
-public interface LinkItem extends Item
+public interface LinkItem
 {
+	/**
+	 * @return ключ элемента данных
+	 */
+	int getKey();
+
+	/**
+	 * @return данные для печати элемента данных
+	 */
+	String getDisplayData();
+
 	/**
 	 * @return значение элемента
 	 */

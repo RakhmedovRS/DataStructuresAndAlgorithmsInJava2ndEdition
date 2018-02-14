@@ -1,15 +1,15 @@
-package base;
+package base.structures;
 
 /**
- * * Интерфейс описывающий односторонний связанный список
+ * Интерфейс описывающий односторонний связанный список
  *
- * @param <T> тип расширающий интерфейс {@link LinkItem}
+ * @param <T> параметризующий тип данных
  * @author rassoll
  * @created 14.10.2017
  * @$Author$
  * @$Revision$
  */
-public interface LinkedList<T extends LinkItem>
+public interface LinkedList<T>
 {
 	/**
 	 * Проверить пустоту коллекции
@@ -21,7 +21,7 @@ public interface LinkedList<T extends LinkItem>
 	/**
 	 * Вставка элемента в список
 	 *
-	 * @param key ключ
+	 * @param key  ключ
 	 * @param data значение
 	 */
 	void insert(int key, double data);
@@ -43,18 +43,18 @@ public interface LinkedList<T extends LinkItem>
 	/**
 	 * Поиск элемента в списке
 	 *
-	 * @param key ключ для поиска
+	 * @param item элемент данных для поиска
 	 * @return найденный элемент
 	 */
-	T find(int key);
+	T find(T item);
 
 	/**
 	 * Удаление элемента с ключем key из списка
 	 *
-	 * @param key ключ для поиска удаляемого элемента
+	 * @param item элемент данных для поиска
 	 * @return найденный элемент
 	 */
-	T delete(int key);
+	T delete(T item);
 
 	/**
 	 * Получение первого элемента в списке

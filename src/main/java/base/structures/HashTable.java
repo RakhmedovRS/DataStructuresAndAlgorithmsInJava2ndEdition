@@ -1,23 +1,23 @@
-package base;
+package base.structures;
 
 /**
  * Интерфейс описывающий структуру хэш-таблица
  *
- * @param <T> сущность реализающая {@link Item}
+ * @param <T> параметризующий тип данных
  * @author rassoll
  * @created 12.02.2018
  * @$Author$
  * @$Revision$
  */
-public interface HashTable<T extends Item>
+public interface HashTable<T>
 {
 	/**
 	 * Хэш-функция
 	 *
-	 * @param key ключ
+	 * @param item элемент данных
 	 * @return рассчитанное значение хэша
 	 */
-	int hashFunction(int key);
+	int hashFunction(T item);
 
 	/**
 	 * Вставить элемент данных в хэш-таблицу
@@ -30,19 +30,19 @@ public interface HashTable<T extends Item>
 	/**
 	 * Удалить элемент данных из хэщш-таблицы
 	 *
-	 * @param key ключ удаляемого элемента данных
+	 * @param item элемент данных
 	 * @return удаленный элемент данных
 	 */
-	T delete(int key);
+	T delete(T item);
 
 	/**
 	 * Найти элемент данных
 	 * предполагается что хэш-таблица не заполненна
 	 *
-	 * @param key ключ элемента данных
+	 * @param item элемент данных
 	 * @return найденный элемент данных
 	 */
-	T find(int key);
+	T find(T item);
 
 	/**
 	 * @return данные для вывода хэш-таблицы на печать

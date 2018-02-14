@@ -1,7 +1,7 @@
 package chapter11;
 
-import base.HashTable;
-import base.LinkItem;
+import base.structures.HashTable;
+import base.items.LinkItem;
 import chapter5.SortedLinkedList;
 
 /**
@@ -34,31 +34,30 @@ public class HashChain implements HashTable<LinkItem>
 	}
 
 	@Override
-	public int hashFunction(int key)
+	public int hashFunction(LinkItem item)
 	{
-		return key % arraySize;
+		return item.getKey() % arraySize;
 	}
 
 	@Override
 	public void insert(LinkItem item)
 	{
-		int key = item.getKey();
-		int hashValue = hashFunction(key);
+		int hashValue = hashFunction(item);
 		hashArray[hashValue].insert(item);
 	}
 
 	@Override
-	public LinkItem delete(int key)
+	public LinkItem delete(LinkItem item)
 	{
-		int hashValue = hashFunction(key);
-		return hashArray[hashValue].delete(key);
+		int hashValue = hashFunction(item);
+		return hashArray[hashValue].delete(item);
 	}
 
 	@Override
-	public LinkItem find(int key)
+	public LinkItem find(LinkItem item)
 	{
-		int hashValue = hashFunction(key);
-		return hashArray[hashValue].find(key);
+		int hashValue = hashFunction(item);
+		return hashArray[hashValue].find(item);
 	}
 
 	@Override

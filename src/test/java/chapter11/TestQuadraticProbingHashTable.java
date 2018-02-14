@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.stream.IntStream;
 
+import static chapter11.TestHashTableBase.*;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
@@ -24,18 +25,18 @@ public class TestQuadraticProbingHashTable
 	@Before
 	public void init()
 	{
-		quadraticProbingHashTable = new QuadraticProbingHashTable(TestHashTableBase.HASH_TABLE_SIZE);
+		quadraticProbingHashTable = new QuadraticProbingHashTable(HASH_TABLE_SIZE);
 
-		IntStream.range(0, TestHashTableBase.HASH_TABLE_SIZE / 2).forEach(key -> quadraticProbingHashTable.insert(new DataItem(key)));
+		IntStream.range(0, HASH_TABLE_SIZE / 2).forEach(key -> quadraticProbingHashTable.insert(new DataItem(key)));
 	}
 
 	@Test
 	public void testHashFunction()
 	{
-		assertEquals(1, quadraticProbingHashTable.hashFunction(1));
-		assertEquals(0, quadraticProbingHashTable.hashFunction(201));
-		assertEquals(150, quadraticProbingHashTable.hashFunction(150));
-		assertEquals(199, quadraticProbingHashTable.hashFunction(400));
+		assertEquals(1, quadraticProbingHashTable.hashFunction(ITEM_1));
+		assertEquals(0, quadraticProbingHashTable.hashFunction(ITEM_2));
+		assertEquals(150, quadraticProbingHashTable.hashFunction(ITEM_3));
+		assertEquals(199, quadraticProbingHashTable.hashFunction(ITEM_4));
 	}
 
 	@Test

@@ -1,12 +1,12 @@
 package chapter11;
 
-import base.HashTable;
-import base.LinkItem;
+import base.items.LinkItem;
+import base.structures.HashTable;
 
 import java.io.IOException;
 
-import static util.Util.getChar;
-import static util.Util.getInt;
+import static base.util.Util.getChar;
+import static base.util.Util.getInt;
 
 /**
  * @author rassoll
@@ -59,12 +59,12 @@ public class HashChainApp
 				case 'd':
 					System.out.println("Enter key value to delete: ");
 					aKey = getInt(System.in);
-					hashTable.delete(aKey);
+					hashTable.delete(new Link(aKey));
 					break;
 				case 'f':
 					System.out.println("Enter key value to find: ");
 					aKey = getInt(System.in);
-					aItem = hashTable.find(aKey);
+					aItem = hashTable.find(new Link(aKey));
 					if (aItem != null)
 					{
 						System.out.println("Found " + aKey);

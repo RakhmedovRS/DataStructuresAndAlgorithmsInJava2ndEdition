@@ -1,7 +1,7 @@
 package chapter5;
 
-import base.DoubleLinkItem;
-import base.DoublyLinkedList;
+import base.items.DoubleLinkItem;
+import base.structures.DoublyLinkedList;
 
 /**
  * Класс имплементирующий двухторонний связанный список

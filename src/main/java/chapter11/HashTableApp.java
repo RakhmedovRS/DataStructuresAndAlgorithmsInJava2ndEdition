@@ -1,11 +1,11 @@
 package chapter11;
 
-import base.Item;
+import base.items.Item;
 
 import java.io.IOException;
 
-import static util.Util.getChar;
-import static util.Util.getInt;
+import static base.util.Util.getChar;
+import static base.util.Util.getInt;
 
 /**
  * @author rassoll
@@ -58,12 +58,12 @@ public class HashTableApp
 				case 'd':
 					System.out.println("Enter key value to delete: ");
 					aKey = getInt(System.in);
-					linearProbingHashTable.delete(aKey);
+					linearProbingHashTable.delete(new DataItem(aKey));
 					break;
 				case 'f':
 					System.out.println("Enter key value to find: ");
 					aKey = getInt(System.in);
-					aItem = linearProbingHashTable.find(aKey);
+					aItem = linearProbingHashTable.find(new DataItem(aKey));
 					if (aItem != null)
 					{
 						System.out.println("Found " + aKey);

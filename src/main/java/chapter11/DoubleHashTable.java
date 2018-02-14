@@ -1,7 +1,7 @@
 package chapter11;
 
-import base.HashTable;
-import base.Item;
+import base.structures.HashTable;
+import base.items.Item;
 
 /**
  * Сущность хэш-таблицы с двойным хешированием
@@ -30,30 +30,30 @@ public class DoubleHashTable implements HashTable<Item>
 	}
 
 	@Override
-	public int hashFunction(int key)
+	public int hashFunction(Item item)
 	{
-		return key % arraySize;
+		return item.getKey() % arraySize;
 	}
 
 	/**
 	 * Вторая хэш-функция
 	 * должна обладать следующими характеристиками:
-	 * 1. не должна совпадать с первичной хэш-функцией {@link #hashFunction(int)}
+	 * 1. не должна совпадать с первичной хэш-функцией {@link #hashFunction(Item)}
 	 * 2. резуальтат никогда не должен быть равен 0
 	 *
-	 * @param key ключ
+	 * @param item элемент данных
 	 * @return рассчитанное значение хэша
 	 */
-	public int hashFunction2(int key)
+	public int hashFunction2(Item item)
 	{
-		return 5 - key % 5;
+		return 5 - item.getKey() % 5;
 	}
 
 	@Override
 	public void insert(Item item)
 	{
-		int hashValue = hashFunction(item.getKey());
-		int stepSize = hashFunction2(item.getKey());
+		int hashValue = hashFunction(item);
+		int stepSize = hashFunction2(item);
 
 		while (hashArray[hashValue] != null && hashArray[hashValue].getKey() != deletedItem.getKey())
 		{
@@ -67,18 +67,18 @@ public class DoubleHashTable implements HashTable<Item>
 	}
 
 	@Override
-	public Item delete(int key)
+	public Item delete(Item item)
 	{
-		int hashValue = hashFunction(key);
-		int stepSize = hashFunction2(key);
+		int hashValue = hashFunction(item);
+		int stepSize = hashFunction2(item);
 
 		while (hashArray[hashValue] != null)
 		{
-			if (hashArray[hashValue].getKey() == key)
+			if (hashArray[hashValue].getKey() == item.getKey())
 			{
-				Item item = hashArray[hashValue];
+				Item newItem = hashArray[hashValue];
 				hashArray[hashValue] = deletedItem;
-				return item;
+				return newItem;
 			}
 			/*смещение*/
 			hashValue += stepSize;
@@ -89,14 +89,14 @@ public class DoubleHashTable implements HashTable<Item>
 	}
 
 	@Override
-	public Item find(int key)
+	public Item find(Item item)
 	{
-		int hashValue = hashFunction(key);
-		int stepSize = hashFunction2(key);
+		int hashValue = hashFunction(item);
+		int stepSize = hashFunction2(item);
 
 		while (hashArray[hashValue] != null)
 		{
-			if (hashArray[hashValue].getKey() == key)
+			if (hashArray[hashValue].getKey() == item.getKey())
 			{
 				return hashArray[hashValue];
 			}

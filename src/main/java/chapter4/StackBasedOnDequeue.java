@@ -1,6 +1,6 @@
 package chapter4;
 
-import base.Queue;
+import base.structures.Queue;
 
 /**
  * Программный проект 4.3 - Program project 4.3

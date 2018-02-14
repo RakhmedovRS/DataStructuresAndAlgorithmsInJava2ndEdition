@@ -1,7 +1,7 @@
 package chapter5;
 
-import base.LinkItem;
-import base.LinkedList;
+import base.items.LinkItem;
+import base.structures.LinkedList;
 
 /**
  * Класс имплементирующий сортированный односвязный список
@@ -78,10 +78,10 @@ public class SortedLinkedList implements LinkedList<LinkItem>
 	}
 
 	@Override
-	public LinkItem find(int key)
+	public LinkItem find(LinkItem item)
 	{
 		LinkItem current = first;
-		while (current.getKey() != key)
+		while (current.getKey() != item.getKey())
 		{
 			if (current.getNext() == null)
 			{
@@ -97,7 +97,7 @@ public class SortedLinkedList implements LinkedList<LinkItem>
 	}
 
 	@Override
-	public LinkItem delete(int key)
+	public LinkItem delete(LinkItem item)
 	{
 		LinkItem current = first;
 		LinkItem previous = null;
@@ -107,7 +107,7 @@ public class SortedLinkedList implements LinkedList<LinkItem>
 			return null;
 		}
 
-		while (current.getKey() != key && current.getKey() < key)
+		while (current.getKey() != item.getKey() && current.getKey() < item.getKey())
 		{
 			if (current.getNext() == null)
 			{

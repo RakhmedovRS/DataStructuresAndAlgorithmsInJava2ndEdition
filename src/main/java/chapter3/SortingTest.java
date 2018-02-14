@@ -1,6 +1,6 @@
 package chapter3;
 
-import base.BaseArray;
+import base.structures.Array;
 
 /**
  * @author rassoll
@@ -30,7 +30,7 @@ public class SortingTest
 		randomArrayOrderedFill(new ArraySelectSort(maxSize), maxSize);
 	}
 
-	private static void simpleArrayFill(BaseArray array)
+	private static void simpleArrayFill(Array array)
 	{
 		array.insert(77);
 		array.insert(99);
@@ -50,7 +50,7 @@ public class SortingTest
 	/**
 	 * Упражнение 3.1 - Exercise 3.1
 	 */
-	private static void randomArrayFill(BaseArray array, int maxSize)
+	private static void randomArrayFill(Array array, int maxSize)
 	{
 		for (int i = 0; i < maxSize; i++)
 		{
@@ -64,7 +64,7 @@ public class SortingTest
 	/**
 	 * Упражнение 3.2 - Exercise 3.2
 	 */
-	private static void randomArrayReverseFill(BaseArray array, int maxSize)
+	private static void randomArrayReverseFill(Array array, int maxSize)
 	{
 		for (int i = maxSize; i > 0; i--)
 		{
@@ -77,7 +77,7 @@ public class SortingTest
 	/**
 	 * Упражнение 3.3 - Exercise 3.3
 	 */
-	private static void randomArrayOrderedFill(BaseArray array, int maxSize)
+	private static void randomArrayOrderedFill(Array array, int maxSize)
 	{
 		for (int i = 0; i < maxSize; i++)
 		{

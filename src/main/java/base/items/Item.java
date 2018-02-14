@@ -1,4 +1,4 @@
-package base;
+package base.items;
 
 /**
  * Интерфейс элемента данных

@@ -1,63 +1,71 @@
 package chapter11;
 
-import base.HashTable;
-import base.Item;
+import base.items.Item;
+import base.structures.HashTable;
 
 import static junit.framework.TestCase.*;
 
 /**
- * Базовый класс для тестирования хэш-таблиц реализующих интерфейс {@link base.HashTable}
+ * Базовый класс для тестирования хэш-таблиц реализующих интерфейс {@link HashTable}
  *
  * @author rassoll
  * @created 12.02.2018
  * @$Author$
  * @$Revision$
  */
-abstract public class TestHashTableBase
+@SuppressWarnings("unchecked")
+abstract class TestHashTableBase
 {
 	static final int HASH_TABLE_SIZE = 200;
+	static final Item ITEM_1 = new DataItem(1);
+	static final Item ITEM_2 = new DataItem(201);
+	static final Item ITEM_3 = new DataItem(150);
+	static final Item ITEM_4 = new DataItem(400);
 
 	/**
 	 * Тестирование функции вычисляющей хэш-значение
 	 */
-	public static void testHashFunction(HashTable<? extends Item> hashTable)
+	static void testHashFunction(HashTable hashTable)
 	{
-		assertEquals(1, hashTable.hashFunction(1));
-		assertEquals(1, hashTable.hashFunction(201));
-		assertEquals(150, hashTable.hashFunction(150));
-		assertEquals(0, hashTable.hashFunction(400));
+		assertEquals(1, hashTable.hashFunction(ITEM_1));
+		assertEquals(1, hashTable.hashFunction(ITEM_2));
+		assertEquals(150, hashTable.hashFunction(ITEM_3));
+		assertEquals(0, hashTable.hashFunction(ITEM_4));
 	}
 
 	/**
 	 * Тестирование метода вставки в хэш-таблицу элементов данных
 	 */
-	public static void testInsertMethod(HashTable<? super Item> hashTable)
+	public static void testInsertMethod(HashTable hashTable)
 	{
-		Item insertedItem = new DataItem(101);
+		final Item ITEM_5 = new DataItem(101);
 
-		hashTable.insert(insertedItem);
+		hashTable.insert(ITEM_5);
 
-		assertEquals(insertedItem, hashTable.find(insertedItem.getKey()));
+		assertEquals(ITEM_5, hashTable.find(ITEM_5));
 	}
 
 	/**
 	 * Тестирование метода удаления элементов данных из хэш-таблицы
 	 */
-	public static void testDeleteMethod(HashTable<? extends Item> hashTable)
+	static void testDeleteMethod(HashTable<Item> hashTable)
 	{
-		Item deletedItem = hashTable.delete(10);
+		Item itemForDeleting = new DataItem(1000);
+		hashTable.insert(itemForDeleting);
+
+		Item deletedItem = hashTable.delete(itemForDeleting);
 
 		assertNotNull(deletedItem);
-		assertTrue(deletedItem.getKey() == 10);
+		assertEquals(itemForDeleting, deletedItem);
 
-		deletedItem = hashTable.delete(10);
+		deletedItem = hashTable.delete(itemForDeleting);
 		assertNull(deletedItem);
 	}
 
 	/**
 	 * Тестирование метода получения данных для печати хэш-таблицы
 	 */
-	public static void testGetDisplayDataMethod(HashTable<? extends Item> hashTable)
+	static void testGetDisplayDataMethod(HashTable hashTable)
 	{
 		assertNotNull(hashTable.getDisplayData());
 	}

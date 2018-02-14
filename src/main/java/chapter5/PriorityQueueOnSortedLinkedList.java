@@ -1,6 +1,6 @@
 package chapter5;
 
-import base.Queue;
+import base.structures.Queue;
 
 /**
  * Программный проект 5.1 - Program project 5.1

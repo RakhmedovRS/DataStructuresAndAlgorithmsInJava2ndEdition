@@ -1,6 +1,6 @@
 package chapter5;
 
-import base.LinkItem;
+import base.items.LinkItem;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,11 +17,13 @@ import static org.junit.Assert.*;
 public class LinkListTest
 {
 	private LinkList linkList;
+	private LinkItem item;
 
 	@Before
 	public void init()
 	{
 		linkList = new LinkList();
+		item = new Link(5, 5);
 	}
 
 	@Test
@@ -45,7 +47,8 @@ public class LinkListTest
 	public void checkLinkSearch()
 	{
 		IntStream.range(0, 10).forEach(k -> linkList.insert(k, k));
-		assertNotNull(linkList.find(5));
+
+		assertNotNull(linkList.find(item));
 	}
 
 	@Test(expected = UnsupportedOperationException.class)
@@ -71,10 +74,10 @@ public class LinkListTest
 	{
 		IntStream.range(0, 10).forEach(k -> linkList.insert(k, k));
 
-		assertNotNull(linkList.find(5));
+		assertNotNull(linkList.find(item));
 
-		linkList.delete(5);
+		linkList.delete(item);
 
-		assertNull(linkList.find(5));
+		assertNull(linkList.find(item));
 	}
 }

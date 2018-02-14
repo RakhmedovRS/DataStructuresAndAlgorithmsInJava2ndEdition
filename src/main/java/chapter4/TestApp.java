@@ -1,6 +1,6 @@
 package chapter4;
 
-import base.Dequeue;
+import base.structures.Dequeue;
 
 /**
  * @author rassoll

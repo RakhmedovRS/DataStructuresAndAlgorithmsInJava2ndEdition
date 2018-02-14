@@ -36,13 +36,12 @@ public class CyclicListTest
 	@Test
 	public void checkInsertFirstMethod()
 	{
-		cyclicList.insert(1, 1);
+		Link link = new Link(1, 1);
+		cyclicList.insert(link);
 		cyclicList.insert(2, 2);
 		cyclicList.insert(3, 3);
 
-		Link link = new Link(1, 1);
-
-		assertTrue(link.getData() == cyclicList.getFirst().getData());
+		assertEquals(link, cyclicList.getFirst());
 	}
 
 	@Test
@@ -51,12 +50,12 @@ public class CyclicListTest
 		Link link = new Link(1, 1);
 		Link link2 = new Link(3, 3);
 
-		cyclicList.insert(1, 1);
+		cyclicList.insert(link);
 		cyclicList.insert(2, 2);
-		cyclicList.insert(3, 3);
+		cyclicList.insert(link2);
 
-		assertTrue(link2.getData() == cyclicList.deleteFirst().getData());
-		assertTrue(link.getData() == cyclicList.getFirst().getData());
+		assertEquals(link2, cyclicList.deleteFirst());
+		assertEquals(link, cyclicList.getFirst());
 	}
 
 	@Test
@@ -65,12 +64,12 @@ public class CyclicListTest
 		Link link = new Link(1, 1);
 		Link link2 = new Link(3, 3);
 
-		cyclicList.insert(1, 1);
+		cyclicList.insert(link);
 		cyclicList.insert(2, 2);
-		cyclicList.insert(3, 3);
+		cyclicList.insert(link2);
 
-		assertTrue(link.getData() == cyclicList.find(link.getKey()).getData());
-		assertTrue(link2.getData() == cyclicList.find(link2.getKey()).getData());
+		assertEquals(link, cyclicList.find(link));
+		assertEquals(link2, cyclicList.find(link2));
 	}
 
 	@Test
@@ -78,12 +77,12 @@ public class CyclicListTest
 	{
 		Link link = new Link(1, 1);
 
-		cyclicList.insert(1, 1);
+		cyclicList.insert(link);
 		cyclicList.insert(2, 2);
 		cyclicList.insert(3, 3);
 
-		assertTrue(link.getData() == cyclicList.find(link.getKey()).getData());
-		cyclicList.delete(link.getKey());
-		assertNull(cyclicList.find(link.getKey()));
+		assertEquals(link, cyclicList.find(link));
+		cyclicList.delete(link);
+		assertNull(cyclicList.find(link));
 	}
 }

@@ -1,7 +1,7 @@
 package chapter11;
 
-import base.HashTable;
-import base.Item;
+import base.structures.HashTable;
+import base.items.Item;
 
 /**
  * Сущность хэш-таблицы с линейным пробированием
@@ -36,15 +36,15 @@ public class LinearProbingHashTable implements HashTable<Item>
 	}
 
 	@Override
-	public int hashFunction(int key)
+	public int hashFunction(Item item)
 	{
-		return key % arraySize;
+		return item.getKey() % arraySize;
 	}
 
 	@Override
 	public void insert(Item item)
 	{
-		int hashValue = hashFunction(item.getKey());
+		int hashValue = hashFunction(item);
 
 		while (hashArray[hashValue] != null && hashArray[hashValue].getKey() != -1)
 		{
@@ -56,13 +56,13 @@ public class LinearProbingHashTable implements HashTable<Item>
 	}
 
 	@Override
-	public Item delete(int key)
+	public Item delete(Item item)
 	{
-		int hashValue = hashFunction(key);
+		int hashValue = hashFunction(item);
 
 		while (hashArray[hashValue] != null)
 		{
-			if (hashArray[hashValue].getKey() == key)
+			if (hashArray[hashValue].getKey() == item.getKey())
 			{
 				Item dataItem = hashArray[hashValue];
 				hashArray[hashValue] = deletedItem;
@@ -75,13 +75,13 @@ public class LinearProbingHashTable implements HashTable<Item>
 	}
 
 	@Override
-	public Item find(int key)
+	public Item find(Item item)
 	{
-		int hashValue = hashFunction(key);
+		int hashValue = hashFunction(item);
 
 		while (hashArray[hashValue] != null)
 		{
-			if (hashArray[hashValue].getKey() == key)
+			if (hashArray[hashValue].getKey() == item.getKey())
 			{
 				return hashArray[hashValue];
 			}

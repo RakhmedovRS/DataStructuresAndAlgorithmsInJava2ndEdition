@@ -1,14 +1,14 @@
-package base;
+package base.structures;
 
 /**
- * Базовый интерфейс массива
+ * Интерфейс описывающий массив
  *
  * @author rassoll
  * @created 03.10.2017
  * @$Author$
  * @$Revision$
  */
-public interface BaseArray
+public interface Array
 {
 	/**
 	 * Вставка элемента в массив

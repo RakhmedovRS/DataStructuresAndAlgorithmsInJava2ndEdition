@@ -1,7 +1,6 @@
 package chapter5;
 
-import base.DoubleLinkItem;
-import base.LinkItem;
+import base.items.DoubleLinkItem;
 
 /**
  * @author rassoll
@@ -57,9 +56,9 @@ public class DoubleLink implements DoubleLinkItem
 	}
 
 	@Override
-	public void setNext(LinkItem next)
+	public void setNext(DoubleLinkItem next)
 	{
-		this.next = (DoubleLinkItem)next;
+		this.next = next;
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package base;
+package base.structures;
 
 /**
  * Интерфейс описывающий очередь

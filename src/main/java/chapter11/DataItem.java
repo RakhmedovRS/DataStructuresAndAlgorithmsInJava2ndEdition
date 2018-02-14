@@ -1,6 +1,6 @@
 package chapter11;
 
-import base.Item;
+import base.items.Item;
 
 /**
  * Сущность элемента данных

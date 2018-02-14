@@ -1,6 +1,6 @@
 package chapter3;
 
-import base.BaseArray;
+import base.structures.Array;
 
 import java.util.Calendar;
 
@@ -12,7 +12,7 @@ import java.util.Calendar;
  * @$Author$
  * @$Revision$
  */
-class ArrayBubbleSort implements BaseArray
+class ArrayBubbleSort implements Array
 {
 	private long[] a;
 	private int nElements;

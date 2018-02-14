@@ -40,7 +40,7 @@ public class JosephusFlaviusProblem
 			}
 
 			stringBuilder.append(cyclicList.current.getKey() + " ");
-			cyclicList.delete(cyclicList.current.getKey());
+			cyclicList.delete(cyclicList.current);
 		}
 
 		return stringBuilder.toString();

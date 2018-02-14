@@ -1,6 +1,6 @@
 package chapter4;
 
-import base.Queue;
+import base.structures.Queue;
 
 /**
  * Класс имплементирующий очередь

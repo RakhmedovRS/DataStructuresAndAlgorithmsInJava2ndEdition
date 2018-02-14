@@ -1,6 +1,6 @@
 package chapter11;
 
-import base.Item;
+import base.items.Item;
 
 /**
  * Программный проект 11.1 - Program project 11.1
@@ -69,7 +69,7 @@ public class QuadraticProbingHashTable extends LinearProbingHashTable
 	@Override
 	public void insert(Item item)
 	{
-		int hashValue = hashFunction(item.getKey());
+		int hashValue = hashFunction(item);
 
 		int i = 1;
 		while (hashArray[hashValue] != null && hashArray[hashValue].getKey() != -1)

@@ -1,4 +1,6 @@
-package base;
+package base.structures;
+
+import base.items.DoubleLinkItem;
 
 /**
  * Интерфейс описывающий двухторонний связанный список

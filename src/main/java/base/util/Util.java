@@ -1,4 +1,4 @@
-package util;
+package base.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.io.InputStreamReader;
  * @$Author$
  * @$Revision$
  */
-public abstract class Util
+public interface Util
 {
 	/**
 	 * Получить введенную строку из потока ввода
@@ -22,7 +22,7 @@ public abstract class Util
 	 * @return строка ввода
 	 * @throws IOException в случае ошибок при получении строки
 	 */
-	public static String getString(InputStream inputStream) throws IOException
+	static String getString(InputStream inputStream) throws IOException
 	{
 		InputStreamReader isr = new InputStreamReader(inputStream);
 		BufferedReader br = new BufferedReader(isr);
@@ -36,7 +36,7 @@ public abstract class Util
 	 * @return введенный символ
 	 * @throws IOException в случае ошибок при получении символа
 	 */
-	public static char getChar(InputStream inputStream) throws IOException
+	static char getChar(InputStream inputStream) throws IOException
 	{
 		return getString(inputStream).charAt(0);
 	}
@@ -48,7 +48,7 @@ public abstract class Util
 	 * @return введенное число
 	 * @throws IOException в случае ошибок при получении числа
 	 */
-	public static int getInt(InputStream inputStream) throws IOException
+	static int getInt(InputStream inputStream) throws IOException
 	{
 		return Integer.parseInt(getString(inputStream));
 	}

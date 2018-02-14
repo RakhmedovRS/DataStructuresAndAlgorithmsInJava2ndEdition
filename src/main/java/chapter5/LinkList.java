@@ -1,7 +1,7 @@
 package chapter5;
 
-import base.LinkItem;
-import base.LinkedList;
+import base.items.LinkItem;
+import base.structures.LinkedList;
 
 /**
  * Класс имплементирующий односвязный список
@@ -53,10 +53,10 @@ class LinkList implements LinkedList<LinkItem>
 	}
 
 	@Override
-	public LinkItem find(int key)
+	public LinkItem find(LinkItem item)
 	{
 		LinkItem current = first;
-		while (current.getKey() != key)
+		while (current.getKey() != item.getKey())
 		{
 			if (current.getNext() == null)
 			{
@@ -72,11 +72,11 @@ class LinkList implements LinkedList<LinkItem>
 	}
 
 	@Override
-	public LinkItem delete(int key)
+	public LinkItem delete(LinkItem item)
 	{
 		LinkItem current = first;
 		LinkItem prev = first;
-		while (current.getKey() != key)
+		while (current.getKey() != item.getKey())
 		{
 			if (current.getNext() == null)
 			{

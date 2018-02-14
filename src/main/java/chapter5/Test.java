@@ -1,6 +1,7 @@
 package chapter5;
 
-import base.LinkedList;
+import base.items.LinkItem;
+import base.structures.LinkedList;
 
 /**
  * @author rassoll
@@ -117,17 +118,19 @@ public class Test
 
 		CyclicList list = new CyclicList();
 
+		LinkItem item = new Link(5,5);
+
 		list.insert(1, 1);
 		list.insert(2, 2);
 		list.insert(3, 3);
 		list.insert(4, 4);
-		list.insert(5, 5);
+		list.insert(item);
 		list.insert(6, 6);
 		list.insert(7, 7);
 		list.insert(8, 8);
 
 		list.displayList();
-		list.delete(5);
+		list.delete(item);
 		list.displayList();
 		list.deleteFirst();
 		list.displayList();

@@ -1,7 +1,7 @@
 package chapter5;
 
-import base.LinkItem;
-import base.LinkedList;
+import base.items.LinkItem;
+import base.structures.LinkedList;
 
 /**
  * Программный проект 5.5 - Program project 5.5
@@ -72,12 +72,12 @@ class CyclicList implements LinkedList<LinkItem>
 	}
 
 	@Override
-	public LinkItem find(int key)
+	public LinkItem find(LinkItem item)
 	{
 		if (!isEmpty())
 		{
 			LinkItem temp = this.current;
-			while (temp.getKey() != key)
+			while (temp.getKey() != item.getKey())
 			{
 				if ((temp.getNext() == null) || (temp.getNext() == this.current))
 				{
@@ -98,11 +98,11 @@ class CyclicList implements LinkedList<LinkItem>
 	}
 
 	@Override
-	public LinkItem delete(int key)
+	public LinkItem delete(LinkItem item)
 	{
 		LinkItem tempCurrent;
 
-		while (current.getNext().getKey() != key)
+		while (current.getNext().getKey() != item.getKey())
 		{
 			current = current.getNext();
 		}

@@ -1,7 +1,7 @@
 package chapter11;
 
-import base.HashTable;
-import base.LinkItem;
+import base.structures.HashTable;
+import base.items.LinkItem;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,7 +11,6 @@ import static chapter11.TestHashTableBase.HASH_TABLE_SIZE;
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Тестирование сущности {@link HashChain}
@@ -30,13 +29,16 @@ public class TestHashChain
 	{
 		hashChain = new HashChain(HASH_TABLE_SIZE);
 
-		IntStream.range(0, HASH_TABLE_SIZE / 2).forEach(key -> hashChain.insert(new chapter11.Link(key)));
+		IntStream.range(0, HASH_TABLE_SIZE / 2).forEach(key -> hashChain.insert(new Link(key)));
 	}
 
 	@Test
 	public void testHashFunction()
 	{
-		TestHashTableBase.testHashFunction(hashChain);
+		assertEquals(1, hashChain.hashFunction(new Link(1)));
+		assertEquals(1, hashChain.hashFunction(new Link(201)));
+		assertEquals(150, hashChain.hashFunction(new Link(150)));
+		assertEquals(0, hashChain.hashFunction(new Link(400)));
 	}
 
 
@@ -47,18 +49,20 @@ public class TestHashChain
 
 		hashChain.insert(insertedItem);
 
-		assertEquals(insertedItem, hashChain.find(insertedItem.getKey()));
+		assertEquals(insertedItem, hashChain.find(insertedItem));
 	}
 
 	@Test
 	public void testDeleteMethod()
 	{
-		LinkItem deletedItem = hashChain.delete(10);
+		LinkItem itemForDeleting = new Link(1000);
+		hashChain.insert(itemForDeleting);
+		LinkItem deletedItem = hashChain.delete(itemForDeleting);
 
 		assertNotNull(deletedItem);
-		assertTrue(deletedItem.getKey() == 10);
+		assertEquals(itemForDeleting, deletedItem);
 
-		deletedItem = hashChain.delete(10);
+		deletedItem = hashChain.delete(itemForDeleting);
 		assertNull(deletedItem);
 	}
 

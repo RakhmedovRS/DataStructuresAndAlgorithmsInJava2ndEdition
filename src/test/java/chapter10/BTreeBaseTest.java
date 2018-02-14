@@ -1,6 +1,6 @@
 package chapter10;
 
-import base.Item;
+import base.items.Item;
 
 import java.util.ArrayList;
 import java.util.List;

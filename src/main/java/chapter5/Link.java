@@ -1,6 +1,6 @@
 package chapter5;
 
-import base.LinkItem;
+import base.items.LinkItem;
 
 /**
  * Элемент списка

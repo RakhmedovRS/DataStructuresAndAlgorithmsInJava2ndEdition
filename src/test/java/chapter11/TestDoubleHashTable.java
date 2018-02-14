@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.util.stream.IntStream;
 
-import static chapter11.TestHashTableBase.HASH_TABLE_SIZE;
+import static chapter11.TestHashTableBase.*;
 import static junit.framework.TestCase.assertEquals;
 
 /**
@@ -40,11 +40,11 @@ public class TestDoubleHashTable
 	@Test
 	public void testHashFunction2()
 	{
-		assertEquals(4, doubleHashTable.hashFunction2(1));
-		assertEquals(4, doubleHashTable.hashFunction2(201));
-		assertEquals(3, doubleHashTable.hashFunction2(22));
-		assertEquals(5, doubleHashTable.hashFunction2(150));
-		assertEquals(5, doubleHashTable.hashFunction2(400));
+		assertEquals(4, doubleHashTable.hashFunction2(ITEM_1));
+		assertEquals(4, doubleHashTable.hashFunction2(ITEM_2));
+		assertEquals(3, doubleHashTable.hashFunction2(new DataItem(22)));
+		assertEquals(5, doubleHashTable.hashFunction2(ITEM_3));
+		assertEquals(5, doubleHashTable.hashFunction2(ITEM_4));
 	}
 
 	@Test

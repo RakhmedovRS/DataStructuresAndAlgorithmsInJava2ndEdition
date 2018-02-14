@@ -1,6 +1,6 @@
 package chapter4;
 
-import base.Dequeue;
+import base.structures.Dequeue;
 
 /**
  * Программный проект 4.2 - Program project 4.2
