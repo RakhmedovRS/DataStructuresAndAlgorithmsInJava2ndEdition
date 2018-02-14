@@ -13,9 +13,15 @@ import base.Item;
  */
 public class LinearProbingHashTable implements HashTable<Item>
 {
-	private Item[] hashArray;
-	private int arraySize;
-	private Item deletedItem;
+	protected Item[] hashArray;
+	protected int arraySize;
+	protected Item deletedItem;
+
+	/**
+	 * Конструктор для классов наследников
+	 */
+	protected LinearProbingHashTable()
+	{}
 
 	/**
 	 * Конструктор
