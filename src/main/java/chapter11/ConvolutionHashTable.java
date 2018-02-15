@@ -38,7 +38,7 @@ public class ConvolutionHashTable implements HashTable<Integer>
 	 * Вычислить длинну группы цифр в зависимости от размера массива
 	 *
 	 * @param arraySize размера массива
-	 * @return
+	 * @return размер группы цифр
 	 */
 	public static int calcGroupSize(int arraySize)
 	{
@@ -101,6 +101,11 @@ public class ConvolutionHashTable implements HashTable<Integer>
 	@Override
 	public void insert(Integer item)
 	{
+		if (getLoadFactor() > MAX_LOAD_FACTOR)
+		{
+			rehash();
+		}
+
 		int hashValue = hashFunction(item);
 
 		while (hashArray[hashValue] != null && !hashArray[hashValue].equals(deletedItem))
@@ -152,17 +157,45 @@ public class ConvolutionHashTable implements HashTable<Integer>
 	}
 
 	@Override
+	public void rehash()
+	{
+		arraySize = HashTable.getPrime(arraySize * 2);
+		groupSize = calcGroupSize(arraySize);
+		elementsNumber = 0;
+		Integer[] tempArray = hashArray.clone();
+		hashArray = new Integer[arraySize];
+
+		for (int i = 0; i < tempArray.length; i++)
+		{
+			if (tempArray[i] != null && !tempArray[i].equals(deletedItem))
+			{
+				insert(tempArray[i]);
+			}
+		}
+	}
+
+	@Override
+	public Integer[] getHashArray()
+	{
+		return hashArray.clone();
+	}
+
+	@Override
 	public String getDisplayData()
 	{
 		StringBuilder stringBuilder = new StringBuilder();
 
-		stringBuilder.append(String.format("%s: ", this.getClass().getSimpleName()));
+		stringBuilder.append(this.getClass().getSimpleName());
+		stringBuilder.append(String.format("%nHash table size: %s", getHashTableSize()));
+		stringBuilder.append(String.format("%nElements number: %s", getElementsNumber()));
+		stringBuilder.append(String.format("%nLoad factor: %s", getLoadFactor()));
+		stringBuilder.append("\n");
 
 		for (int i = 0; i < arraySize; i++)
 		{
 			if (hashArray[i] != null)
 			{
-				stringBuilder.append(String.format("%s ", hashArray[i].toString()));
+				stringBuilder.append(String.format("%s ", hashArray[i]));
 			}
 			else
 			{

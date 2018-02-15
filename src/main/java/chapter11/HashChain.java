@@ -1,7 +1,7 @@
 package chapter11;
 
-import base.structures.HashTable;
 import base.items.LinkItem;
+import base.structures.HashTable;
 import chapter5.SortedLinkedList;
 
 /**
@@ -73,6 +73,18 @@ public class HashChain implements HashTable<LinkItem>
 	{
 		int hashValue = hashFunction(item);
 		return hashArray[hashValue].find(item);
+	}
+
+	@Override
+	public void rehash()
+	{
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public LinkItem[] getHashArray()
+	{
+		throw new UnsupportedOperationException();
 	}
 
 	@Override

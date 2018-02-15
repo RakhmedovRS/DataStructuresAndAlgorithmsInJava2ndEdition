@@ -1,5 +1,6 @@
 package chapter11;
 
+import base.structures.HashTable;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,6 +24,7 @@ import static org.junit.Assert.assertNull;
 public class TestStringHashTable
 {
 	private static StringHashTable hashTable;
+	private static StringHashTable secondHashTable;
 	private static ArrayList<String> additionalItems;
 
 	{
@@ -38,6 +40,7 @@ public class TestStringHashTable
 	public void init()
 	{
 		hashTable = new StringHashTable(HASH_TABLE_SIZE);
+		secondHashTable = new StringHashTable(HASH_TABLE_SIZE);
 
 		Random random = new Random();
 
@@ -48,6 +51,7 @@ public class TestStringHashTable
 			chars[1] = (char) ('a' + random.nextInt(('z' - 'a') + 1));
 			chars[2] = (char) ('a' + random.nextInt(('z' - 'a') + 1));
 			hashTable.insert(String.valueOf(chars));
+			secondHashTable.insert(String.valueOf(chars));
 		});
 	}
 
@@ -160,5 +164,26 @@ public class TestStringHashTable
 	public void testGettingLoadFactor()
 	{
 		TestHashTableBase.testGettingLoadFactor(hashTable, (HASH_TABLE_SIZE / 2) / (float) HASH_TABLE_SIZE, additionalItems);
+	}
+
+	@Test
+	public void testRehash()
+	{
+		hashTable.insert("asdasda");
+		hashTable.insert("asdadfgsda");
+		hashTable.insert("hjkhjk");
+		hashTable.insert("rtyrr");
+
+		assertEquals(HashTable.getPrime(HASH_TABLE_SIZE * 2), hashTable.getHashArray().length);
+
+		String[] hashArray = secondHashTable.getHashArray();
+		for (int i = 0; i < hashArray.length; i++)
+		{
+			if (hashArray[i] != null)
+			{
+				assertEquals(hashArray[i], hashTable.find(hashArray[i]));
+				assertFalse(hashArray[i].equals("-1"));
+			}
+		}
 	}
 }

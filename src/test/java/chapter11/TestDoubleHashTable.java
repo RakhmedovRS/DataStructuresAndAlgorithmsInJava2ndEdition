@@ -1,5 +1,8 @@
 package chapter11;
 
+import base.items.Item;
+import base.structures.HashTable;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,6 +11,7 @@ import java.util.stream.IntStream;
 
 import static chapter11.TestHashTableBase.*;
 import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Тестирование сущности {@link DoubleHashTable}
@@ -20,6 +24,7 @@ import static junit.framework.TestCase.assertEquals;
 public class TestDoubleHashTable
 {
 	private static DoubleHashTable hashTable;
+	private static DoubleHashTable secondHashTable;
 	private static ArrayList<DataItem> additionalItems;
 
 	{
@@ -31,8 +36,15 @@ public class TestDoubleHashTable
 	public void init()
 	{
 		hashTable = new DoubleHashTable(HASH_TABLE_SIZE);
+		secondHashTable = new DoubleHashTable(HASH_TABLE_SIZE);
 
-		IntStream.range(0, HASH_TABLE_SIZE / 2).forEach(key -> hashTable.insert(new DataItem(key)));
+		IntStream.range(0, HASH_TABLE_SIZE / 2).forEach((key) ->
+		{
+			Item item = new DataItem((int) (java.lang.Math.random() * HASH_TABLE_SIZE) + HASH_TABLE_SIZE);
+
+			hashTable.insert(item);
+			secondHashTable.insert(item);
+		});
 	}
 
 	@Test
@@ -88,5 +100,26 @@ public class TestDoubleHashTable
 	public void testGettingLoadFactor()
 	{
 		TestHashTableBase.testGettingLoadFactor(hashTable, (HASH_TABLE_SIZE / 2) / (float) HASH_TABLE_SIZE, additionalItems);
+	}
+
+	@Test
+	public void testRehash()
+	{
+		hashTable.insert(new DataItem((int) (java.lang.Math.random() * HASH_TABLE_SIZE) + HASH_TABLE_SIZE));
+		hashTable.insert(new DataItem((int) (java.lang.Math.random() * HASH_TABLE_SIZE) + HASH_TABLE_SIZE));
+		hashTable.insert(new DataItem((int) (java.lang.Math.random() * HASH_TABLE_SIZE) + HASH_TABLE_SIZE));
+		hashTable.insert(new DataItem((int) (java.lang.Math.random() * HASH_TABLE_SIZE) + HASH_TABLE_SIZE));
+
+		Assert.assertEquals(HashTable.getPrime(HASH_TABLE_SIZE * 2), hashTable.getHashArray().length);
+
+		Item[] hashArray = secondHashTable.getHashArray();
+		for (int i = 0; i < hashArray.length; i++)
+		{
+			if (hashArray[i] != null)
+			{
+				Assert.assertEquals(hashArray[i].getKey(), hashTable.find(hashArray[i]).getKey());
+				assertTrue(hashArray[i].getKey() != -1);
+			}
+		}
 	}
 }

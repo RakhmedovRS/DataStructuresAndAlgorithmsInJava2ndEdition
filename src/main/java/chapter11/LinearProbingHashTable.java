@@ -1,7 +1,7 @@
 package chapter11;
 
-import base.structures.HashTable;
 import base.items.Item;
+import base.structures.HashTable;
 
 /**
  * Сущность хэш-таблицы с линейным пробированием
@@ -58,6 +58,11 @@ public class LinearProbingHashTable implements HashTable<Item>
 	@Override
 	public void insert(Item item)
 	{
+		if (getLoadFactor() > MAX_LOAD_FACTOR)
+		{
+			rehash();
+		}
+
 		int hashValue = hashFunction(item);
 
 		while (hashArray[hashValue] != null && hashArray[hashValue].getKey() != -1)
@@ -108,11 +113,38 @@ public class LinearProbingHashTable implements HashTable<Item>
 	}
 
 	@Override
+	public void rehash()
+	{
+		arraySize = HashTable.getPrime(arraySize * 2);
+		elementsNumber = 0;
+		Item[] tempArray = hashArray.clone();
+		hashArray = new Item[arraySize];
+
+		for (int i = 0; i < tempArray.length; i++)
+		{
+			if (tempArray[i] != null && tempArray[i].getKey() != deletedItem.getKey())
+			{
+				insert(tempArray[i]);
+			}
+		}
+	}
+
+	@Override
+	public Item[] getHashArray()
+	{
+		return hashArray.clone();
+	}
+
+	@Override
 	public String getDisplayData()
 	{
 		StringBuilder stringBuilder = new StringBuilder();
 
-		stringBuilder.append(String.format("%s: ", this.getClass().getSimpleName()));
+		stringBuilder.append(this.getClass().getSimpleName());
+		stringBuilder.append(String.format("%nHash table size: %s", getHashTableSize()));
+		stringBuilder.append(String.format("%nElements number: %s", getElementsNumber()));
+		stringBuilder.append(String.format("%nLoad factor: %s", getLoadFactor()));
+		stringBuilder.append("\n");
 
 		for (int i = 0; i < arraySize; i++)
 		{

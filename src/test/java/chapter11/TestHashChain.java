@@ -87,12 +87,12 @@ public class TestHashChain
 	@Test
 	public void checkHashTableSize()
 	{
-		TestHashTableBase.checkHashTableSize(hashChain, HASH_TABLE_SIZE, additionalItems);
+		assertEquals(HASH_TABLE_SIZE, hashChain.getHashTableSize());
 	}
 
 	@Test
 	public void testGettingLoadFactor()
 	{
-		TestHashTableBase.testGettingLoadFactor(hashChain, (HASH_TABLE_SIZE / 2) / (float) HASH_TABLE_SIZE, additionalItems);
+		assertEquals((HASH_TABLE_SIZE / 2) / (float) HASH_TABLE_SIZE, hashChain.getLoadFactor());
 	}
 }

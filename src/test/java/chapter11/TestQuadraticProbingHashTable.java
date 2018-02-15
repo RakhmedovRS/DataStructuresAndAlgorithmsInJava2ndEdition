@@ -99,7 +99,7 @@ public class TestQuadraticProbingHashTable
 	@Test
 	public void checkHashTableSize()
 	{
-		TestHashTableBase.checkHashTableSize(hashTable, REAL_HASH_TABLE_SIZE, additionalItems);
+		assertEquals(REAL_HASH_TABLE_SIZE, hashTable.getHashTableSize());
 	}
 
 	@Test

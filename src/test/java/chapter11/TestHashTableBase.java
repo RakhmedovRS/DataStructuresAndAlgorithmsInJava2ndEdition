@@ -93,7 +93,7 @@ abstract class TestHashTableBase
 
 		items.forEach(hashTable::insert);
 
-		assertEquals(size, hashTable.getHashTableSize());
+		assertEquals(HashTable.getPrime(size * 2), hashTable.getHashTableSize());
 	}
 
 	/**
@@ -105,8 +105,8 @@ abstract class TestHashTableBase
 
 		items.forEach(hashTable::insert);
 
-		size += ((float)items.size()/HASH_TABLE_SIZE);
+		size += ((float) items.size() / HASH_TABLE_SIZE);
 
-		assertEquals(size, hashTable.getLoadFactor());
+		assertTrue(size > hashTable.getLoadFactor());
 	}
 }

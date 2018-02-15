@@ -1,5 +1,6 @@
 package chapter11;
 
+import base.structures.HashTable;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,6 +12,7 @@ import static chapter11.TestHashTableBase.HASH_TABLE_SIZE;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Тестирование сущности {@link ConvolutionHashTable}
@@ -24,6 +26,7 @@ public class TestConvolutionHashTable
 {
 	private static final int TEN = 10;
 	private static ConvolutionHashTable hashTable;
+	private static ConvolutionHashTable secondHashTable;
 	private static ArrayList<Integer> additionalItems;
 
 	{
@@ -35,6 +38,7 @@ public class TestConvolutionHashTable
 	public void init()
 	{
 		hashTable = new ConvolutionHashTable(HASH_TABLE_SIZE);
+		secondHashTable = new ConvolutionHashTable(HASH_TABLE_SIZE);
 
 		int factor = ConvolutionHashTable.calcGroupSize(HASH_TABLE_SIZE);
 		Random random = new Random();
@@ -46,7 +50,11 @@ public class TestConvolutionHashTable
 					key *= TEN;
 					key += random.nextInt(key);
 				}
-				hashTable.insert(key + random.nextInt(key) * TEN);
+
+				int value = key + random.nextInt(key) * TEN;
+
+				hashTable.insert(value);
+				secondHashTable.insert(value);
 			}
 		);
 	}
@@ -127,5 +135,70 @@ public class TestConvolutionHashTable
 	public void testGettingLoadFactor()
 	{
 		TestHashTableBase.testGettingLoadFactor(hashTable, (HASH_TABLE_SIZE / 2 - 1) / (float) HASH_TABLE_SIZE, additionalItems);
+	}
+
+	@Test
+	public void testRehash()
+	{
+		hashTable.insert((int) (java.lang.Math.random() * HASH_TABLE_SIZE) + HASH_TABLE_SIZE);
+		hashTable.insert((int) (java.lang.Math.random() * HASH_TABLE_SIZE) + HASH_TABLE_SIZE);
+		hashTable.insert((int) (java.lang.Math.random() * HASH_TABLE_SIZE) + HASH_TABLE_SIZE);
+		hashTable.insert((int) (java.lang.Math.random() * HASH_TABLE_SIZE) + HASH_TABLE_SIZE);
+
+		assertEquals(HashTable.getPrime(HASH_TABLE_SIZE * 2), hashTable.getHashArray().length);
+
+		Integer[] hashArray = secondHashTable.getHashArray();
+		for (int i = 0; i < hashArray.length; i++)
+		{
+			if (hashArray[i] != null)
+			{
+				assertEquals(hashArray[i], hashTable.find(hashArray[i]));
+				assertTrue(hashArray[i] != -1);
+			}
+		}
+	}
+
+	@Test
+	public void testRehash2()
+	{
+		int bigHashTableSize = HASH_TABLE_SIZE * TEN;
+
+		hashTable = new ConvolutionHashTable(bigHashTableSize);
+		secondHashTable = new ConvolutionHashTable(bigHashTableSize);
+
+		int factor = ConvolutionHashTable.calcGroupSize(bigHashTableSize);
+		Random random = new Random();
+
+		IntStream.range(1, bigHashTableSize / 2).forEach(key ->
+			{
+				for (int i = 0; i < factor; i++)
+				{
+					key *= TEN;
+					key += random.nextInt(key);
+				}
+
+				int value = key + random.nextInt(key) * TEN;
+
+				hashTable.insert(value);
+				secondHashTable.insert(value);
+			}
+		);
+
+		hashTable.insert((int) (java.lang.Math.random() * bigHashTableSize) + bigHashTableSize);
+		hashTable.insert((int) (java.lang.Math.random() * bigHashTableSize) + bigHashTableSize);
+		hashTable.insert((int) (java.lang.Math.random() * bigHashTableSize) + bigHashTableSize);
+		hashTable.insert((int) (java.lang.Math.random() * bigHashTableSize) + bigHashTableSize);
+
+		assertEquals(HashTable.getPrime(bigHashTableSize * 2), hashTable.getHashArray().length);
+
+		Integer[] hashArray = secondHashTable.getHashArray();
+		for (int i = 0; i < hashArray.length; i++)
+		{
+			if (hashArray[i] != null)
+			{
+				assertEquals(hashArray[i], hashTable.find(hashArray[i]));
+				assertTrue(hashArray[i] != -1);
+			}
+		}
 	}
 }

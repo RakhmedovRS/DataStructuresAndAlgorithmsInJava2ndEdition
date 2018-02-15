@@ -85,6 +85,11 @@ public class StringHashTable implements HashTable<String>
 			throw new IllegalArgumentException(ERROR_MESSAGE);
 		}
 
+		if (getLoadFactor() > MAX_LOAD_FACTOR)
+		{
+			rehash();
+		}
+
 		int hashValue = hashFunction(item);
 
 		while (hashArray[hashValue] != null && !hashArray[hashValue].equals(deletedItem))
@@ -145,11 +150,38 @@ public class StringHashTable implements HashTable<String>
 	}
 
 	@Override
+	public void rehash()
+	{
+		arraySize = HashTable.getPrime(arraySize * 2);
+		elementsNumber = 0;
+		String[] tempArray = hashArray.clone();
+		hashArray = new String[arraySize];
+
+		for (int i = 0; i < tempArray.length; i++)
+		{
+			if (tempArray[i] != null && !tempArray[i].equals(deletedItem))
+			{
+				insert(tempArray[i]);
+			}
+		}
+	}
+
+	@Override
+	public String[] getHashArray()
+	{
+		return hashArray.clone();
+	}
+
+	@Override
 	public String getDisplayData()
 	{
 		StringBuilder stringBuilder = new StringBuilder();
 
-		stringBuilder.append(String.format("%s: ", this.getClass().getSimpleName()));
+		stringBuilder.append(this.getClass().getSimpleName());
+		stringBuilder.append(String.format("%nHash table size: %s", getHashTableSize()));
+		stringBuilder.append(String.format("%nElements number: %s", getElementsNumber()));
+		stringBuilder.append(String.format("%nLoad factor: %s", getLoadFactor()));
+		stringBuilder.append("\n");
 
 		for (int i = 0; i < arraySize; i++)
 		{

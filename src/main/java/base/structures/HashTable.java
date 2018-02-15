@@ -11,6 +11,7 @@ package base.structures;
  */
 public interface HashTable<T>
 {
+	float MAX_LOAD_FACTOR = 0.5F;
 	/**
 	 * Получить первое простое число большее чeм {@param min}
 	 *
@@ -96,6 +97,17 @@ public interface HashTable<T>
 	 * @return найденный элемент данных
 	 */
 	T find(T item);
+
+	/**
+	 * Программный проект 11.4 - Program project 11.4
+	 * Увеличение размера хэш-таблицы вдвое
+	 */
+	void rehash();
+
+	/**
+	 * @return копия массива содержащего элементы хэш-таблицы
+	 */
+	T[] getHashArray();
 
 	/**
 	 * @return данные для вывода хэш-таблицы на печать
