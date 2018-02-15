@@ -16,6 +16,7 @@ public class LinearProbingHashTable implements HashTable<Item>
 	protected Item[] hashArray;
 	protected int arraySize;
 	protected Item deletedItem;
+	private int elementsNumber;
 
 	/**
 	 * Конструктор для классов наследников
@@ -33,6 +34,19 @@ public class LinearProbingHashTable implements HashTable<Item>
 		arraySize = size;
 		hashArray = new DataItem[arraySize];
 		deletedItem = new DataItem(-1);
+		elementsNumber = 0;
+	}
+
+	@Override
+	public int getHashTableSize()
+	{
+		return arraySize;
+	}
+
+	@Override
+	public int getElementsNumber()
+	{
+		return elementsNumber;
 	}
 
 	@Override
@@ -53,6 +67,7 @@ public class LinearProbingHashTable implements HashTable<Item>
 		}
 
 		hashArray[hashValue] = item;
+		elementsNumber++;
 	}
 
 	@Override
@@ -66,6 +81,7 @@ public class LinearProbingHashTable implements HashTable<Item>
 			{
 				Item dataItem = hashArray[hashValue];
 				hashArray[hashValue] = deletedItem;
+				elementsNumber--;
 				return dataItem;
 			}
 			++hashValue;

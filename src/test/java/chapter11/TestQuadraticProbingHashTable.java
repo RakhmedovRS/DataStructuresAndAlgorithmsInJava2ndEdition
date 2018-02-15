@@ -3,12 +3,11 @@ package chapter11;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.stream.IntStream;
 
 import static chapter11.TestHashTableBase.*;
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.*;
 
 /**
  * Тестирование сущности {@link QuadraticProbingHashTable}
@@ -20,41 +19,48 @@ import static junit.framework.TestCase.assertTrue;
  */
 public class TestQuadraticProbingHashTable
 {
-	private static QuadraticProbingHashTable quadraticProbingHashTable;
+	private static final int REAL_HASH_TABLE_SIZE = QuadraticProbingHashTable.getPrime(HASH_TABLE_SIZE);
+	private static QuadraticProbingHashTable hashTable;
+	private static ArrayList<DataItem> additionalItems;
+
+	{
+		additionalItems = new ArrayList<>();
+		IntStream.range(100_000, 100_010).forEach((value) -> additionalItems.add(new DataItem(value)));
+	}
 
 	@Before
 	public void init()
 	{
-		quadraticProbingHashTable = new QuadraticProbingHashTable(HASH_TABLE_SIZE);
+		hashTable = new QuadraticProbingHashTable(HASH_TABLE_SIZE);
 
-		IntStream.range(0, HASH_TABLE_SIZE / 2).forEach(key -> quadraticProbingHashTable.insert(new DataItem(key)));
+		IntStream.range(0, HASH_TABLE_SIZE / 2).forEach(key -> hashTable.insert(new DataItem(key)));
 	}
 
 	@Test
 	public void testHashFunction()
 	{
-		assertEquals(1, quadraticProbingHashTable.hashFunction(ITEM_1));
-		assertEquals(0, quadraticProbingHashTable.hashFunction(ITEM_2));
-		assertEquals(150, quadraticProbingHashTable.hashFunction(ITEM_3));
-		assertEquals(199, quadraticProbingHashTable.hashFunction(ITEM_4));
+		assertEquals(1, hashTable.hashFunction(ITEM_1));
+		assertEquals(0, hashTable.hashFunction(ITEM_2));
+		assertEquals(150, hashTable.hashFunction(ITEM_3));
+		assertEquals(199, hashTable.hashFunction(ITEM_4));
 	}
 
 	@Test
 	public void testInsertMethod()
 	{
-		TestHashTableBase.testInsertMethod(quadraticProbingHashTable);
+		TestHashTableBase.testInsertMethod(hashTable);
 	}
 
 	@Test
 	public void testDeleteMethod()
 	{
-		TestHashTableBase.testDeleteMethod(quadraticProbingHashTable);
+		TestHashTableBase.testDeleteMethod(hashTable);
 	}
 
 	@Test
 	public void testGetDisplayDataMethod()
 	{
-		TestHashTableBase.testGetDisplayDataMethod(quadraticProbingHashTable);
+		TestHashTableBase.testGetDisplayDataMethod(hashTable);
 	}
 
 	/**
@@ -81,5 +87,31 @@ public class TestQuadraticProbingHashTable
 		assertFalse(QuadraticProbingHashTable.isPrime(10));
 		assertFalse(QuadraticProbingHashTable.isPrime(300));
 		assertFalse(QuadraticProbingHashTable.isPrime(55556));
+	}
+
+	@Test
+	public void checkGettingElementsNumber()
+	{
+		TestHashTableBase.checkGettingElementsNumber(hashTable, HASH_TABLE_SIZE / 2, additionalItems);
+	}
+
+	@Test
+	public void checkHashTableSize()
+	{
+		TestHashTableBase.checkHashTableSize(hashTable, REAL_HASH_TABLE_SIZE, additionalItems);
+	}
+
+	@Test
+	public void testGettingLoadFactor()
+	{
+		float size = (REAL_HASH_TABLE_SIZE / 2) / (float) REAL_HASH_TABLE_SIZE;
+
+		assertEquals(size, hashTable.getLoadFactor());
+
+		additionalItems.forEach(hashTable::insert);
+
+		size += (additionalItems.size() / (float) REAL_HASH_TABLE_SIZE);
+
+		assertEquals(size, hashTable.getLoadFactor());
 	}
 }

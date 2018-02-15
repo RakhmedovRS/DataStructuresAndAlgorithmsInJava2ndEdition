@@ -1,10 +1,11 @@
 package chapter11;
 
-import base.structures.HashTable;
 import base.items.LinkItem;
+import base.structures.HashTable;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.stream.IntStream;
 
 import static chapter11.TestHashTableBase.HASH_TABLE_SIZE;
@@ -23,6 +24,12 @@ import static org.junit.Assert.assertNull;
 public class TestHashChain
 {
 	private static HashTable<LinkItem> hashChain;
+	private static ArrayList<Link> additionalItems;
+
+	{
+		additionalItems = new ArrayList<>();
+		IntStream.range(100_000, 100_010).forEach((value) -> additionalItems.add(new Link(value)));
+	}
 
 	@Before
 	public void init()
@@ -40,7 +47,6 @@ public class TestHashChain
 		assertEquals(150, hashChain.hashFunction(new Link(150)));
 		assertEquals(0, hashChain.hashFunction(new Link(400)));
 	}
-
 
 	@Test
 	public void testInsertMethod()
@@ -70,5 +76,23 @@ public class TestHashChain
 	public void testGetDisplayDataMethod()
 	{
 		TestHashTableBase.testGetDisplayDataMethod(hashChain);
+	}
+
+	@Test
+	public void checkGettingElementsNumber()
+	{
+		TestHashTableBase.checkGettingElementsNumber(hashChain, HASH_TABLE_SIZE / 2, additionalItems);
+	}
+
+	@Test
+	public void checkHashTableSize()
+	{
+		TestHashTableBase.checkHashTableSize(hashChain, HASH_TABLE_SIZE, additionalItems);
+	}
+
+	@Test
+	public void testGettingLoadFactor()
+	{
+		TestHashTableBase.testGettingLoadFactor(hashChain, (HASH_TABLE_SIZE / 2) / (float) HASH_TABLE_SIZE, additionalItems);
 	}
 }

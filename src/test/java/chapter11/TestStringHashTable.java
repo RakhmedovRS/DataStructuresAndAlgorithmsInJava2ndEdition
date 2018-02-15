@@ -3,9 +3,11 @@ package chapter11;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.IntStream;
 
+import static chapter11.TestHashTableBase.HASH_TABLE_SIZE;
 import static junit.framework.TestCase.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -20,22 +22,32 @@ import static org.junit.Assert.assertNull;
  */
 public class TestStringHashTable
 {
-	private static StringHashTable stringHashTable;
+	private static StringHashTable hashTable;
+	private static ArrayList<String> additionalItems;
+
+	{
+		additionalItems = new ArrayList<>();
+		additionalItems.add("asdasdfg");
+		additionalItems.add("asd");
+		additionalItems.add("aaa");
+		additionalItems.add("agdfgdbsd");
+		additionalItems.add("asdasdasghfgh");
+	}
 
 	@Before
 	public void init()
 	{
-		stringHashTable = new StringHashTable(TestHashTableBase.HASH_TABLE_SIZE);
+		hashTable = new StringHashTable(HASH_TABLE_SIZE);
 
 		Random random = new Random();
 
-		IntStream.range(0, TestHashTableBase.HASH_TABLE_SIZE / 2).forEach(key ->
+		IntStream.range(0, HASH_TABLE_SIZE / 2).forEach(key ->
 		{
 			char[] chars = new char[3];
 			chars[0] = (char) ('a' + random.nextInt(('z' - 'a') + 1));
 			chars[1] = (char) ('a' + random.nextInt(('z' - 'a') + 1));
 			chars[2] = (char) ('a' + random.nextInt(('z' - 'a') + 1));
-			stringHashTable.insert(String.valueOf(chars));
+			hashTable.insert(String.valueOf(chars));
 		});
 	}
 
@@ -58,77 +70,95 @@ public class TestStringHashTable
 	@Test
 	public void testHashFunction()
 	{
-		assertEquals(0, stringHashTable.hashFunction("a"));
-		assertEquals(25, stringHashTable.hashFunction("z"));
-		assertEquals(97, stringHashTable.hashFunction("cats"));
-		assertEquals(112, stringHashTable.hashFunction("synchrophasotron"));
+		assertEquals(0, hashTable.hashFunction("a"));
+		assertEquals(25, hashTable.hashFunction("z"));
+		assertEquals(97, hashTable.hashFunction("cats"));
+		assertEquals(112, hashTable.hashFunction("synchrophasotron"));
 	}
 
 	@Test
 	public void testInsertMethod()
 	{
-		stringHashTable.insert("mother");
+		hashTable.insert("mother");
 
-		assertEquals("mother", stringHashTable.find("mother"));
+		assertEquals("mother", hashTable.find("mother"));
 
-		stringHashTable.insert("father");
+		hashTable.insert("father");
 
-		assertEquals("father", stringHashTable.find("father"));
+		assertEquals("father", hashTable.find("father"));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testInsertMethod2()
 	{
-		stringHashTable.insert("_mother");
+		hashTable.insert("_mother");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testInsertMethod3()
 	{
-		stringHashTable.insert("mot1her");
+		hashTable.insert("mot1her");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testInsertMethod4()
 	{
-		stringHashTable.insert("mother ");
+		hashTable.insert("mother ");
 	}
 
 	@Test
 	public void testDeleteMethod()
 	{
-		stringHashTable.insert("mother");
+		hashTable.insert("mother");
 
-		String deletedItem = stringHashTable.delete("mother");
+		String deletedItem = hashTable.delete("mother");
 
 		assertNotNull(deletedItem);
 		assertEquals("mother", deletedItem);
 
-		deletedItem = stringHashTable.delete("mother");
+		deletedItem = hashTable.delete("mother");
 		assertNull(deletedItem);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testDeleteMethod2()
 	{
-		stringHashTable.delete("_mother");
+		hashTable.delete("_mother");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testDeleteMethod3()
 	{
-		stringHashTable.delete("mot1her");
+		hashTable.delete("mot1her");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testDeleteMethod4()
 	{
-		stringHashTable.delete("mother ");
+		hashTable.delete("mother ");
 	}
 
 	@Test
 	public void testGetDisplayDataMethod()
 	{
-		TestHashTableBase.testGetDisplayDataMethod(stringHashTable);
+		TestHashTableBase.testGetDisplayDataMethod(hashTable);
+	}
+
+	@Test
+	public void checkGettingElementsNumber()
+	{
+		TestHashTableBase.checkGettingElementsNumber(hashTable, HASH_TABLE_SIZE / 2, additionalItems);
+	}
+
+	@Test
+	public void checkHashTableSize()
+	{
+		TestHashTableBase.checkHashTableSize(hashTable, HASH_TABLE_SIZE, additionalItems);
+	}
+
+	@Test
+	public void testGettingLoadFactor()
+	{
+		TestHashTableBase.testGettingLoadFactor(hashTable, (HASH_TABLE_SIZE / 2) / (float) HASH_TABLE_SIZE, additionalItems);
 	}
 }

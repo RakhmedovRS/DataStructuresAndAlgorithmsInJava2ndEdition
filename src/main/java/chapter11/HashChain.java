@@ -16,6 +16,7 @@ public class HashChain implements HashTable<LinkItem>
 {
 	private SortedLinkedList[] hashArray;
 	private int arraySize;
+	private int elementsNumber;
 
 	/**
 	 * Конструкторк
@@ -34,6 +35,18 @@ public class HashChain implements HashTable<LinkItem>
 	}
 
 	@Override
+	public int getHashTableSize()
+	{
+		return arraySize;
+	}
+
+	@Override
+	public int getElementsNumber()
+	{
+		return elementsNumber;
+	}
+
+	@Override
 	public int hashFunction(LinkItem item)
 	{
 		return item.getKey() % arraySize;
@@ -44,12 +57,14 @@ public class HashChain implements HashTable<LinkItem>
 	{
 		int hashValue = hashFunction(item);
 		hashArray[hashValue].insert(item);
+		elementsNumber++;
 	}
 
 	@Override
 	public LinkItem delete(LinkItem item)
 	{
 		int hashValue = hashFunction(item);
+		elementsNumber--;
 		return hashArray[hashValue].delete(item);
 	}
 

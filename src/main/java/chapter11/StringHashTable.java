@@ -19,6 +19,7 @@ public class StringHashTable implements HashTable<String>
 	private String[] hashArray;
 	private int arraySize;
 	private String deletedItem;
+	private int elementsNumber;
 
 	/**
 	 * Конструктор
@@ -30,6 +31,7 @@ public class StringHashTable implements HashTable<String>
 		arraySize = size;
 		hashArray = new String[arraySize];
 		deletedItem = "-1";
+		elementsNumber = 0;
 	}
 
 	/**
@@ -41,6 +43,18 @@ public class StringHashTable implements HashTable<String>
 	public static boolean isMatchLettersInString(String value)
 	{
 		return value.matches("^[a-z]+$");
+	}
+
+	@Override
+	public int getHashTableSize()
+	{
+		return arraySize;
+	}
+
+	@Override
+	public int getElementsNumber()
+	{
+		return elementsNumber;
 	}
 
 	/**
@@ -80,6 +94,7 @@ public class StringHashTable implements HashTable<String>
 		}
 
 		hashArray[hashValue] = item;
+		elementsNumber++;
 	}
 
 	@Override
@@ -98,6 +113,7 @@ public class StringHashTable implements HashTable<String>
 			{
 				String value = hashArray[hashValue];
 				hashArray[hashValue] = deletedItem;
+				elementsNumber--;
 				return value;
 			}
 			++hashValue;

@@ -20,6 +20,24 @@ public interface HashTable<T>
 	int hashFunction(T item);
 
 	/**
+	 * @return коэффициент наполненности хэш-таблицы
+	 */
+	default float getLoadFactor()
+	{
+		return (float) getElementsNumber() / getHashTableSize();
+	}
+
+	/**
+	 * @return текущий максимальный размер хэш-таблицы
+	 */
+	int getHashTableSize();
+
+	/**
+	 * @return количество элементов находящихся в хэш-таблице
+	 */
+	int getElementsNumber();
+
+	/**
 	 * Вставить элемент данных в хэш-таблицу
 	 * предполагается что хэш-таблица не заполненна
 	 *

@@ -3,6 +3,8 @@ package chapter11;
 import base.items.Item;
 import base.structures.HashTable;
 
+import java.util.ArrayList;
+
 import static junit.framework.TestCase.*;
 
 /**
@@ -68,5 +70,43 @@ abstract class TestHashTableBase
 	static void testGetDisplayDataMethod(HashTable hashTable)
 	{
 		assertNotNull(hashTable.getDisplayData());
+	}
+
+	/**
+	 * Проверка соотвествия количества вставленных элементов с количеством фактически находящихся в ней
+	 */
+	static void checkGettingElementsNumber(HashTable hashTable, int size, ArrayList<?> items)
+	{
+		assertEquals(size, hashTable.getElementsNumber());
+
+		items.forEach(hashTable::insert);
+
+		assertEquals(size + items.size(), hashTable.getElementsNumber());
+	}
+
+	/**
+	 * Проверка соотвествия текущего размера хэш-таблицы с переденным при создании значением
+	 */
+	static void checkHashTableSize(HashTable hashTable, int size, ArrayList<?> items)
+	{
+		assertEquals(size, hashTable.getHashTableSize());
+
+		items.forEach(hashTable::insert);
+
+		assertEquals(size, hashTable.getHashTableSize());
+	}
+
+	/**
+	 * Проверка расчета фактора загрузки хэш-таблицы
+	 */
+	static void testGettingLoadFactor(HashTable hashTable, float size, ArrayList<?> items)
+	{
+		assertEquals(size, hashTable.getLoadFactor());
+
+		items.forEach(hashTable::insert);
+
+		size += ((float)items.size()/HASH_TABLE_SIZE);
+
+		assertEquals(size, hashTable.getLoadFactor());
 	}
 }

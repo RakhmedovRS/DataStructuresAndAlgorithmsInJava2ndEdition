@@ -3,9 +3,11 @@ package chapter11;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.IntStream;
 
+import static chapter11.TestHashTableBase.HASH_TABLE_SIZE;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.assertEquals;
@@ -21,24 +23,30 @@ import static org.junit.Assert.assertEquals;
 public class TestConvolutionHashTable
 {
 	private static final int TEN = 10;
-	private static ConvolutionHashTable convolutionHashTable;
+	private static ConvolutionHashTable hashTable;
+	private static ArrayList<Integer> additionalItems;
+
+	{
+		additionalItems = new ArrayList<>();
+		IntStream.range(100_000, 100_010).forEach((value) -> additionalItems.add(value));
+	}
 
 	@Before
 	public void init()
 	{
-		convolutionHashTable = new ConvolutionHashTable(TestHashTableBase.HASH_TABLE_SIZE);
+		hashTable = new ConvolutionHashTable(HASH_TABLE_SIZE);
 
-		int factor = ConvolutionHashTable.calcGroupSize(TestHashTableBase.HASH_TABLE_SIZE);
+		int factor = ConvolutionHashTable.calcGroupSize(HASH_TABLE_SIZE);
 		Random random = new Random();
 
-		IntStream.range(1, TestHashTableBase.HASH_TABLE_SIZE / 2).forEach(key ->
+		IntStream.range(1, HASH_TABLE_SIZE / 2).forEach(key ->
 			{
 				for (int i = 0; i < factor; i++)
 				{
 					key *= TEN;
 					key += random.nextInt(key);
 				}
-				convolutionHashTable.insert(key + random.nextInt(key) * TEN);
+				hashTable.insert(key + random.nextInt(key) * TEN);
 			}
 		);
 	}
@@ -77,29 +85,47 @@ public class TestConvolutionHashTable
 	{
 		final Integer ITEM_5 = 101;
 
-		convolutionHashTable.insert(ITEM_5);
+		hashTable.insert(ITEM_5);
 
-		assertEquals(ITEM_5, convolutionHashTable.find(ITEM_5));
+		assertEquals(ITEM_5, hashTable.find(ITEM_5));
 	}
 
 	@Test
 	public void testDeleteMethod()
 	{
 		Integer itemForDeleting = 1000;
-		convolutionHashTable.insert(itemForDeleting);
+		hashTable.insert(itemForDeleting);
 
-		Integer deletedItem = convolutionHashTable.delete(itemForDeleting);
+		Integer deletedItem = hashTable.delete(itemForDeleting);
 
 		assertNotNull(deletedItem);
 		assertEquals(itemForDeleting, deletedItem);
 
-		deletedItem = convolutionHashTable.delete(itemForDeleting);
+		deletedItem = hashTable.delete(itemForDeleting);
 		assertNull(deletedItem);
 	}
 
 	@Test
 	public void testGetDisplayDataMethod()
 	{
-		TestHashTableBase.testGetDisplayDataMethod(convolutionHashTable);
+		TestHashTableBase.testGetDisplayDataMethod(hashTable);
+	}
+
+	@Test
+	public void checkGettingElementsNumber()
+	{
+		TestHashTableBase.checkGettingElementsNumber(hashTable, HASH_TABLE_SIZE / 2 - 1, additionalItems);
+	}
+
+	@Test
+	public void checkHashTableSize()
+	{
+		TestHashTableBase.checkHashTableSize(hashTable, HASH_TABLE_SIZE, additionalItems);
+	}
+
+	@Test
+	public void testGettingLoadFactor()
+	{
+		TestHashTableBase.testGettingLoadFactor(hashTable, (HASH_TABLE_SIZE / 2 - 1) / (float) HASH_TABLE_SIZE, additionalItems);
 	}
 }

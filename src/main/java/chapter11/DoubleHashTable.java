@@ -16,6 +16,7 @@ public class DoubleHashTable implements HashTable<Item>
 	private Item[] hashArray;
 	private Integer arraySize;
 	private Item deletedItem;
+	private int elementsNumber;
 
 	/**
 	 * Конструктор
@@ -27,6 +28,19 @@ public class DoubleHashTable implements HashTable<Item>
 		this.arraySize = size;
 		hashArray = new Item[arraySize];
 		deletedItem = new DataItem(-1);
+		elementsNumber = 0;
+	}
+
+	@Override
+	public int getHashTableSize()
+	{
+		return arraySize;
+	}
+
+	@Override
+	public int getElementsNumber()
+	{
+		return elementsNumber;
 	}
 
 	@Override
@@ -64,6 +78,7 @@ public class DoubleHashTable implements HashTable<Item>
 		}
 
 		hashArray[hashValue] = item;
+		elementsNumber++;
 	}
 
 	@Override
@@ -78,6 +93,7 @@ public class DoubleHashTable implements HashTable<Item>
 			{
 				Item newItem = hashArray[hashValue];
 				hashArray[hashValue] = deletedItem;
+				elementsNumber--;
 				return newItem;
 			}
 			/*смещение*/

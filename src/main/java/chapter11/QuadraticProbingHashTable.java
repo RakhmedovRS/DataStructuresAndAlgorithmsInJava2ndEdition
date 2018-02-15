@@ -13,6 +13,7 @@ import base.items.Item;
  */
 public class QuadraticProbingHashTable extends LinearProbingHashTable
 {
+	private int elementsNumber;
 	/**
 	 * Конструктор
 	 *
@@ -23,7 +24,21 @@ public class QuadraticProbingHashTable extends LinearProbingHashTable
 		arraySize = getPrime(size);
 		hashArray = new DataItem[arraySize];
 		deletedItem = new DataItem(-1);
+		elementsNumber = 0;
 	}
+
+	@Override
+	public int getHashTableSize()
+	{
+		return arraySize;
+	}
+
+	@Override
+	public int getElementsNumber()
+	{
+		return elementsNumber;
+	}
+
 
 	/**
 	 * Получить первое простое число большее чeм {@param min}
@@ -79,5 +94,6 @@ public class QuadraticProbingHashTable extends LinearProbingHashTable
 		}
 
 		hashArray[hashValue] = item;
+		elementsNumber++;
 	}
 }

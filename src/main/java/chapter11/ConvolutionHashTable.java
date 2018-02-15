@@ -18,6 +18,7 @@ public class ConvolutionHashTable implements HashTable<Integer>
 	private int arraySize;
 	private Integer deletedItem;
 	private int groupSize;
+	private int elementsNumber;
 
 	/**
 	 * Конструктор
@@ -30,6 +31,7 @@ public class ConvolutionHashTable implements HashTable<Integer>
 		hashArray = new Integer[arraySize];
 		deletedItem = -1;
 		groupSize = calcGroupSize(arraySize);
+		elementsNumber = 0;
 	}
 
 	/**
@@ -49,6 +51,18 @@ public class ConvolutionHashTable implements HashTable<Integer>
 				return i;
 			}
 		}
+	}
+
+	@Override
+	public int getHashTableSize()
+	{
+		return arraySize;
+	}
+
+	@Override
+	public int getElementsNumber()
+	{
+		return elementsNumber;
 	}
 
 	@Override
@@ -96,6 +110,7 @@ public class ConvolutionHashTable implements HashTable<Integer>
 		}
 
 		hashArray[hashValue] = item;
+		elementsNumber++;
 	}
 
 	@Override
@@ -109,6 +124,7 @@ public class ConvolutionHashTable implements HashTable<Integer>
 			{
 				Integer value = hashArray[hashValue];
 				hashArray[hashValue] = deletedItem;
+				elementsNumber--;
 				return value;
 			}
 			++hashValue;
