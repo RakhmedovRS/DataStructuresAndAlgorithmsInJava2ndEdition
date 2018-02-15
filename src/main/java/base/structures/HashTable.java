@@ -12,6 +12,41 @@ package base.structures;
 public interface HashTable<T>
 {
 	/**
+	 * Получить первое простое число большее чeм {@param min}
+	 *
+	 * @param min минимальное значение
+	 * @return найденное простое число
+	 */
+	static int getPrime(int min)
+	{
+		for (int i = min + 1; true; i++)
+		{
+			if (isPrime(i))
+			{
+				return i;
+			}
+		}
+	}
+
+	/**
+	 * Проверка числа того, что число {@param value} простое
+	 *
+	 * @param value проверяемое значение
+	 * @return признак простого числа
+	 */
+	static boolean isPrime(int value)
+	{
+		for (int i = 2; (i * i <= value); i++)
+		{
+			if (value % 2 == 0)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
 	 * Хэш-функция
 	 *
 	 * @param item элемент данных

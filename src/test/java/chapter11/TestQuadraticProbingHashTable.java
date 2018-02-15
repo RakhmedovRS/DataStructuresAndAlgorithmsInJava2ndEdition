@@ -1,5 +1,6 @@
 package chapter11;
 
+import base.structures.HashTable;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,7 +20,7 @@ import static junit.framework.TestCase.*;
  */
 public class TestQuadraticProbingHashTable
 {
-	private static final int REAL_HASH_TABLE_SIZE = QuadraticProbingHashTable.getPrime(HASH_TABLE_SIZE);
+	private static final int REAL_HASH_TABLE_SIZE = HashTable.getPrime(HASH_TABLE_SIZE);
 	private static QuadraticProbingHashTable hashTable;
 	private static ArrayList<DataItem> additionalItems;
 
@@ -69,9 +70,9 @@ public class TestQuadraticProbingHashTable
 	@Test
 	public void testGetPrimeMethod()
 	{
-		assertEquals(3, QuadraticProbingHashTable.getPrime(2));
-		assertEquals(5, QuadraticProbingHashTable.getPrime(3));
-		assertEquals(7, QuadraticProbingHashTable.getPrime(6));
+		assertEquals(3, HashTable.getPrime(2));
+		assertEquals(5, HashTable.getPrime(3));
+		assertEquals(7, HashTable.getPrime(6));
 	}
 
 	/**
@@ -80,13 +81,13 @@ public class TestQuadraticProbingHashTable
 	@Test
 	public void checkIsPrimeMethod()
 	{
-		assertTrue(QuadraticProbingHashTable.isPrime(11));
-		assertTrue(QuadraticProbingHashTable.isPrime(333));
-		assertTrue(QuadraticProbingHashTable.isPrime(555));
+		assertTrue(HashTable.isPrime(11));
+		assertTrue(HashTable.isPrime(333));
+		assertTrue(HashTable.isPrime(555));
 
-		assertFalse(QuadraticProbingHashTable.isPrime(10));
-		assertFalse(QuadraticProbingHashTable.isPrime(300));
-		assertFalse(QuadraticProbingHashTable.isPrime(55556));
+		assertFalse(HashTable.isPrime(10));
+		assertFalse(HashTable.isPrime(300));
+		assertFalse(HashTable.isPrime(55556));
 	}
 
 	@Test

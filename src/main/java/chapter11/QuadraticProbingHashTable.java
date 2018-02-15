@@ -1,6 +1,7 @@
 package chapter11;
 
 import base.items.Item;
+import base.structures.HashTable;
 
 /**
  * Программный проект 11.1 - Program project 11.1
@@ -14,6 +15,7 @@ import base.items.Item;
 public class QuadraticProbingHashTable extends LinearProbingHashTable
 {
 	private int elementsNumber;
+
 	/**
 	 * Конструктор
 	 *
@@ -21,7 +23,7 @@ public class QuadraticProbingHashTable extends LinearProbingHashTable
 	 */
 	public QuadraticProbingHashTable(int size)
 	{
-		arraySize = getPrime(size);
+		arraySize = HashTable.getPrime(size);
 		hashArray = new DataItem[arraySize];
 		deletedItem = new DataItem(-1);
 		elementsNumber = 0;
@@ -37,42 +39,6 @@ public class QuadraticProbingHashTable extends LinearProbingHashTable
 	public int getElementsNumber()
 	{
 		return elementsNumber;
-	}
-
-
-	/**
-	 * Получить первое простое число большее чeм {@param min}
-	 *
-	 * @param min минимальное значение
-	 * @return найденное простое число
-	 */
-	public static int getPrime(int min)
-	{
-		for (int i = min + 1; true; i++)
-		{
-			if (isPrime(i))
-			{
-				return i;
-			}
-		}
-	}
-
-	/**
-	 * Проверка числа того, что число {@param value} простое
-	 *
-	 * @param value проверяемое значение
-	 * @return признак простого числа
-	 */
-	public static boolean isPrime(int value)
-	{
-		for (int i = 2; (i * i <= value); i++)
-		{
-			if (value % 2 == 0)
-			{
-				return false;
-			}
-		}
-		return true;
 	}
 
 	/**
