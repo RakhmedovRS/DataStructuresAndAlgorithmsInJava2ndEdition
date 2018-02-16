@@ -95,4 +95,16 @@ public class TestHashChain
 	{
 		assertEquals((HASH_TABLE_SIZE / 2) / (float) HASH_TABLE_SIZE, hashChain.getLoadFactor());
 	}
+
+	@Test (expected = UnsupportedOperationException.class)
+	public void testGettingHashArray()
+	{
+		hashChain.getHashArray();
+	}
+
+	@Test (expected = UnsupportedOperationException.class)
+	public void testRehash()
+	{
+		hashChain.rehash();
+	}
 }
