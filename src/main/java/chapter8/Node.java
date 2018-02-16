@@ -8,14 +8,14 @@ package chapter8;
  * @$Author$
  * @$Revision$
  */
-class Node
+public class Node
 {
 	public int key;
 	public int value;
 	Node leftChild;
 	Node rightChild;
 
-	Node(int key, int value)
+	public Node(int key, int value)
 	{
 		this.key = key;
 		this.value = value;

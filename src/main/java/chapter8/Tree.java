@@ -23,12 +23,12 @@ public class Tree
 		return root;
 	}
 
-	Tree()
+	public Tree()
 	{
 		root = null;
 	}
 
-	Tree(Node root)
+	public Tree(Node root)
 	{
 		this.root = root;
 	}
@@ -231,7 +231,7 @@ public class Tree
 	 *
 	 * @param traverseType тип выполняемого обхода
 	 */
-	void traverse(int traverseType)
+	public void traverse(int traverseType)
 	{
 		switch (traverseType)
 		{
@@ -326,9 +326,9 @@ public class Tree
 	/**
 	 * Вывод содержимого дерева
 	 */
-	void displayTree()
+	public String displayTree()
 	{
-		displayTree(false);
+		return displayTree(false);
 	}
 
 	/**
@@ -336,14 +336,16 @@ public class Tree
 	 *
 	 * @param needCharOutput признак вывода элементов дерева в виде символов
 	 */
-	void displayTree(boolean needCharOutput)
+	public String displayTree(boolean needCharOutput)
 	{
 		Stack<Node> globalStack = new Stack<>();
 		globalStack.push(root);
 		int nBlanks = 32;
 		boolean isRowEmpty = false;
 
-		System.out.println("................................................................");
+		StringBuilder stringBuilder = new StringBuilder();
+
+		stringBuilder.append("................................................................\n");
 		while (!isRowEmpty)
 		{
 			Stack<Node> localStack = new Stack<>();
@@ -351,7 +353,7 @@ public class Tree
 
 			for (int i = 0; i < nBlanks; i++)
 			{
-				System.out.print(" ");
+				stringBuilder.append(" ");
 			}
 
 			while (!globalStack.isEmpty())
@@ -359,7 +361,7 @@ public class Tree
 				Node temp = globalStack.pop();
 				if (temp != null)
 				{
-					System.out.print(needCharOutput ? Character.toString((char) temp.key) : temp.key);
+					stringBuilder.append(needCharOutput ? Character.toString((char) temp.key) : temp.key);
 					localStack.push(temp.leftChild);
 					localStack.push(temp.rightChild);
 
@@ -370,17 +372,17 @@ public class Tree
 				}
 				else
 				{
-					System.out.print("--");
+					stringBuilder.append("--");
 					localStack.push(null);
 					localStack.push(null);
 				}
 
 				for (int i = 0; i < nBlanks * 2 - 2; i++)
 				{
-					System.out.print(" ");
+					stringBuilder.append(" ");
 				}
 			}
-			System.out.println();
+			stringBuilder.append("\n");
 			nBlanks /= 2;
 
 			while (!localStack.isEmpty())
@@ -388,6 +390,7 @@ public class Tree
 				globalStack.push(localStack.pop());
 			}
 		}
+		return stringBuilder.toString();
 	}
 
 	/**

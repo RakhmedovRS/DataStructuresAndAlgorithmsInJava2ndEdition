@@ -1,9 +1,9 @@
 package chapter10;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
+import static base.util.Util.getChar;
+import static base.util.Util.getInt;
 import static chapter10.Order.TREE_4_ORDER;
 
 /**
@@ -36,19 +36,19 @@ public class Tree234App
 			System.out.println("Enter first letter of ");
 			System.out.println("show, insert, find or exit: ");
 
-			char choice = getChar();
+			char choice = getChar(System.in);
 			switch (choice)
 			{
 				case 'i':
 					System.out.println("Enter value to insert: ");
-					bTree.insert(getInt());
+					bTree.insert(getInt(System.in));
 					break;
 				case 's':
 					bTree.displayTree();
 					break;
 				case 'f':
 					System.out.println("Enter value to find: ");
-					value = getInt();
+					value = getInt(System.in);
 					if (bTree.find(value) != -1)
 					{
 						System.out.println("Found " + value);
@@ -65,22 +65,5 @@ public class Tree234App
 					System.out.println("Invalid entry\n");
 			}
 		}
-	}
-
-	private static String getString() throws IOException
-	{
-		InputStreamReader isr = new InputStreamReader(System.in);
-		BufferedReader br = new BufferedReader(isr);
-		return br.readLine();
-	}
-
-	private static char getChar() throws IOException
-	{
-		return getString().charAt(0);
-	}
-
-	private static int getInt() throws IOException
-	{
-		return Integer.parseInt(getString());
 	}
 }

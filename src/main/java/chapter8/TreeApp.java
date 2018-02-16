@@ -1,7 +1,7 @@
 package chapter8;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import static base.util.Util.getChar;
+import static base.util.Util.getInt;
 
 /**
  * @author rassoll
@@ -27,51 +27,38 @@ public class TreeApp
 		tree.insert(93, 15);
 		tree.insert(97, 15);
 
-		while (true)
+		boolean run = true;
+		while (run)
 		{
 			System.out.println("Enter first letter of show, insert, find, delete or traverse:");
 
-			int choice = getChar();
+			int choice = getChar(System.in);
 			switch (choice)
 			{
 				case 's':
-					tree.displayTree();
+					System.out.println(tree.displayTree());
 					break;
 				case 'i':
 					System.out.println("Enter value to insert: ");
-					value = getInt();
+					value = getInt(System.in);
 					tree.insert(value, value + 9);
 					break;
 				case 'f':
 					System.out.println("Enter valuer to find: ");
-					Node found = tree.find(getInt());
+					Node found = tree.find(getInt(System.in));
 					if (found != null)
 					{
 						System.out.print("Found: ");
 						found.displayNode();
 						System.out.println();
 					}
+					break;
+				case 'e':
+					run = false;
+					break;
 				default:
 					return;
 			}
 		}
-	}
-
-	private static int getInt() throws Exception
-	{
-		return Integer.parseInt(getString());
-	}
-
-	private static int getChar() throws Exception
-	{
-		String s = getString();
-		return s.charAt(0);
-	}
-
-	private static String getString() throws Exception
-	{
-		InputStreamReader isr = new InputStreamReader(System.in);
-		BufferedReader reader = new BufferedReader(isr);
-		return reader.readLine().toLowerCase();
 	}
 }

@@ -87,32 +87,32 @@ public class TestTree
 	@Test
 	public void testDeleteMethod()
 	{
-		tree.displayTree();
+		System.out.println(tree.displayTree());
 
 		//удаление узла не имеющего потомков
 		tree.delete(97);
 		assertNull(tree.find(97));
-		tree.displayTree();
+		System.out.println(tree.displayTree());
 
 		//удаление узла имеющего потомков
 		tree.delete(30);
 		assertNull(tree.find(30));
-		tree.displayTree();
+		System.out.println(tree.displayTree());
 
 		//удаление узла имеющего потомков
 		tree.delete(12);
 		assertNull(tree.find(12));
-		tree.displayTree();
+		System.out.println(tree.displayTree());
 
 		//удаление ноды имеющей двух потомков
 		tree.delete(37);
 		assertNull(tree.find(37));
-		tree.displayTree();
+		System.out.println(tree.displayTree());
 
 		//удаление корневого узла
 		tree.delete(50);
 		assertNull(tree.find(50));
-		tree.displayTree();
+		System.out.println(tree.displayTree());
 	}
 
 	@Test
@@ -131,19 +131,19 @@ public class TestTree
 	public void testMakeTreeFromUserCharsMethod()
 	{
 		tree = Tree.makeTreeFromUserChars("A");
-		tree.displayTree(true);
+		System.out.println(tree.displayTree(true));
 
 		tree = Tree.makeTreeFromUserChars("AB");
-		tree.displayTree(true);
+		System.out.println(tree.displayTree(true));
 
 		tree = Tree.makeTreeFromUserChars("ABC");
-		tree.displayTree(true);
+		System.out.println(tree.displayTree(true));
 
 		tree = Tree.makeTreeFromUserChars("ABCD");
-		tree.displayTree(true);
+		System.out.println(tree.displayTree(true));
 
 		tree = Tree.makeTreeFromUserChars("ABCDEFGHIJK");
-		tree.displayTree(true);
+		System.out.println(tree.displayTree(true));
 	}
 
 	/**
