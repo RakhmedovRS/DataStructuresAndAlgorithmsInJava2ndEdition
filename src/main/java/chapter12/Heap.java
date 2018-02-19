@@ -128,25 +128,11 @@ public class Heap
 			if (rightChild < currentSize
 				&& heapArray[leftChild].getKey() < heapArray[rightChild].getKey())
 			{
-				if (!directOrder)
-				{
-					largerChild = rightChild;
-				}
-				else
-				{
-					largerChild = leftChild;
-				}
+				largerChild = !directOrder ? rightChild : leftChild;
 			}
 			else
 			{
-				if (!directOrder)
-				{
-					largerChild = leftChild;
-				}
-				else
-				{
-					largerChild = rightChild;
-				}
+				largerChild = !directOrder ? leftChild : rightChild;
 			}
 
 			if ((top.getKey() >= heapArray[largerChild].getKey() && !directOrder)
