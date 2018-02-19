@@ -13,12 +13,31 @@ public class Heap
 	private Node[] heapArray;
 	private int maxSize;
 	private int currentSize;
+	private boolean directOrder;
 
+	/**
+	 * Конструктор
+	 *
+	 * @param maxSize размер пирамиды
+	 */
 	public Heap(int maxSize)
+	{
+		this(maxSize, false);
+	}
+
+	/**
+	 * Программный проект 12.1 - Program project 12.1
+	 * Конструктор
+	 *
+	 * @param maxSize     размер пирамиды
+	 * @param directOrder признак прямого порядка узлов
+	 */
+	public Heap(int maxSize, boolean directOrder)
 	{
 		this.maxSize = maxSize;
 		currentSize = 0;
 		heapArray = new Node[maxSize];
+		this.directOrder = directOrder;
 	}
 
 	/**
@@ -58,12 +77,22 @@ public class Heap
 		int parent = (index - 1) / 2;
 		Node bottom = heapArray[index];
 
-		while (index > 0 && heapArray[parent].getKey() < bottom.getKey())
+		/*перемещение вверх при обратном порядке*/
+		while (index > 0 && heapArray[parent].getKey() < bottom.getKey() && !directOrder)
 		{
 			heapArray[index] = heapArray[parent];
 			index = parent;
 			parent = (parent - 1) / 2;
 		}
+
+		/*перемещение вверх при прямом порядке*/
+		while (index > 0 && heapArray[parent].getKey() > bottom.getKey() && directOrder)
+		{
+			heapArray[index] = heapArray[parent];
+			index = parent;
+			parent = (parent - 1) / 2;
+		}
+
 		heapArray[index] = bottom;
 	}
 
@@ -99,14 +128,29 @@ public class Heap
 			if (rightChild < currentSize
 				&& heapArray[leftChild].getKey() < heapArray[rightChild].getKey())
 			{
-				largerChild = rightChild;
+				if (!directOrder)
+				{
+					largerChild = rightChild;
+				}
+				else
+				{
+					largerChild = leftChild;
+				}
 			}
 			else
 			{
-				largerChild = leftChild;
+				if (!directOrder)
+				{
+					largerChild = leftChild;
+				}
+				else
+				{
+					largerChild = rightChild;
+				}
 			}
 
-			if (top.getKey() >= heapArray[largerChild].getKey())
+			if ((top.getKey() >= heapArray[largerChild].getKey() && !directOrder)
+				|| (top.getKey() <= heapArray[largerChild].getKey() && directOrder))
 			{
 				break;
 			}
@@ -134,7 +178,7 @@ public class Heap
 		int oldValue = heapArray[index].getKey();
 		heapArray[index].setKey(newValue);
 
-		if (oldValue < newValue)
+		if (oldValue < newValue && !directOrder)
 		{
 			tickleUp(index);
 		}
