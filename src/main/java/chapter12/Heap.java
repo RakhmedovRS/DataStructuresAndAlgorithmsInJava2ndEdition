@@ -14,6 +14,7 @@ public class Heap
 	private int maxSize;
 	private int currentSize;
 	private boolean directOrder;
+	private boolean correctHeap;
 
 	/**
 	 * Конструктор
@@ -38,6 +39,7 @@ public class Heap
 		currentSize = 0;
 		heapArray = new Node[maxSize];
 		this.directOrder = directOrder;
+		correctHeap = true;
 	}
 
 	/**
@@ -233,6 +235,31 @@ public class Heap
 			}
 		}
 		System.out.println("\n" + dots + dots);
+	}
+
+	/**
+	 * Программный проект 12.1 - Program project 12.1
+	 * Вставить новый узел в пирамиду без проверки условий
+	 *
+	 * @param key данные нового узла
+	 */
+	public void toss(int key)
+	{
+		heapArray[currentSize++] = new Node(key);
+		correctHeap = false;
+	}
+
+	/**
+	 * Восстановить корректность пирамиды
+	 */
+	public void restoreHeap()
+	{
+		for (int i = currentSize - 1; i >= 0; i--)
+		{
+			tickleUp(i);
+		}
+
+		correctHeap = true;
 	}
 }
 

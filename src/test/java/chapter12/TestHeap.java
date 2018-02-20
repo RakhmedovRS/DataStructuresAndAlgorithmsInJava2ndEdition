@@ -84,4 +84,52 @@ public class TestHeap
 			}
 		);
 	}
+
+	/**
+	 * Тестирование метода удаления из кучи с прямым порядком сортировки
+	 */
+	@Test
+	public void testRestoringHeap1()
+	{
+		heap = new Heap(heapSize, true);
+		IntStream.range(1, heapSize / 2).forEach((key) -> heap.insert((int) (java.lang.Math.random() + 1 * key * key)));
+
+		IntStream.range(1, 5).forEach((key) -> heap.toss((int) (java.lang.Math.random() + 1 * key * key)));
+
+		heap.restoreHeap();
+
+		IntStream.range(1, (heapSize / 2) / 2).forEach((key) ->
+			{
+				Node previousNode = heap.remove();
+				assertNotNull(previousNode);
+				Node tempNode = heap.remove();
+				assertNotNull(previousNode);
+				assertTrue(previousNode.getKey() <= tempNode.getKey());
+			}
+		);
+	}
+
+	/**
+	 * Тестирование метода удаления из кучи с прямым порядком сортировки
+	 */
+	@Test
+	public void testRestoringHeap2()
+	{
+		heap = new Heap(heapSize, false);
+		IntStream.range(1, heapSize / 2).forEach((key) -> heap.insert((int) (java.lang.Math.random() + 1 * key * key)));
+
+		IntStream.range(1, 5).forEach((key) -> heap.toss((int) (java.lang.Math.random() + 1 * key * key)));
+
+		heap.restoreHeap();
+
+		IntStream.range(0, (heapSize / 2) / 2).forEach((key) ->
+			{
+				Node previousNode = heap.remove();
+				assertNotNull(previousNode);
+				Node tempNode = heap.remove();
+				assertNotNull(previousNode);
+				assertTrue(previousNode.getKey() >= tempNode.getKey());
+			}
+		);
+	}
 }
