@@ -145,8 +145,8 @@ public class Heap
 
 			heapArray[index] = heapArray[largerChild];
 			index = largerChild;
+			heapArray[index] = top;
 		}
-		heapArray[index] = top;
 	}
 
 	/**
