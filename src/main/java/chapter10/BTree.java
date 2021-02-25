@@ -1,9 +1,10 @@
 package chapter10;
 
 import base.items.Item;
-import javafx.util.Pair;
 
+import java.util.AbstractMap;
 import java.util.List;
+import java.util.Map;
 
 import static chapter10.BTreeOrder3Constants.*;
 import static chapter10.Order.TREE_3_ORDER;
@@ -321,7 +322,7 @@ class BTree
 			/*разбиваемый узел имеет потомков*/
 			else
 			{
-				Pair<BNode, BNode> childNodes = getNewChildNodes(highOrderNode, brokenBNode, newItem);
+				Map.Entry<BNode, BNode> childNodes = getNewChildNodes(highOrderNode, brokenBNode, newItem);
 
 				/*присоединяем новых потомков к новому корню*/
 				newRoot.connectChild(LEFT_CHILD, childNodes.getKey());
@@ -358,7 +359,7 @@ class BTree
 				/*разбиваемый узел имеет потомков*/
 				else
 				{
-					Pair<BNode, BNode> childNodes = getNewChildNodes(highOrderNode, brokenBNode, newItem);
+					Map.Entry<BNode, BNode> childNodes = getNewChildNodes(highOrderNode, brokenBNode, newItem);
 
 					/*присоединяем новых потомком к разбиваемому узлу*/
 					brokenBNode.connectChild(LEFT_CHILD, childNodes.getKey());
@@ -401,7 +402,7 @@ class BTree
 				/*разбиваемый узел имеет потомков*/
 				else
 				{
-					Pair<BNode, BNode> childNodes = getNewChildNodes(highOrderNode, brokenBNode, newItem);
+					Map.Entry<BNode, BNode> childNodes = getNewChildNodes(highOrderNode, brokenBNode, newItem);
 
 					/*распределяем дочерние элементы родителького узла*/
 					if (parentNode.getItem(LEFT_ITEM).getKey() > childNodes.getValue().getItem(LEFT_ITEM).getKey())
@@ -435,7 +436,7 @@ class BTree
 	 * @param newItem       новый элемент данных
 	 * @return пара содержащая новую левую и правую ноды
 	 */
-	private Pair<BNode, BNode> getNewChildNodes(BNode highOrderNode, BNode brokenBNode, Item newItem)
+	private Map.Entry<BNode, BNode> getNewChildNodes(BNode highOrderNode, BNode brokenBNode, Item newItem)
 	{
 		BNode newLeftChild = getNewNode();
 		BNode newRightChild = getNewNode();
@@ -535,7 +536,7 @@ class BTree
 			newRightChild.connectChild(CENTRAL_CHILD, brokenBNode.disconnectChild(RIGHT_CHILD));
 		}
 
-		return new Pair<>(newLeftChild, newRightChild);
+		return new AbstractMap.SimpleEntry<>(newLeftChild, newRightChild);
 	}
 
 	/**
