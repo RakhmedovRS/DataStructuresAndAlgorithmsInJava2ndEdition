@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Data Structures and Algorithms in Java (2nd Edition).iml" filepath="$PROJECT_DIR$/.idea/modules/Data Structures and Algorithms in Java (2nd Edition).iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Data_Structures_and_Algorithms_in_Java_(2nd_Edition)_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Data_Structures_and_Algorithms_in_Java_(2nd_Edition)_main.iml" group="Data Structures and Algorithms in Java (2nd Edition)" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Data_Structures_and_Algorithms_in_Java_(2nd_Edition)_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Data_Structures_and_Algorithms_in_Java_(2nd_Edition)_test.iml" group="Data Structures and Algorithms in Java (2nd Edition)" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/DataStructuresAndAlgorithmsInJava2ndEdition.iml" filepath="$PROJECT_DIR$/.idea/DataStructuresAndAlgorithmsInJava2ndEdition.iml" />
     </modules>
   </component>
 </project>
